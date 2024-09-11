@@ -4,14 +4,14 @@ import matter from "gray-matter";
 import { serialize } from 'next-mdx-remote/serialize';
 import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
 
-const markdownDirPath = path.join("content", "projects");
+const markdownDirPath = path.join("content", "posts");
 
-export const getProjectFileNames = async (limit?: number): Promise<string[]> => {
+export const getPostFileNames = async (limit?: number): Promise<string[]> => {
   const files = await fs.promises.readdir(markdownDirPath);
   return limit ? files.slice(0, limit) : files
 }
 
-export const getProjectFilMetaData = async (fileName: string) => {
+export const getPostFilMetaData = async (fileName: string) => {
   const markdownFilePath = path.join(markdownDirPath, `${fileName}`);
   const markdownWithMeta = await fs.promises.readFile(
     markdownFilePath,
@@ -22,8 +22,8 @@ export const getProjectFilMetaData = async (fileName: string) => {
   return data as Omit<MarkdownMetaData, 'id'>;
 }
 
-export const getProjectFileContent = async (projectId: string) => {
-  const markdownFilePath = path.join(markdownDirPath, `${projectId}.md`);
+export const getPostFileContent = async (postId: string) => {
+  const markdownFilePath = path.join(markdownDirPath, `${postId}.md`);
   const markdownWithMeta = await fs.promises.readFile(
     markdownFilePath,
     "utf-8"
@@ -36,11 +36,11 @@ export const getProjectFileContent = async (projectId: string) => {
   };
 }
 
-export const getProjects = async (limit?: number): Promise<MarkdownMetaData[]> => {
-  const files = await getProjectFileNames();
-  const projects = await Promise.all(files.map(
+export const getPosts = async (limit?: number): Promise<MarkdownMetaData[]> => {
+  const files = await getPostFileNames();
+  const posts = await Promise.all(files.map(
     async (file: string) => {
-      const metaData = await getProjectFilMetaData(file)
+      const metaData = await getPostFilMetaData(file)
       return {
         id: file.replace(".md", ""),
         ...metaData,
@@ -48,8 +48,9 @@ export const getProjects = async (limit?: number): Promise<MarkdownMetaData[]> =
     }
   ));
 
-  const sortedProjects = projects.sort((a, b) => {
+  const sortedPosts = posts.sort((a, b) => {
     return new Date(a?.publishDate ?? '') < new Date(b?.publishDate ?? '') ? 1 : -1
-  })
-  return limit ? sortedProjects.slice(0, limit) : sortedProjects
+  });
+
+  return limit ? sortedPosts.slice(0, limit) : sortedPosts
 }

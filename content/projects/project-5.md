@@ -1,7 +1,7 @@
 ---
 title: "Cryptocurrency Exchange Platform"
 summary: "Created a secure cryptocurrency exchange platform with real-time updates, multi-asset trading, and third-party API integrations."
-image: "https://images.unsplash.com/photo-1618386886447-975eac1f29f8"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2023-08-11"
 ---

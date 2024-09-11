@@ -1,18 +1,19 @@
 import React from "react";
 import { GetStaticProps } from "next";
-import { getProjects } from "@/lib/data/projects";
-import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
+import { getPosts } from "@/lib/data/posts";
 import MarkDownListWithFilter from "@/components/ui/Markdown/MarkdownListWithFilter";
+import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
 
-type ProjectsPageProps = {
+type PostsPageProps = {
   metaList: MarkdownMetaData[];
 };
-function Projects({ metaList }: ProjectsPageProps) {
+
+function Posts({ metaList }: PostsPageProps) {
   return (
     <section className="mt-16">
       <div className="container max-w-3xl">
         <MarkDownListWithFilter
-          redirectBase="projects"
+          redirectBase="posts"
           metaList={metaList}
         ></MarkDownListWithFilter>
       </div>
@@ -21,13 +22,13 @@ function Projects({ metaList }: ProjectsPageProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const projects = await getProjects();
+  const posts = await getPosts();
 
   return {
     props: {
-      metaList: projects,
+      metaList: posts,
     },
   };
 };
 
-export default Projects;
+export default Posts;

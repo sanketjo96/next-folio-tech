@@ -1,7 +1,7 @@
 ---
 title: "Real-Time Chat Application"
 summary: "Built a secure real-time chat application with encrypted communication, group chats, and presence indicators for team collaboration."
-image: "https://images.unsplash.com/photo-1525182008055-f88b95ff7980"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2021-10-05"
 ---

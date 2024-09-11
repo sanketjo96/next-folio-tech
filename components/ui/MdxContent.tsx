@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
 import React from "react";
 

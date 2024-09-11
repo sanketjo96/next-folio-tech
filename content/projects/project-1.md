@@ -1,7 +1,7 @@
 ---
 title: "E-Commerce Platform"
 summary: "Developed a scalable e-commerce platform handling high traffic with personalized user experiences and multiple payment gateways."
-image: "https://images.unsplash.com/photo-1525182008055-f88b95ff7980"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2021-02-15"
 ---

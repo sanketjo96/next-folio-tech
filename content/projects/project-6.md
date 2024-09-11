@@ -1,7 +1,7 @@
 ---
 title: "Online Food Delivery Service"
 summary: "Developed a user-friendly food delivery platform supporting multiple restaurants, order tracking, and payment integration."
-image: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2020-11-22"
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Fitness Tracking Mobile App"
 summary: "Developed a mobile app for tracking workouts and syncing data with wearable devices, featuring graphical performance metrics."
-image: "https://images.unsplash.com/photo-1579758629936-df89dce357d4"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2022-06-10"
 ---

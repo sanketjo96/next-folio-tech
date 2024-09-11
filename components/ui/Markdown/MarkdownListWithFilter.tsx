@@ -1,19 +1,14 @@
-import { ProjectMetaDataWithId } from "@/lib/data/projects";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
-import ProjectList from "./ProjectList";
 import { Button } from "@/components/ui/button";
+import MarkdownList, { MarkdownListProps } from "./MarkDownList";
 
-type ProjectListWithFilterProps = {
-  metaList: ProjectMetaDataWithId[];
-};
-
-const ProjectListWithFilter = (props: ProjectListWithFilterProps) => {
-  const { metaList } = props;
+const MarkDownListWithFilter = (props: MarkdownListProps) => {
+  const { metaList, redirectBase } = props;
   const [query, setQuery] = useState("");
 
   const filteredProjectsMeta = metaList.filter((projectMeta) => {
-    return projectMeta.metaData.title.toLowerCase().includes(query);
+    return projectMeta.title.toLowerCase().includes(query);
   });
 
   return (
@@ -21,16 +16,19 @@ const ProjectListWithFilter = (props: ProjectListWithFilterProps) => {
       <div className="flex gap-6">
         <Input
           className=""
-          placeholder="Search Projects"
+          placeholder={`Search ${redirectBase}`}
           onChange={(e) => setQuery(e.target.value)}
         ></Input>
         <Button disabled={!query} onClick={() => setQuery("")}>
           Reset
         </Button>
       </div>
-      <ProjectList metaList={filteredProjectsMeta}></ProjectList>
+      <MarkdownList
+        redirectBase={redirectBase}
+        metaList={filteredProjectsMeta}
+      ></MarkdownList>
     </>
   );
 };
 
-export default ProjectListWithFilter;
+export default MarkDownListWithFilter;

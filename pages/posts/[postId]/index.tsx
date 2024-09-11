@@ -1,15 +1,12 @@
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { GetStaticPaths, GetStaticProps } from "next";
-import {
-  getProjectFileContent,
-  getProjectFileNames,
-} from "@/lib/data/projects";
 import MdxContent from "@/components/ui/MdxContent";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
+import { getPostFileContent, getPostFileNames } from "@/lib/data/posts";
 import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
 
 type PostPageProps = {
@@ -17,16 +14,13 @@ type PostPageProps = {
   metaData: MarkdownMetaData;
 };
 
-function ProjectPage({ source, metaData }: PostPageProps) {
+function PostPage({ source, metaData }: PostPageProps) {
   const { title, image, author, publishDate } = metaData;
   return (
     <div className="container max-w-3xl prose dark:prose-invert mt-16">
-      <Link
-        href="/projects"
-        className="no-underline flex items-center gap-3 mb-8"
-      >
+      <Link href="/posts" className="no-underline flex items-center gap-3 mb-8">
         <ArrowLeftIcon></ArrowLeftIcon>
-        <span>Back To Projects</span>
+        <span>Back To Posts</span>
       </Link>
       {image && (
         <div>
@@ -50,10 +44,10 @@ function ProjectPage({ source, metaData }: PostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = await getProjectFileNames();
+  const files = await getPostFileNames();
   const paths = files.map((fileName) => ({
     params: {
-      projectId: fileName.replace(".md", ""),
+      postId: fileName.replace(".md", ""),
     },
   }));
   return {
@@ -63,8 +57,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { projectId } = params as { projectId: string };
-  const { metaData, content } = await getProjectFileContent(projectId);
+  const { postId } = params as { postId: string };
+  const { metaData, content } = await getPostFileContent(postId);
 
   return {
     props: {
@@ -74,4 +68,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default ProjectPage;
+export default PostPage;

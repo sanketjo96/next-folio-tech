@@ -1,7 +1,7 @@
 ---
 title: "Learning Management System (LMS)"
 summary: "Designed and developed an LMS for course management, user enrollment, and progress tracking, with a responsive UI."
-image: "https://images.unsplash.com/photo-1596496057220-7971a1f4bb03"
+image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2023-01-20"
 ---
