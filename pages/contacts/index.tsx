@@ -8,9 +8,10 @@ export default function Page() {
           Lett&apos;s Build Something Great Together!
         </h1>
         <p className="text-muted-foreground text-md">
-          I'm always excited to explore new opportunities and collaborations. If
-          you have an interesting project or idea, I'd love to hear about it.
-          Drop me a message, and let's make it happen!
+          I&apos;m always excited to explore new opportunities and
+          collaborations. If you have an interesting project or idea, I&apos;d
+          love to hear about it. Drop me a message, and let&apos;s make it
+          happen!
         </p>
         <ContactForm></ContactForm>
       </div>

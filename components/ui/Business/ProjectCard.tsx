@@ -8,9 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-type Props = {};
-
-export const ProjectCard = (props: Props) => {
+export const ProjectCard = () => {
   return (
     <Card>
       <CardHeader>
