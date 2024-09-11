@@ -1,4 +1,8 @@
-export const SkillMetricMap = [
+export type SkillSet = {
+  name: string;
+  level: number;
+}
+export const SkillMetricMap: SkillSet[] = [
   {
     name: "Javascript",
     level: 5,

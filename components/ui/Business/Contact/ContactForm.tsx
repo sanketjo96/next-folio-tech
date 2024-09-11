@@ -8,7 +8,7 @@ import { Textarea } from "../../textarea";
 import { Button } from "../../button";
 import { useToast } from "@/hooks/use-toast";
 
-type Inputs = z.infer<typeof ContactFormSchema>;
+export type EmailInputs = z.infer<typeof ContactFormSchema>;
 
 const ErrorLine = ({ message }: { message: string }) => (
   <p className="ml-1 mt-2 text-sm text-rose-400">{message}</p>
@@ -21,7 +21,7 @@ function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<Inputs>({
+  } = useForm<EmailInputs>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
       name: "",
@@ -30,10 +30,22 @@ function ContactForm() {
     },
   });
 
-  const onSubmitHandler: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    toast({ title: "Thanks for reaching out!! We will revert soon" });
-    reset();
+  const onSubmitHandler: SubmitHandler<EmailInputs> = async (data) => {
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify({ message: data }),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      toast({ title: "Thanks for reaching out!! We will revert soon" });
+    } catch (e) {
+      toast({ title: "Something went wrong, will comeback soon" });
+      console.log("Error", e);
+    } finally {
+      reset();
+    }
   };
 
   return (
@@ -70,8 +82,8 @@ function ContactForm() {
           {errors.message?.message && (
             <ErrorLine message={errors.message.message}></ErrorLine>
           )}
-          <Button id="submit-bt" type="submit">
-            Submit
+          <Button disabled={isSubmitting} id="submit-bt" type="submit">
+            Contact Me
           </Button>
         </div>
       </form>
