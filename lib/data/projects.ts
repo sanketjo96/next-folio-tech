@@ -37,7 +37,7 @@ export const getProjectFileContent = async (projectId: string) => {
 }
 
 export const getProjects = async (limit?: number): Promise<MarkdownMetaData[]> => {
-  const files = await getProjectFileNames();
+  const files = await getProjectFileNames(limit);
   const projects = await Promise.all(files.map(
     async (file: string) => {
       const metaData = await getProjectFilMetaData(file)

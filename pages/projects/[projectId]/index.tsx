@@ -5,12 +5,12 @@ import {
   getProjectFileContent,
   getProjectFileNames,
 } from "@/lib/data/projects";
-import MdxContent from "@/components/ui/MdxContent";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
+import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;

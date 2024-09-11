@@ -18,8 +18,10 @@ const SkillRating = (props: { level: number }) => {
 
 function SkillMetric() {
   return (
-    <section className="mt-16 ">
-      <h1 className="title no-underline font-bold">Skills And Expertise</h1>
+    <section className="mt-10">
+      <h1 className="title text-xl no-underline font-bold">
+        Technologies And Skills
+      </h1>
       <div>
         {SkillMetricMap.map((item) => (
           <div className="flex gap-10 mt-3" key={item.name}>

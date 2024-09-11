@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import AppThemeProvider from "@/components/providers/AppThemeProvider";
 import AppHeader from "@/components/ui/Business/AppHeader";
 import AppFooter from "@/components/ui/Business/AppFooter";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <main className="grow">
           <Component {...pageProps} />
         </main>
+        <Toaster />
         <AppFooter></AppFooter>
       </AppThemeProvider>
     </div>

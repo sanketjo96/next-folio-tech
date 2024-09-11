@@ -6,7 +6,9 @@ function Introduction() {
   return (
     <section className="flex">
       <div className="mt-4 flex-1">
-        <h1 className="title no-underline font-bold">Hey, I&apos;m Sanket</h1>
+        <h1 className="title text-2xl no-underline font-bold">
+          Hey, I&apos;m Sanket
+        </h1>
         <p className="mt-4 font-light text-muted-foreground">
           A seasoned JavaScript developer with extensive experience as a
           React.js lead, proficient in ES6, OOJS, TypeScript, Node.js, GraphQL,

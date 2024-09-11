@@ -24,7 +24,7 @@ export default function AppHeader() {
             <Link href="/projects">Projects</Link>
           </li>
           <li className="hover: text-foreground">
-            <Link href="/contact">Contact</Link>
+            <Link href="/contacts">Contact</Link>
           </li>
         </ul>
         <div>{isMounted && <ThemeToggle></ThemeToggle>}</div>
