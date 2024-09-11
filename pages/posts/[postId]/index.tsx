@@ -1,13 +1,13 @@
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { GetStaticPaths, GetStaticProps } from "next";
-import MdxContent from "@/components/ui/MdxContent";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { getPostFileContent, getPostFileNames } from "@/lib/data/posts";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
+import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
