@@ -1,8 +1,8 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
-import AppThemeProvider from "@/components/providers/AppThameProvider";
-import AppHeader from "@/components/ui/AppHeader";
-import AppFooter from "@/components/ui/AppFooter";
+import AppThemeProvider from "@/components/providers/AppThemeProvider";
+import AppHeader from "@/components/ui/Business/AppHeader";
+import AppFooter from "@/components/ui/Business/AppFooter";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

@@ -2,7 +2,7 @@ import path from "path";
 import fs from "fs";
 import matter from "gray-matter";
 import { serialize } from 'next-mdx-remote/serialize';
-import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
+import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 
 const markdownDirPath = path.join("content", "posts");
 

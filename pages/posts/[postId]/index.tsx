@@ -7,7 +7,7 @@ import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { getPostFileContent, getPostFileNames } from "@/lib/data/posts";
-import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
+import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;

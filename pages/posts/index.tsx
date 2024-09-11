@@ -1,8 +1,8 @@
 import React from "react";
 import { GetStaticProps } from "next";
 import { getPosts } from "@/lib/data/posts";
-import MarkDownListWithFilter from "@/components/ui/Markdown/MarkdownListWithFilter";
-import { MarkdownMetaData } from "@/components/ui/Markdown/MarkDownList";
+import MarkDownListWithFilter from "@/components/ui/Business/Markdown/MarkdownListWithFilter";
+import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 
 type PostsPageProps = {
   metaList: MarkdownMetaData[];

@@ -1,5 +1,5 @@
-import Introduction from "@/components/ui/Introduction";
-import SkillMetric from "@/components/ui/SkillMetric";
+import Introduction from "@/components/ui/Business/Introduction";
+import SkillMetric from "@/components/ui/Business/SkillMetric";
 
 export default function Page() {
   return (

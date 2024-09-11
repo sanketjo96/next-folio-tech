@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "./button";
+import { Button } from "../button";
 import { useTheme } from "next-themes";
 import { SunIcon } from "@radix-ui/react-icons";
 import { MoonIcon } from "lucide-react";
