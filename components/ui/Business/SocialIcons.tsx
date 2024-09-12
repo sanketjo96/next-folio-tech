@@ -77,22 +77,27 @@ const socialMediaLinks: SocialMediaLink[] = [
   {
     id: 1,
     name: "Facebook",
-    url: "https://www.facebook.com",
+    url: "https://www.facebook.com/share/izbHcupWYG3pFy2n/?mibextid=qi2Omg",
     icon: FacebookIcon,
   },
   {
     id: 2,
     name: "Instagram",
-    url: "https://www.instagram.com",
+    url: "https://www.instagram.com/laugh_with_sanket?igsh=MTd5OTFtajYzY21ndw==",
     icon: InstagramIcon,
   },
   {
     id: 3,
     name: "LinkedIn",
-    url: "https://www.linkedin.com",
+    url: "https://www.linkedin.com/in/sanket-joshi-7baa23185",
     icon: LinkedInIcon,
   },
-  { id: 4, name: "GitHub", url: "https://www.github.com", icon: GitHubIcon },
+  {
+    id: 4,
+    name: "GitHub",
+    url: "https://github.com/sanketjo96",
+    icon: GitHubIcon,
+  },
 ];
 
 export default socialMediaLinks;

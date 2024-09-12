@@ -7,12 +7,9 @@ import { Input } from "../../input";
 import { Textarea } from "../../textarea";
 import { Button } from "../../button";
 import { useToast } from "@/hooks/use-toast";
+import { ErrorLine } from "../../ErrorLines";
 
 export type EmailInputs = z.infer<typeof ContactFormSchema>;
-
-const ErrorLine = ({ message }: { message: string }) => (
-  <p className="ml-1 mt-2 text-sm text-rose-400">{message}</p>
-);
 
 function ContactForm() {
   const { toast } = useToast();
@@ -59,6 +56,7 @@ function ContactForm() {
           <Input
             id="name"
             type="text"
+            className="dark:border-orange-600"
             {...register("name")}
             placeholder="Enter your Name"
           ></Input>
@@ -68,6 +66,7 @@ function ContactForm() {
           <Input
             id="email"
             type="text"
+            className="dark:border-orange-600"
             {...register("email")}
             placeholder="Enter your Email"
           ></Input>
@@ -76,6 +75,7 @@ function ContactForm() {
           )}
           <Textarea
             id="message"
+            className="dark:border-orange-600"
             {...register("message")}
             placeholder="Your Message"
           ></Textarea>

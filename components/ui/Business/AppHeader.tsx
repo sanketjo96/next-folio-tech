@@ -26,6 +26,10 @@ export default function AppHeader() {
           <li className="hover: text-foreground">
             <Link href="/contacts">Contact</Link>
           </li>
+
+          <li className="hover: text-foreground">
+            <Link href="/login">Login</Link>
+          </li>
         </ul>
         <div>{isMounted && <ThemeToggle></ThemeToggle>}</div>
       </nav>
