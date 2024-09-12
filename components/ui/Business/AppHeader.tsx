@@ -1,9 +1,11 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import { useLoggedInUser } from "@/components/providers/UserProvider";
 
 export default function AppHeader() {
   const [isMounted, setIsMounted] = useState(false);
+  const { user } = useLoggedInUser();
 
   useEffect(() => {
     setIsMounted(true);
@@ -17,18 +19,26 @@ export default function AppHeader() {
         </div>
 
         <ul className="flex items-center gap-6 font-light">
-          <li className="transition-colors hover: text-foreground">
+          <li className="dark:text-orange-600 transition-colors hover: text-foreground">
             <Link href="/posts">Post</Link>
           </li>
-          <li className="hover: text-foreground">
+          <li className="dark:text-orange-600 hover: text-foreground">
             <Link href="/projects">Projects</Link>
           </li>
-          <li className="hover: text-foreground">
+          <li className="dark:text-orange-600 hover: text-foreground">
             <Link href="/contacts">Contact</Link>
           </li>
 
-          <li className="hover: text-foreground">
-            <Link href="/login">Login</Link>
+          <li className="dark:text-orange-600 hover: text-foreground">
+            {!user?.email ? (
+              <Link href="/login">Login</Link>
+            ) : (
+              <Link href="/logout">Logout</Link>
+            )}
+          </li>
+
+          <li className="dark:text-orange-600 hover: text-foreground">
+            {user?.email ? <Link href="/dashboard">Dashboard</Link> : null}
           </li>
         </ul>
         <div>{isMounted && <ThemeToggle></ThemeToggle>}</div>

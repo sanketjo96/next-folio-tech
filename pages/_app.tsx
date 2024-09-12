@@ -4,17 +4,20 @@ import AppThemeProvider from "@/components/providers/AppThemeProvider";
 import AppHeader from "@/components/ui/Business/AppHeader";
 import AppFooter from "@/components/ui/Business/AppFooter";
 import { Toaster } from "@/components/ui/toaster";
+import { UserProvider } from "@/components/providers/UserProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className="flex min-h-screen flex-col font-sans">
       <AppThemeProvider>
-        <AppHeader></AppHeader>
-        <main className="grow">
-          <Component {...pageProps} />
-        </main>
-        <Toaster />
-        <AppFooter></AppFooter>
+        <UserProvider>
+          <AppHeader></AppHeader>
+          <main className="grow">
+            <Component {...pageProps} />
+          </main>
+          <Toaster />
+          <AppFooter></AppFooter>
+        </UserProvider>
       </AppThemeProvider>
     </div>
   );
