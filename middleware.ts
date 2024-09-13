@@ -16,7 +16,6 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.json({
       message: 'This request is not authenticated',
       success: false,
-      s: process.env.ACCESS_TOKEN_SECRET
     });
   }
 
@@ -38,7 +37,6 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.json({
       message: 'Auth Error. Something went wrong',
       success: false,
-      s: process.env.ACCESS_TOKEN_SECRET
     });
 
   }
