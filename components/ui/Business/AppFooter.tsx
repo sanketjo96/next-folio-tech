@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 function AppFooter() {
   const { t } = useTranslation("common");
   return (
-    <footer className="py-8">
+    <footer className="py-10">
       <div className="flex flex-col items-center">
         <div className="flex justify-center gap-6">
           {socialMediaLinks.map((link) => (
@@ -20,7 +20,7 @@ function AppFooter() {
             </a>
           ))}
         </div>
-        <div className="mt-2">
+        <div className="mt-4">
           <p className="text-center text-xs text-muted-foreground">
             {new Date().getFullYear()} SJJ LLC. {t("allRightsReserved")}
           </p>
