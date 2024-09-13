@@ -6,7 +6,7 @@ function Introduction() {
   return (
     <section className="flex">
       <div className="mt-4 flex-1">
-        <h1 className="title text-2xl no-underline font-bold">
+        <h1 className="title text-2xl dark:text-orange-600 no-underline font-bold">
           Hey, I&apos;m Sanket
         </h1>
         <p className="mt-4 font-light text-muted-foreground">
@@ -18,13 +18,13 @@ function Introduction() {
           development and the wider tech community
         </p>
       </div>
-      <div>
+      <div className="mt-8 sm:self-start md:self-center">
         <Image
           className="flex-1 rounded-full grayscale"
           src={authorImage}
           alt="Sanket Joshi"
           width={175}
-          height={175}
+          height={100}
         ></Image>
       </div>
     </section>

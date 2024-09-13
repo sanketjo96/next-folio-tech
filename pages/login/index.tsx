@@ -33,10 +33,9 @@ export default function LoginPage() {
       body: JSON.stringify({ email, password }),
     });
 
-    if (response.ok) {
+    const dataRes = await response.json();
+    if (dataRes.success) {
       router.push("/dashboard");
-    } else {
-      // Handle errors
     }
   };
 

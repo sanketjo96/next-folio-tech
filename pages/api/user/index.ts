@@ -6,7 +6,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   //TODO: MAKE DB Call to get user and send in response
 
   res.status(200).json({
-    message: "success",
+    success: true,
     user
   });
 }

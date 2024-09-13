@@ -13,7 +13,7 @@ const handleLogin: handleLoginType = async (req: NextApiRequest, res: NextApiRes
   if (!user) {
     res.status(401).json({
       message: 'User not found',
-      status: false,
+      success: false,
     });
   }
 
@@ -23,14 +23,14 @@ const handleLogin: handleLoginType = async (req: NextApiRequest, res: NextApiRes
     .sign(jwtConfig.secret);
 
   const cookie = serialize('auth2-token', accessToken, {
-    httpOnly: false,
+    httpOnly: true,
     secure: true,
     maxAge: 15 * 60,
     path: '/',
   })
 
   res.setHeader('Set-Cookie', cookie)
-  res.status(200).json({ message: 'Success' })
+  res.status(200).json({ message: 'Logged in successful', success: true, })
 }
 
 

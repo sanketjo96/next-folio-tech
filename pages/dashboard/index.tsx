@@ -15,8 +15,10 @@ export default function Page() {
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json();
-        if (data.user) {
+        if (data.success && data.user) {
           setUser(data.user as User);
+        } else {
+          setUser(null);
         }
       } catch (e) {
         setUser(null);
