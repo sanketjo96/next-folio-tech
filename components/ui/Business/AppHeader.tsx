@@ -4,9 +4,11 @@ import ThemeToggle from "./ThemeToggle";
 import { useLoggedInUser } from "@/components/providers/UserProvider";
 import { useRouter } from "next/router";
 import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons";
+import { useTranslation } from "next-i18next";
 
 export default function AppHeader() {
   const router = useRouter();
+  const { t } = useTranslation("common");
   const [isMounted, setIsMounted] = useState(false);
   const { user, setUser } = useLoggedInUser();
 
@@ -45,13 +47,13 @@ export default function AppHeader() {
 
         <ul className="flex items-center gap-4 font-light">
           <li className="dark:text-orange-600 transition-colors hover: text-foreground">
-            <Link href="/posts">Post</Link>
+            <Link href="/posts">{t("post")}</Link>
           </li>
           <li className="dark:text-orange-600 hover: text-foreground">
-            <Link href="/projects">Projects</Link>
+            <Link href="/projects">{t("projects")}</Link>
           </li>
           <li className="dark:text-orange-600 hover: text-foreground">
-            <Link href="/contacts">Contact</Link>
+            <Link href="/contacts">{t("contacts")}</Link>
           </li>
 
           <li className="dark:text-orange-600 hover: text-foreground">

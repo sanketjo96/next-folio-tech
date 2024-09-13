@@ -3,7 +3,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import MarkdownList, { MarkdownListProps } from "./MarkDownList";
 
-const MarkDownListWithFilter = (props: MarkdownListProps) => {
+const MarkDownListWithFilter = (
+  props: MarkdownListProps & { resetLabel: string }
+) => {
   const { metaList, redirectBase } = props;
   const [query, setQuery] = useState("");
 
@@ -20,7 +22,7 @@ const MarkDownListWithFilter = (props: MarkdownListProps) => {
           onChange={(e) => setQuery(e.target.value)}
         ></Input>
         <Button disabled={!query} onClick={() => setQuery("")}>
-          Reset
+          {props.resetLabel}
         </Button>
       </div>
       <MarkdownList

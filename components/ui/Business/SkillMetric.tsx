@@ -1,6 +1,7 @@
+import React from "react";
 import { SkillMetricMap } from "@/content/skills/mock";
 import { StarFilledIcon } from "@radix-ui/react-icons";
-import React from "react";
+import { useTranslation } from "next-i18next";
 
 const SkillRating = (props: { level: number }) => {
   const { level } = props;
@@ -17,10 +18,11 @@ const SkillRating = (props: { level: number }) => {
 };
 
 function SkillMetric() {
+  const { t } = useTranslation("home");
   return (
     <section className="mt-10">
       <h1 className="title text-xl no-underline font-bold">
-        Technologies And Skills
+        {t("techAndSkills")}
       </h1>
       <div>
         {SkillMetricMap.map((item) => (

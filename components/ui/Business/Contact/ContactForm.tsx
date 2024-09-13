@@ -8,10 +8,12 @@ import { Textarea } from "../../textarea";
 import { Button } from "../../button";
 import { useToast } from "@/hooks/use-toast";
 import { ErrorLine } from "../../ErrorLines";
+import { useTranslation } from "next-i18next";
 
 export type EmailInputs = z.infer<typeof ContactFormSchema>;
 
 function ContactForm() {
+  const { t } = useTranslation("contacts");
   const { toast } = useToast();
   const {
     register,
@@ -83,7 +85,7 @@ function ContactForm() {
             <ErrorLine message={errors.message.message}></ErrorLine>
           )}
           <Button disabled={isSubmitting} id="submit-bt" type="submit">
-            Contact Me
+            {t("contactMe")}
           </Button>
         </div>
       </form>

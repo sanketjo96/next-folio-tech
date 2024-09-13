@@ -1,20 +1,28 @@
 import ContactForm from "@/components/ui/Business/Contact/ContactForm";
+import { GetStaticProps } from "next";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 export default function Page() {
+  const { t } = useTranslation("contacts");
   return (
     <section className="pb-24 pt-20">
       <div className="container max-w-3xl">
-        <h1 className="title text-xl mb-8">
-          Lett&apos;s Build Something Great Together!
-        </h1>
-        <p className="text-muted-foreground text-md">
-          I&apos;m always excited to explore new opportunities and
-          collaborations. If you have an interesting project or idea, I&apos;d
-          love to hear about it. Drop me a message, and let&apos;s make it
-          happen!
-        </p>
+        <h1 className="title text-xl mb-8">{t("header")}</h1>
+        <p className="text-muted-foreground text-md">{t("body")}</p>
         <ContactForm></ContactForm>
       </div>
     </section>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, [
+        "contacts",
+        "common",
+      ])),
+    },
+  };
+};

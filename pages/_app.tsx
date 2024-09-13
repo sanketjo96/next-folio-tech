@@ -6,8 +6,9 @@ import AppFooter from "@/components/ui/Business/AppFooter";
 import { Toaster } from "@/components/ui/toaster";
 import { UserProvider } from "@/components/providers/UserProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { appWithTranslation } from "next-i18next";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <div className="flex min-h-screen flex-col font-sans">
       <AppThemeProvider>
@@ -23,4 +24,6 @@ export default function App({ Component, pageProps }: AppProps) {
       </AppThemeProvider>
     </div>
   );
-}
+};
+
+export default appWithTranslation(App);

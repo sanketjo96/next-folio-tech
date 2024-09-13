@@ -1,7 +1,9 @@
 import React from "react";
 import socialMediaLinks from "./SocialIcons";
+import { useTranslation } from "next-i18next";
 
 function AppFooter() {
+  const { t } = useTranslation("common");
   return (
     <footer className="py-8">
       <div className="flex flex-col items-center">
@@ -20,7 +22,7 @@ function AppFooter() {
         </div>
         <div className="mt-2">
           <p className="text-center text-xs text-muted-foreground">
-            {new Date().getFullYear()} SJJ LLC. All Rights Reserved
+            {new Date().getFullYear()} SJJ LLC. {t("allRightsReserved")}
           </p>
         </div>
       </div>
