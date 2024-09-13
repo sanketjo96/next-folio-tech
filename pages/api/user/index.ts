@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
-  const data = res.getHeader('x-user-header');
+  const data = req.headers['x-user-header'];
 
   if (data) {
     const user = JSON.parse(data as string);

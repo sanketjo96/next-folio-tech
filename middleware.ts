@@ -5,6 +5,7 @@ import { jwtConfig } from "./lib/routes/jwtConfig";
 import { PROTECTED_APIS, PROTECTED_PAGES } from "./lib/routes/routes";
 
 export const middleware = async (request: NextRequest) => {
+  const requestHeaders = new Headers(request.headers)
   const isProtectedPage = PROTECTED_PAGES.includes(request.nextUrl.pathname);
   const isProtectedAPI = PROTECTED_APIS.includes(request.nextUrl.pathname);
   const redirectToRoot = () => {
@@ -29,9 +30,12 @@ export const middleware = async (request: NextRequest) => {
       return redirectToRoot()
     }
 
-    const response = NextResponse.next();
-    response.headers.set("x-user-header", JSON.stringify(decoded.payload));
-    return response;
+    requestHeaders.set("x-user-header", JSON.stringify(decoded.payload))
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   } catch (e) {
     console.log('Server Error', e)
     return NextResponse.json({
