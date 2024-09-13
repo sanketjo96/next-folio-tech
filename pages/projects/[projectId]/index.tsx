@@ -11,6 +11,8 @@ import Image from "next/image";
 import { formatDate } from "@/lib/utils";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -18,6 +20,7 @@ type PostPageProps = {
 };
 
 function ProjectPage({ source, metaData }: PostPageProps) {
+  const { t } = useTranslation("projects");
   const { title, image, author, publishDate } = metaData;
   return (
     <div className="container max-w-3xl prose dark:prose-invert mt-16">
@@ -26,7 +29,7 @@ function ProjectPage({ source, metaData }: PostPageProps) {
         className="no-underline flex items-center gap-3 mb-8"
       >
         <ArrowLeftIcon></ArrowLeftIcon>
-        <span>Back To Projects</span>
+        <span>{t("backToProjects")}</span>
       </Link>
       {image && (
         <div>
@@ -49,20 +52,23 @@ function ProjectPage({ source, metaData }: PostPageProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales = [] }) => {
   const files = await getProjectFileNames();
-  const paths = files.map((fileName) => ({
-    params: {
-      projectId: fileName.replace(".md", ""),
-    },
-  }));
+  const paths = files.flatMap((fileName) =>
+    locales?.map((locale) => ({
+      params: {
+        projectId: fileName.replace(".md", ""),
+      },
+      locale: locale ?? "en",
+    }))
+  );
   return {
     paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const { projectId } = params as { projectId: string };
   const { metaData, content } = await getProjectFileContent(projectId);
 
@@ -70,6 +76,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       source: content,
       metaData: metaData,
+      ...(await serverSideTranslations(locale as string, [
+        "projects",
+        "common",
+      ])),
     },
   };
 };

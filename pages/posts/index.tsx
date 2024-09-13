@@ -16,7 +16,6 @@ function Posts({ metaList }: PostsPageProps) {
     <section className="mt-16">
       <div className="container max-w-3xl">
         <MarkDownListWithFilter
-          resetLabel={t("reset")}
           redirectBase="posts"
           metaList={metaList}
         ></MarkDownListWithFilter>

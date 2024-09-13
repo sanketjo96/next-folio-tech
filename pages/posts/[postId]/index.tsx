@@ -1,6 +1,6 @@
 import React from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticPathsContext, GetStaticProps } from "next";
 import Link from "next/link";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/utils";
 import { getPostFileContent, getPostFileNames } from "@/lib/data/posts";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -43,20 +44,27 @@ function PostPage({ source, metaData }: PostPageProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({
+  locales = [],
+}: GetStaticPathsContext) => {
   const files = await getPostFileNames();
-  const paths = files.map((fileName) => ({
-    params: {
-      postId: fileName.replace(".md", ""),
-    },
-  }));
+
+  const paths = files.flatMap((fileName) =>
+    locales?.map((locale) => ({
+      params: {
+        postId: fileName.replace(".md", ""),
+      },
+      locale: locale ?? "en",
+    }))
+  );
+
   return {
     paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   const { postId } = params as { postId: string };
   const { metaData, content } = await getPostFileContent(postId);
 
@@ -64,6 +72,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       source: content,
       metaData: metaData,
+      ...(await serverSideTranslations(locale as string, ["posts", "common"])),
     },
     revalidate: 10,
   };
