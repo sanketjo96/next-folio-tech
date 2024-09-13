@@ -6,10 +6,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ErrorLine } from "@/components/ui/ErrorLines";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export type LoginInputs = z.infer<typeof LoginFormSchema>;
 
 export default function LoginPage() {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const {
     register,
@@ -67,10 +71,19 @@ export default function LoginPage() {
             className="max-w-[200] self-center"
             type="submit"
           >
-            Login
+            {t("login")}
           </Button>
         </div>
       </form>
     </section>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+  };
+};
+

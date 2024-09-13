@@ -5,6 +5,7 @@ import { useLoggedInUser } from "@/components/providers/UserProvider";
 import { useRouter } from "next/router";
 import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons";
 import { useTranslation } from "next-i18next";
+import { Button } from "../button";
 
 export default function AppHeader() {
   const router = useRouter();
@@ -40,38 +41,41 @@ export default function AppHeader() {
     <header className="py-6 z-50">
       <nav className="container max-w-3xl flex justify-between items-center">
         <div className="font-serif text-4xl font-bold sm: hidden md:block">
-          <Link href="/" className="">
+          <Link href="/" className="text-bold hover:text-orange-600">
             SSJ
           </Link>
         </div>
 
         <ul className="flex items-center gap-4 font-light">
-          <li className="dark:text-orange-600 transition-colors hover: text-foreground">
+          <li className="hover:text-orange-600">
             <Link href="/posts">{t("post")}</Link>
           </li>
-          <li className="dark:text-orange-600 hover: text-foreground">
+          <li className="hover:text-orange-600">
             <Link href="/projects">{t("projects")}</Link>
           </li>
-          <li className="dark:text-orange-600 hover: text-foreground">
+          <li className="hover:text-orange-600">
             <Link href="/contacts">{t("contacts")}</Link>
           </li>
 
-          <li className="dark:text-orange-600 hover: text-foreground">
+          <li className="hover:text-orange-600">
             {user?.email ? (
               <Link href="/dashboard">{t("dashboard")}</Link>
             ) : null}
           </li>
         </ul>
-        <div className="flex">
-          {!user?.email ? (
-            <Link href="/login" className="self-center">
+        <div>
+          <Button
+            variant="ghost"
+            onClick={() =>
+              !user?.email ? router.push("/login") : onLogoutHandler()
+            }
+          >
+            {!user?.email ? (
               <LockClosedIcon className="size-4"></LockClosedIcon>
-            </Link>
-          ) : (
-            <Link href="#" className="self-center" onClick={onLogoutHandler}>
+            ) : (
               <LockOpen2Icon className="size-4"></LockOpen2Icon>
-            </Link>
-          )}
+            )}
+          </Button>
           {isMounted && <ThemeToggle></ThemeToggle>}
         </div>
       </nav>

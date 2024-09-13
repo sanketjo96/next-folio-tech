@@ -4,8 +4,10 @@ import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useTranslation } from "next-i18next";
 
 export default function Page() {
+  const { t } = useTranslation("common");
   const router = useRouter();
   const { user, setUser } = useLoggedInUser();
 
@@ -35,7 +37,7 @@ export default function Page() {
   return (
     <div className="container max-w-3xl">
       <h1>
-        Hello, <span className="font-bold">{user?.email}</span>
+        {t("hello")} <span className="font-bold">{user?.email}</span>
       </h1>
     </div>
   );
