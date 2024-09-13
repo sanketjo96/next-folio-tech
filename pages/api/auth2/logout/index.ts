@@ -4,10 +4,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 type handleLoginType = (req: NextApiRequest, res: NextApiResponse) => void;
 
 const handleLogout: handleLoginType = async (req: NextApiRequest, res: NextApiResponse) => {
-  const user = JSON.parse(res.getHeader('x-user-header') as string);
+  const data = req.headers['x-user-header'];
 
-  if (!user) {
-    console.log(req.method)
+  if (!data) {
     res.status(401).json({
       message: 'User is not logged in',
       success: false,
