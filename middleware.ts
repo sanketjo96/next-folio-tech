@@ -14,7 +14,7 @@ export const middleware = async (request: NextRequest) => {
   const token = cookies().get('auth2-token')?.value;
   if (!token && isProtectedAPI) {
     return NextResponse.json({
-      message: 'Request is not authenticated',
+      message: 'This request is not authenticated',
       success: false,
       s: process.env.ACCESS_TOKEN_SECRET
     });
