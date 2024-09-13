@@ -57,7 +57,9 @@ export default function AppHeader() {
           </li>
 
           <li className="dark:text-orange-600 hover: text-foreground">
-            {user?.email ? <Link href="/dashboard">Dashboard</Link> : null}
+            {user?.email ? (
+              <Link href="/dashboard">{t("dashboard")}</Link>
+            ) : null}
           </li>
         </ul>
         <div className="flex">

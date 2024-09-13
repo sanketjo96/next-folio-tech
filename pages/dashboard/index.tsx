@@ -1,5 +1,7 @@
 import { User } from "@/components/context/UserContext";
 import { useLoggedInUser } from "@/components/providers/UserProvider";
+import { GetStaticProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -38,3 +40,11 @@ export default function Page() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+    },
+  };
+};
