@@ -15,7 +15,8 @@ export const middleware = async (request: NextRequest) => {
   if (!token && isProtectedAPI) {
     return NextResponse.json({
       message: 'Request is not authenticated',
-      success: false
+      success: false,
+      s: process.env.ACCESS_TOKEN_SECRET
     });
   }
 
@@ -36,7 +37,8 @@ export const middleware = async (request: NextRequest) => {
     console.log('Server Error', e)
     return NextResponse.json({
       message: 'Auth Error. Something went wrong',
-      success: false
+      success: false,
+      s: process.env.ACCESS_TOKEN_SECRET
     });
 
   }
