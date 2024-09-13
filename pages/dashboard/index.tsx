@@ -26,7 +26,7 @@ export default function Page() {
     };
 
     fetchUser();
-  }, []);
+  }, [setUser]);
 
   if (!user) router.push("/");
 

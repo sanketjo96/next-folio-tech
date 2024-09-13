@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { useLoggedInUser } from "@/components/providers/UserProvider";
 import { useRouter } from "next/router";
-import { SunIcon } from "lucide-react";
 import { LockClosedIcon, LockOpen2Icon } from "@radix-ui/react-icons";
 
 export default function AppHeader() {
@@ -65,7 +64,7 @@ export default function AppHeader() {
               <LockClosedIcon className="size-4"></LockClosedIcon>
             </Link>
           ) : (
-            <Link href="#" onClick={onLogoutHandler}>
+            <Link href="#" className="self-center" onClick={onLogoutHandler}>
               <LockOpen2Icon className="size-4"></LockOpen2Icon>
             </Link>
           )}
