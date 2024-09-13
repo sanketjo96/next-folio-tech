@@ -10,10 +10,21 @@ on:
           - main
 
 jobs:
+    App-Lint:
+      name: Lint
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+        - run: npm install
+        - run: npm run lint
+
     Deploy-Production:
         runs-on: ubuntu-latest
     
         steps:
+            - uses: actions/checkout@v3
+
             - name: Install Vercel CLI
               run: npm install --global vercel
             
