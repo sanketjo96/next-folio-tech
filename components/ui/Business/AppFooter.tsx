@@ -11,6 +11,7 @@ function AppFooter() {
           {socialMediaLinks.map((link) => (
             <a
               key={link.id}
+              role="link"
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
