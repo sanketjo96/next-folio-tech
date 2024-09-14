@@ -25,6 +25,7 @@ jobs:
 
       steps:
         - uses: actions/checkout@v3
+        - run: npm install
         - run: npm run test
 
     deploy:
