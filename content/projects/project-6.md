@@ -1,33 +1,39 @@
 ---
-title: "Online Food Delivery Service"
-summary: "Developed a user-friendly food delivery platform supporting multiple restaurants, order tracking, and payment integration."
+title: "Staff Augmentation and Digital Transformation"
+summary: "Led a project aimed at digitizing paper forms using legacy systems, managing a team of developers and QA, and optimizing performance with modern technologies."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
-publishDate: "2020-11-22"
+publishDate: "2024-09-25"
 ---
 
-# Online Food Delivery Service
-
 ## Summary
-Developed a food delivery web application allowing users to browse menus, place orders, and track deliveries. The platform supported multiple restaurants and integrated payment systems for secure transactions.
+Led a staff augmentation project aimed at digitalizing paper forms using legacy systems. Managed a team of 3 developers and 1 QA. Played a key role in gathering requirements, solution design, sprint planning, and implementation. Improved product performance and introduced optimizations, state management, and automated E2E testing.
 
-## Technologies Used
-- React.js
-- Node.js
-- Express.js
-- Stripe API
+## Technology
+- ESLint
+- GitHub Actions
+- JavaScript
 - MongoDB
+- NPM
+- Next.js
+- Node.js
+- OpenAPI Specification (OAS)
+- ReactJS
+- TypeScript
+- Vercel
 
-## Roles
-- Led back-end development with Express.js and integrated Stripe for payment processing.
-- Designed and implemented the order management system.
-- Worked closely with the front-end team to create a seamless user experience with React.js.
+## Roles and Responsibility
+- Led the development team and was responsible for solution architecture.
+- Suggested and implemented performance optimizations.
+- Introduced Cypress E2E tests to streamline manual QA efforts.
+- Assisted team members in writing clean and maintainable code.
+- Collaborated with BAs to improve story structures.
 
-## Client
-Foodie's Delight
+## Client Domain
+Digital Transformation (Paper to Digital Forms)
 
 ## Employer
-WebApp Studios
+NOT DISCLOSED
 
 ## Duration
-October 2023 - February 2024
+Feb 2024 – Sep 2024 (7 months)

@@ -1,33 +1,38 @@
 ---
-title: "Learning Management System (LMS)"
-summary: "Designed and developed an LMS for course management, user enrollment, and progress tracking, with a responsive UI."
+title: "Fresh Food Market Management"
+summary: "Led the UI team in developing an application to streamline the fresh food market, managing inventory, backroom operations, and procurement to minimize food wastage."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
-publishDate: "2023-01-20"
+publishDate: "2024-09-25"
 ---
 
-# Learning Management System (LMS)
-
 ## Summary
-Designed and developed a Learning Management System (LMS) that supports course management, user enrollment, progress tracking, and multimedia content delivery. Implemented a responsive design for access across devices.
+Led the UI team in developing an application to streamline the fresh food market, managing inventory, backroom operations, and procurement to minimize food wastage.
 
-## Technologies Used
-- Next.js
-- Node.js
-- MySQL
-- GraphQL
-- Tailwind CSS
+## Technology
+- ESLint
+- Material UI
+- MongoDB
+- NPM
+- ReactJS
+- Redux
+- Redux Toolkit
+- TypeScript
+- Webpack
+- styled components
 
-## Roles
-- Led full-stack development and database design.
-- Built a robust user authentication and role-based access control system.
-- Developed reusable UI components and ensured cross-platform responsiveness.
+## Roles and Responsibility
+- Led a team of 4 UI developers.
+- Built the application repository from scratch.
+- Set up the development process and workflows.
+- Managed branching and added tooling for production.
+- Optimized performance for legacy and new codebase.
 
-## Client
-EduSmart Solutions
+## Client Domain
+Inventory Optimization (Fresh Food Market)
 
 ## Employer
-Bright Minds Ltd.
+NOT DISCLOSED
 
 ## Duration
-September 2022 - March 2023
+Jan 2021 – May 2022 (1 year 4 months)

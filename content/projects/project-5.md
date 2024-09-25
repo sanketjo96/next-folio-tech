@@ -1,34 +1,46 @@
 ---
-title: "Cryptocurrency Exchange Platform"
-summary: "Created a secure cryptocurrency exchange platform with real-time updates, multi-asset trading, and third-party API integrations."
+title: "Cloud-Based Remote Modem Management"
+summary: "Led the front-end development of a cloud-based remote modem management web application, transforming requirements into maintainable code and introducing technical improvements."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
-publishDate: "2023-08-11"
+publishDate: "2024-09-25"
 ---
 
-# Cryptocurrency Exchange Platform
-
 ## Summary
-Created a secure cryptocurrency exchange platform, facilitating user-friendly buying, selling, and trading of multiple digital assets. Integrated multiple third-party APIs for live market data and payment solutions.
+Led the front-end development of a cloud-based remote modem management web application, transforming requirements into maintainable code and introducing technical improvements.
 
-## Technologies Used
-- Angular
-- Node.js
+## Technology
+- CSS
+- ESLint
+- Gitlab
+- HTML
+- JavaScript
+- MongoDB
+- NPM
+- React DnD
+- React Router
+- React Testing Library
+- ReactJS
+- Redux Form
+- Redux Thunk
+- Redux Toolkit
+- SASS/SCSS
 - TypeScript
-- REST APIs
-- Redis
-- AWS (EC2, CloudFront)
+- Webpack
+- redux-observable
+- styled components
 
-## Roles
-- Architected the application’s front-end using Angular with a focus on real-time updates.
-- Integrated secure REST APIs for user authentication and transaction processing.
-- Worked with Redis for caching and improving system performance.
+## Roles and Responsibility
+- Contributed as a Key Front-end Developer.
+- Transformed requirements into maintainable code.
+- Introduced new ideas and improvements to existing code.
+- Collaborated in brainstorming sessions for feature set development.
 
-## Client
-Crypto World Exchange
+## Client Domain
+Cloud-Based Remote Management
 
 ## Employer
-Blockchain Innovators
+NOT DISCLOSED
 
 ## Duration
-April 2023 - August 2023
+Jun 2022 – Feb 2024 (1 year 8 months)

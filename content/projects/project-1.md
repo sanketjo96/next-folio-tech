@@ -1,34 +1,33 @@
 ---
-title: "E-Commerce Platform"
-summary: "Developed a scalable e-commerce platform handling high traffic with personalized user experiences and multiple payment gateways."
+title: "Healthcare Solutions Porting"
+summary: "Part of a team that modernized a legacy healthcare application, porting it to a new look and feel while mentoring team members on advanced JavaScript."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
-publishDate: "2021-02-15"
+publishDate: "2024-09-25"
 ---
 
-# E-Commerce Platform
-
 ## Summary
-Developed a scalable e-commerce platform that handles high traffic, integrates multiple payment gateways, and features personalized user experiences based on browsing history.
+Part of a team that modernized a legacy healthcare application, porting it to a new look and feel while mentoring team members on advanced JavaScript.
 
-## Technologies Used
-- React.js
-- Node.js
-- GraphQL
-- PostgreSQL
-- AWS (S3, EC2, Lambda)
-- Docker
+## Technology
+- GoJS
+- JavaScript
+- Oracle RDBMS
+- Perl
+- Raphael JS
+- SASS/SCSS
+- TypeScript
 
-## Roles
-- Led the front-end development using React.js and Redux.
-- Integrated GraphQL for optimized data fetching and real-time updates.
-- Managed deployment using Docker and AWS infrastructure.
+## Roles and Responsibility
+- Developed advanced JavaScript features using OOJS, HTML5, CSS, LESS.
+- Worked on monitoring tools using Kibana and Grafana.
+- Mentored team members in JS and Perl development.
 
-## Client
-Acme Retail
+## Client Domain
+Healthcare Solutions
 
 ## Employer
-Tech Solutions Ltd.
+NOT DISCLOSED
 
 ## Duration
-January 2021 - July 2021
+May 2016 – Jun 2017 (1 year 1 month)

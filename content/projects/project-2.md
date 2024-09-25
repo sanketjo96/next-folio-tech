@@ -1,33 +1,36 @@
 ---
-title: "Real-Time Chat Application"
-summary: "Built a secure real-time chat application with encrypted communication, group chats, and presence indicators for team collaboration."
+title: "Travel Booking Solutions"
+summary: "Led an Angular team to build and enhance key applications for a travel solution provider, focusing on UI complexity and modern web technologies."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
-publishDate: "2021-10-05"
+publishDate: "2024-09-25"
 ---
 
-# Real-Time Chat Application
-
 ## Summary
-Built a real-time chat application for internal team communication with group chats, file sharing, and presence indicators. The platform includes encrypted communication channels and customizable user notifications.
+Led an Angular team to build and enhance key applications for a travel solution provider, focusing on UI complexity and modern web technologies.
 
-## Technologies Used
-- TypeScript
+## Technology
+- Angular
+- AngularJS
+- CSS
+- Git
+- HTML
 - Node.js
-- Socket.io
-- MongoDB
-- WebRTC
+- NPM
+- Oracle RDBMS
+- Rally Software
+- TypeScript
 
-## Roles
-- Designed the real-time messaging architecture using Socket.io and WebRTC.
-- Implemented encrypted communication channels.
-- Set up MongoDB to store chat history and user metadata.
+## Roles and Responsibility
+- Led a team for complex UI development in Angular 5.
+- Mastered Angular 2+, Material UI, Bootstrap, and PrimeNg.
+- Collaborated across teams for seamless feature implementation.
 
-## Client
-Global Tech Hub
+## Client Domain
+Travel and Hospitality Solutions
 
 ## Employer
-Freelance
+NOT DISCLOSED
 
 ## Duration
-August 2021 - December 2021
+Jun 2017 – Jun 2019 (2 years)
