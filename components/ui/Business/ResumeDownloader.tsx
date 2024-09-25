@@ -9,10 +9,6 @@ export const ResumeDownloader = () => {
     "https://drive.google.com/uc?export=download&id=1uzadlIy4kqjwy6wsZcQdWBUyiBIXvlkQ"
   );
 
-  useEffect(() => {
-    downloadFile();
-  }, [downloadFile]);
-
   return (
     <section className="flex flex-col mt-10">
       <div className="flex items-center justify-start">
