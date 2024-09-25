@@ -1,6 +1,7 @@
 import Introduction from "@/components/ui/Business/Introduction";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import RecentPosts from "@/components/ui/Business/Post/RecentPosts";
+import { ResumeDownloader } from "@/components/ui/Business/ResumeDownloader";
 import SkillMetric from "@/components/ui/Business/SkillMetric";
 import { getPosts } from "@/lib/data/posts";
 import { GetStaticProps } from "next";
@@ -16,8 +17,9 @@ export default function Page({ recentPosts }: PageProps) {
     <div className="container max-w-3xl">
       <section>
         <Introduction></Introduction>
-        <RecentPosts list={recentPosts}></RecentPosts>
         <SkillMetric></SkillMetric>
+        <ResumeDownloader></ResumeDownloader>
+        <RecentPosts list={recentPosts}></RecentPosts>
       </section>
     </div>
   );

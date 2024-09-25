@@ -5,32 +5,19 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useTranslation } from "next-i18next";
+import { useGetAPI } from "@/hooks/use-get-api";
 
 export default function Page() {
   const { t } = useTranslation("common");
   const router = useRouter();
+  const [data] = useGetAPI<{ user: User }>("/api/user");
   const { user, setUser } = useLoggedInUser();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("/api/user", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await response.json();
-        if (data.success && data.user) {
-          setUser(data.user as User);
-        } else {
-          setUser(null);
-        }
-      } catch (e) {
-        setUser(null);
-      }
-    };
-
-    fetchUser();
-  }, [setUser]);
+    if (data) {
+      setUser(data.user);
+    }
+  }, [data, setUser]);
 
   if (!user) router.push("/");
 

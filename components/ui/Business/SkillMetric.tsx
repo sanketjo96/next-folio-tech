@@ -24,13 +24,15 @@ function SkillMetric() {
       <h1 className="title text-xl no-underline font-bold">
         {t("techAndSkills")}
       </h1>
-      <div>
-        {SkillMetricMap.map((item) => (
-          <div className="flex gap-10 mt-3" key={item.name}>
-            <span className="text-sm text-bold w-20">{item.name}</span>
-            <SkillRating level={item.level}></SkillRating>
-          </div>
-        ))}
+      <div className="flex justify-between">
+        <div>
+          {SkillMetricMap.map((item) => (
+            <div className="flex gap-10 mt-3" key={item.name}>
+              <span className="text-sm text-bold w-20">{item.name}</span>
+              <SkillRating level={item.level}></SkillRating>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
