@@ -17,8 +17,8 @@ export default function Page({ recentPosts }: PageProps) {
     <div className="container max-w-3xl">
       <section>
         <Introduction></Introduction>
-        <SkillMetric></SkillMetric>
         <ResumeDownloader></ResumeDownloader>
+        <SkillMetric></SkillMetric>
         <RecentPosts list={recentPosts}></RecentPosts>
       </section>
     </div>
