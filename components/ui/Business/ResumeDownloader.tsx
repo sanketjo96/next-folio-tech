@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { DownloadIcon, FileTextIcon } from "@radix-ui/react-icons";
 import { useFileDownload } from "@/hooks/use-file-download";
-import { useEffect } from "react";
 
 export const ResumeDownloader = () => {
   const { t } = useTranslation("home");
