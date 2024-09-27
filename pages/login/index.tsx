@@ -44,9 +44,9 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="container max-w-3xl mt-16">
+    <section className="container max-w-md mt-8">
       <form onSubmit={handleSubmit(handleLoginSubmit)}>
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 bg-gray-100 p-16 rounded-lg">
           <Input
             className="dark:border-orange-600"
             id="email"

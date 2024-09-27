@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { User } from "@/components/context/UserContext";
 import { useMediaQuery } from "@/hooks/use-media.query";
+import { Login } from "./Login";
 
 export type MainMenuProps = {
   user: User | null;
@@ -26,6 +27,9 @@ export const AppNavLinks = ({ user }: MainMenuProps) => {
       <li className="hover:text-orange-600">
         <Link href="/contacts">{t("contacts")}</Link>
       </li>
+
+      <Login user={user} setUser={() => {}}></Login>
+
       {user?.email ? (
         <li className="hover:text-orange-600">
           <Link href="/dashboard">{t("dashboard")}</Link>

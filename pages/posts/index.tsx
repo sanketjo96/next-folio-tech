@@ -11,7 +11,7 @@ type PostsPageProps = {
 
 function Posts({ metaList }: PostsPageProps) {
   return (
-    <section className="mt-16">
+    <section className="mt-8">
       <div className="container max-w-3xl">
         <MarkDownListWithFilter
           redirectBase="posts"

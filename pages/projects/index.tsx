@@ -10,7 +10,7 @@ type ProjectsPageProps = {
 };
 function Projects({ metaList }: ProjectsPageProps) {
   return (
-    <section className="mt-16">
+    <section className="mt-8">
       <div className="container max-w-3xl">
         <MarkDownListWithFilter
           redirectBase="projects"

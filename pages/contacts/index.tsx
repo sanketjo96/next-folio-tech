@@ -6,7 +6,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 export default function Page() {
   const { t } = useTranslation("contacts");
   return (
-    <section className="pb-24 pt-20">
+    <section className="pb-24 mt-8">
       <div className="container max-w-3xl">
         <h1 className="title text-xl mb-8">{t("header")}</h1>
         <p className="text-muted-foreground text-md">{t("body")}</p>
