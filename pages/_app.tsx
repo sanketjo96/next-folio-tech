@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { UserProvider } from "@/components/providers/UserProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { appWithTranslation } from "next-i18next";
-
+import nextI18NextConfig from "../next-i18next.config";
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <div className="flex min-h-screen flex-col font-sans">
@@ -26,4 +26,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default appWithTranslation(App);
+export default appWithTranslation(App, nextI18NextConfig);
