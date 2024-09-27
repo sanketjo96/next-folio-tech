@@ -10,7 +10,7 @@ import { useGetAPI } from "@/hooks/use-get-api";
 export default function Page() {
   const { t } = useTranslation("common");
   const router = useRouter();
-  const [data] = useGetAPI<{ user: User }>("/api/user");
+  const [data] = useGetAPI<{ user: User }>("/api/private/user");
   const { user, setUser } = useLoggedInUser();
 
   useEffect(() => {
