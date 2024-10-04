@@ -1,5 +1,5 @@
 import Introduction from "@/components/ui/Business/Introduction";
-import { NextSeo } from "next-seo";
+import { NextSeo, SocialProfileJsonLd } from "next-seo";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import RecentPosts from "@/components/ui/Business/Post/RecentPosts";
 import { ResumeDownloader } from "@/components/ui/Business/ResumeDownloader";
@@ -21,6 +21,16 @@ export default function Page({ recentPosts }: PageProps) {
       <NextSeo
         title="Sanket Joshi | Home"
         canonical="https://www.techsanket.in/"
+      />
+      <SocialProfileJsonLd
+        type="Person"
+        name="Sanket Joshi"
+        url="https://techsanket.in"
+        sameAs={[
+          "https://www.facebook.com/techsanket",
+          "https://www.linkedin.com/in/techsanket",
+          "https://twitter.com/techsanket",
+        ]}
       />
       <div className="container max-w-3xl">
         <section>

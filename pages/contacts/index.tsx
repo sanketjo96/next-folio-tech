@@ -2,7 +2,7 @@ import ContactForm from "@/components/ui/Business/Contact/ContactForm";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { NextSeo } from "next-seo";
+import { NextSeo, LocalBusinessJsonLd } from "next-seo";
 
 export default function Page() {
   const { t } = useTranslation("contacts");
@@ -11,6 +11,25 @@ export default function Page() {
       <NextSeo
         title="Sanket Joshi | Contacts"
         canonical="https://www.techsanket.in/login"
+      />
+      <LocalBusinessJsonLd
+        type="Organization"
+        id="https://techsanket.in/contact"
+        name="TechSanket"
+        description="TechSanket is a web development freelance company specializing in providing tech solutions."
+        url="https://techsanket.in/"
+        telephone="+1-123-456-7890"
+        address={{
+          streetAddress: "1234 Tech Street",
+          addressLocality: "Tech City",
+          addressRegion: "TS",
+          postalCode: "12345",
+          addressCountry: "US",
+        }}
+        sameAs={[
+          "https://www.facebook.com/techsanket",
+          "https://www.linkedin.com/company/techsanket",
+        ]}
       />
       <section className="pb-24 mt-8">
         <div className="container max-w-3xl">
