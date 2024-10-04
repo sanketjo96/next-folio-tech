@@ -9,6 +9,7 @@ import { getPostFileContent, getPostFileNames } from "@/lib/data/posts";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -18,29 +19,38 @@ type PostPageProps = {
 function PostPage({ source, metaData }: PostPageProps) {
   const { title, image, author, publishDate } = metaData;
   return (
-    <div className="container max-w-3xl prose dark:prose-invert mt-16">
-      <Link href="/posts" className="no-underline flex items-center gap-3 mb-8">
-        <ArrowLeftIcon></ArrowLeftIcon>
-        <span>Back To Posts</span>
-      </Link>
-      {image && (
-        <div>
-          <Image
-            height={200}
-            width={800}
-            src={image}
-            alt={title}
-            className="object-cover"
-          ></Image>
-        </div>
-      )}
-      <header>
-        <p>
-          {author} | {formatDate(publishDate)}
-        </p>
-      </header>
-      <MdxContent {...source} />
-    </div>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Posts"
+        canonical="https://www.techsanket.in/posts"
+      />
+      <div className="container max-w-3xl prose dark:prose-invert mt-16">
+        <Link
+          href="/posts"
+          className="no-underline flex items-center gap-3 mb-8"
+        >
+          <ArrowLeftIcon></ArrowLeftIcon>
+          <span>Back To Posts</span>
+        </Link>
+        {image && (
+          <div>
+            <Image
+              height={200}
+              width={800}
+              src={image}
+              alt={title}
+              className="object-cover"
+            ></Image>
+          </div>
+        )}
+        <header>
+          <p>
+            {author} | {formatDate(publishDate)}
+          </p>
+        </header>
+        <MdxContent {...source} />
+      </div>
+    </>
   );
 }
 

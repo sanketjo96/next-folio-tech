@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next";
 import { User } from "@/components/context/UserContext";
 import { useMediaQuery } from "@/hooks/use-media.query";
 import { Login } from "./Login";
+import { useLoggedInUser } from "@/components/providers/UserProvider";
 
 export type MainMenuProps = {
   user: User | null;
@@ -11,6 +12,7 @@ export type MainMenuProps = {
 export const AppNavLinks = ({ user }: MainMenuProps) => {
   const { t } = useTranslation("common");
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { setUser } = useLoggedInUser();
   return (
     <>
       {!isDesktop && (
@@ -28,7 +30,7 @@ export const AppNavLinks = ({ user }: MainMenuProps) => {
         <Link href="/contacts">{t("contacts")}</Link>
       </li>
 
-      <Login user={user} setUser={() => {}}></Login>
+      <Login user={user} setUser={setUser}></Login>
 
       {user?.email ? (
         <li className="hover:text-orange-600">

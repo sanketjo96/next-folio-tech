@@ -4,6 +4,7 @@ import { getPosts } from "@/lib/data/posts";
 import MarkDownListWithFilter from "@/components/ui/Business/Markdown/MarkdownListWithFilter";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
 
 type PostsPageProps = {
   metaList: MarkdownMetaData[];
@@ -11,14 +12,20 @@ type PostsPageProps = {
 
 function Posts({ metaList }: PostsPageProps) {
   return (
-    <section className="mt-8">
-      <div className="container max-w-3xl">
-        <MarkDownListWithFilter
-          redirectBase="posts"
-          metaList={metaList}
-        ></MarkDownListWithFilter>
-      </div>
-    </section>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Posts"
+        canonical="https://www.techsanket.in/posts"
+      />
+      <section className="mt-8">
+        <div className="container max-w-3xl">
+          <MarkDownListWithFilter
+            redirectBase="posts"
+            metaList={metaList}
+          ></MarkDownListWithFilter>
+        </div>
+      </section>
+    </>
   );
 }
 

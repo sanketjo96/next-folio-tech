@@ -1,4 +1,5 @@
 import Introduction from "@/components/ui/Business/Introduction";
+import { NextSeo } from "next-seo";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import RecentPosts from "@/components/ui/Business/Post/RecentPosts";
 import { ResumeDownloader } from "@/components/ui/Business/ResumeDownloader";
@@ -16,14 +17,20 @@ type PageProps = {
 
 export default function Page({ recentPosts }: PageProps) {
   return (
-    <div className="container max-w-3xl">
-      <section>
-        <Introduction></Introduction>
-        <ResumeDownloader></ResumeDownloader>
-        <SkillMetric></SkillMetric>
-        <RecentPosts list={recentPosts}></RecentPosts>
-      </section>
-    </div>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Home"
+        canonical="https://www.techsanket.in/"
+      />
+      <div className="container max-w-3xl">
+        <section>
+          <Introduction></Introduction>
+          <ResumeDownloader></ResumeDownloader>
+          <SkillMetric></SkillMetric>
+          <RecentPosts list={recentPosts}></RecentPosts>
+        </section>
+      </div>
+    </>
   );
 }
 

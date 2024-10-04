@@ -2,17 +2,24 @@ import ContactForm from "@/components/ui/Business/Contact/ContactForm";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
 
 export default function Page() {
   const { t } = useTranslation("contacts");
   return (
-    <section className="pb-24 mt-8">
-      <div className="container max-w-3xl">
-        <h1 className="title text-xl mb-8">{t("header")}</h1>
-        <p className="text-muted-foreground text-md">{t("body")}</p>
-        <ContactForm></ContactForm>
-      </div>
-    </section>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Contacts"
+        canonical="https://www.techsanket.in/login"
+      />
+      <section className="pb-24 mt-8">
+        <div className="container max-w-3xl">
+          <h1 className="title text-xl mb-8">{t("header")}</h1>
+          <p className="text-muted-foreground text-md">{t("body")}</p>
+          <ContactForm></ContactForm>
+        </div>
+      </section>
+    </>
   );
 }
 

@@ -36,7 +36,7 @@ export const Login = ({ user, setUser }: LoginProps) => {
           !user?.email ? router.push("/login") : onLogoutHandler()
         }
       >
-        {t("login")}
+        {!user?.email ? t("login") : t("logout")}
       </span>
     </li>
   );

@@ -13,6 +13,7 @@ import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList
 import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { NextSeo } from "next-seo";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -23,32 +24,38 @@ function ProjectPage({ source, metaData }: PostPageProps) {
   const { t } = useTranslation("projects");
   const { title, image, author, publishDate } = metaData;
   return (
-    <div className="container max-w-3xl prose dark:prose-invert mt-16">
-      <Link
-        href="/projects"
-        className="no-underline flex items-center gap-3 mb-8"
-      >
-        <ArrowLeftIcon></ArrowLeftIcon>
-        <span>{t("backToProjects")}</span>
-      </Link>
-      {image && (
-        <div>
-          <Image
-            height={200}
-            width={800}
-            src={image}
-            alt={title}
-            className="object-cover"
-          ></Image>
-        </div>
-      )}
-      <header>
-        <p>
-          {author} | {formatDate(publishDate)}
-        </p>
-      </header>
-      <MdxContent {...source} />
-    </div>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Projects"
+        canonical="https://www.techsanket.in/projects"
+      />
+      <div className="container max-w-3xl prose dark:prose-invert mt-16">
+        <Link
+          href="/projects"
+          className="no-underline flex items-center gap-3 mb-8"
+        >
+          <ArrowLeftIcon></ArrowLeftIcon>
+          <span>{t("backToProjects")}</span>
+        </Link>
+        {image && (
+          <div>
+            <Image
+              height={200}
+              width={800}
+              src={image}
+              alt={title}
+              className="object-cover"
+            ></Image>
+          </div>
+        )}
+        <header>
+          <p>
+            {author} | {formatDate(publishDate)}
+          </p>
+        </header>
+        <MdxContent {...source} />
+      </div>
+    </>
   );
 }
 

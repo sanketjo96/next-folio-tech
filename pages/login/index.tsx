@@ -9,6 +9,7 @@ import { ErrorLine } from "@/components/ui/ErrorLines";
 import { GetStaticProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import { NextSeo } from "next-seo";
 
 export type LoginInputs = z.infer<typeof LoginFormSchema>;
 
@@ -44,38 +45,44 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="container max-w-md mt-8">
-      <form onSubmit={handleSubmit(handleLoginSubmit)}>
-        <div className="flex flex-col gap-3 bg-gray-100 p-16 rounded-lg">
-          <Input
-            className="dark:border-orange-600"
-            id="email"
-            placeholder="Email"
-            {...register("email")}
-          />
-          {errors.email?.message && (
-            <ErrorLine message={errors.email.message} />
-          )}
-          <Input
-            className="dark:border-orange-600"
-            type="password"
-            id="password"
-            placeholder="Password"
-            {...register("password")}
-          />
-          {errors.password?.message && (
-            <ErrorLine message={errors.password.message} />
-          )}
-          <Button
-            disabled={isSubmitting}
-            className="max-w-[200] self-center"
-            type="submit"
-          >
-            {t("login")}
-          </Button>
-        </div>
-      </form>
-    </section>
+    <>
+      <NextSeo
+        title="Sanket Joshi | Login"
+        canonical="https://www.techsanket.in/login"
+      />
+      <section className="container max-w-md mt-8">
+        <form onSubmit={handleSubmit(handleLoginSubmit)}>
+          <div className="flex flex-col gap-3 bg-gray-100 p-16 rounded-lg">
+            <Input
+              className="dark:border-orange-600"
+              id="email"
+              placeholder="Email"
+              {...register("email")}
+            />
+            {errors.email?.message && (
+              <ErrorLine message={errors.email.message} />
+            )}
+            <Input
+              className="dark:border-orange-600"
+              type="password"
+              id="password"
+              placeholder="Password"
+              {...register("password")}
+            />
+            {errors.password?.message && (
+              <ErrorLine message={errors.password.message} />
+            )}
+            <Button
+              disabled={isSubmitting}
+              className="max-w-[200] self-center"
+              type="submit"
+            >
+              {t("login")}
+            </Button>
+          </div>
+        </form>
+      </section>
+    </>
   );
 }
 
