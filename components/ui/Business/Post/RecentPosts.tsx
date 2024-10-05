@@ -12,7 +12,7 @@ function RecentPosts({ list }: Props) {
   return (
     <section className="mt-10">
       <div>
-        <h1 className="text-xl font-bold">{t("recentPosts")}</h1>
+        <h2 className="text-xl font-bold">{t("recentPosts")}</h2>
         <MarkdownList redirectBase={"posts"} metaList={list}></MarkdownList>
         <Link href="/posts" className="hover: text-foreground">
           <span className="text-sm text-blue-400">{t("seeMore")}</span>

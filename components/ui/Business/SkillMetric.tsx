@@ -20,10 +20,10 @@ const SkillRating = (props: { level: number }) => {
 function SkillMetric() {
   const { t } = useTranslation("home");
   return (
-    <section className="mt-10">
-      <h1 className="title text-xl no-underline font-bold">
+    <section className="mt-5">
+      <h2 className="title text-xl no-underline font-bold">
         {t("techAndSkills")}
-      </h1>
+      </h2>
       <div className="flex justify-between">
         <div>
           {SkillMetricMap.map((item) => (

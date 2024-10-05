@@ -25,7 +25,7 @@ const nextSeoConfig = {
       },
     ],
   twitter: {
-    handle: '@sanketjoshi',
+    handle: '@sanket84808866',
     site: '@techsanket',
     cardType: 'summary_large_image',
   },
