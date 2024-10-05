@@ -14,7 +14,7 @@ function Posts({ metaList }: PostsPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Posts"
+        title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/posts"
       />
       <section className="mt-8">

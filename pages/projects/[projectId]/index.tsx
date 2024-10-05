@@ -26,7 +26,7 @@ function ProjectPage({ source, metaData }: PostPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Projects"
+        title="Sanket Joshi | Projects | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/projects"
       />
       <div className="container max-w-3xl prose dark:prose-invert mt-16">

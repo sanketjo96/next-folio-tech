@@ -21,7 +21,7 @@ function PostPage({ source, metaData }: PostPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Posts"
+        title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/posts"
       />
       <div className="container max-w-3xl prose dark:prose-invert mt-16">

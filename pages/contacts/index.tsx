@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Contacts"
+        title="Sanket Joshi | Contacts | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/login"
       />
       <LocalBusinessJsonLd

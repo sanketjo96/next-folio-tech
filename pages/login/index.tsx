@@ -47,7 +47,7 @@ export default function LoginPage() {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Login"
+        title="Sanket Joshi | Login | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/login"
       />
       <section className="container max-w-md mt-8">

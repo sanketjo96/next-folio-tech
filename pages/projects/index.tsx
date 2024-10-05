@@ -13,7 +13,7 @@ function Projects({ metaList }: ProjectsPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Projects"
+        title="Sanket Joshi | Projects | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/projects"
       />
       <BreadcrumbJsonLd

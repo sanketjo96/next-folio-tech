@@ -19,7 +19,7 @@ export default function Page({ recentPosts }: PageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Home"
+        title="Sanket Joshi | Home | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/"
       />
       <SocialProfileJsonLd
