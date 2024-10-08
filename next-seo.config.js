@@ -14,6 +14,12 @@ const nextSeoConfig = {
         height: 600,
         alt: "TechSanket Portfolio OG Image",
       },
+      {
+        url: "https://www.techsanket.in/sj-og-image.jpg",
+        width: 1200,
+        height: 627,
+        alt: "TechSanket Portfolio OG Image",
+      },
     ],
     site_name: "TechSanket Portfolio",
   },
