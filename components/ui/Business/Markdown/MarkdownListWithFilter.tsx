@@ -15,7 +15,7 @@ const MarkDownListWithFilter = (props: MarkdownListProps) => {
 
   return (
     <>
-      <div className="flex gap-6">
+      <div className="flex gap-6 mb-10">
         <Input
           className=""
           placeholder={`Search ${redirectBase}`}
