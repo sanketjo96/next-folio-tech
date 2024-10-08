@@ -10,7 +10,7 @@ const nextSeoConfig = {
     images: [
       {
         url: "https://www.techsanket.in/sj-og-image.jpg",
-        width: 1200,
+        width: 800,
         height: 600,
         alt: "TechSanket Portfolio OG Image",
       },
