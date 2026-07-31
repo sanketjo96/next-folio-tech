@@ -20,13 +20,13 @@ export const AppNavLinks = ({ user }: MainMenuProps) => {
           <Link href="/">{t("home")}</Link>
         </li>
       )}
-      <li className="hover:text-orange-600">
+      <li className="hover:text-orange-600" data-tour="nav-posts">
         <Link href="/posts">{t("post")}</Link>
       </li>
-      <li className="hover:text-orange-600">
+      <li className="hover:text-orange-600" data-tour="nav-projects">
         <Link href="/projects">{t("projects")}</Link>
       </li>
-      <li className="hover:text-orange-600">
+      <li className="hover:text-orange-600" data-tour="nav-contacts">
         <Link href="/contacts">{t("contacts")}</Link>
       </li>
 

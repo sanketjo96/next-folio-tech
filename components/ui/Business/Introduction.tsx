@@ -6,7 +6,7 @@ import { useTranslation } from "next-i18next";
 function Introduction() {
   const { t } = useTranslation("home");
   return (
-    <section className="flex flex-col md:flex-row items-center">
+    <section className="flex flex-col md:flex-row items-center" data-tour="home-intro">
       <div className="mt-4 flex-1">
         <h1 className="title text-2xl dark:text-orange-600 no-underline font-bold">
           Hey, I&apos;m Sanket

@@ -18,7 +18,10 @@ export type MainBrandProps = {
 
 const BrandIcon = () => {
   return (
-    <div className="flex justify-center items-center font-serif text-4xl font-bold">
+    <div
+      className="flex justify-center items-center font-serif text-4xl font-bold"
+      data-tour="nav-brand"
+    >
       <Link href="/" className="text-bold hover:text-orange-600">
         SSJ
       </Link>

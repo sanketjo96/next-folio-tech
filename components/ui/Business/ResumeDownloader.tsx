@@ -5,7 +5,7 @@ export const ResumeDownloader = () => {
   const { t } = useTranslation("home");
 
   return (
-    <section className="flex flex-col md:flex-row items-center mt-10">
+    <section className="flex flex-col md:flex-row items-center mt-10" data-tour="home-resume">
       <div className="flex-1">
         <h2 className="text-xl font-bold ">{t("resumeCallTitle")}</h2>
         <p className="mt-2 font-light text-muted-foreground">

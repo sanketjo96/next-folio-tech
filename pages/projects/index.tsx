@@ -33,7 +33,7 @@ function Projects({ metaList }: ProjectsPageProps) {
         ]}
       />
       <section className="mt-8">
-        <div className="container max-w-3xl">
+        <div className="container max-w-3xl" data-tour="projects-list">
           <MarkDownListWithFilter
             redirectBase="projects"
             metaList={metaList}

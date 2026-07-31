@@ -20,7 +20,7 @@ const SkillRating = (props: { level: number }) => {
 function SkillMetric() {
   const { t } = useTranslation("home");
   return (
-    <section className="mt-5">
+    <section className="mt-5" data-tour="home-skills">
       <h2 className="title text-xl no-underline font-bold">
         {t("techAndSkills")}
       </h2>

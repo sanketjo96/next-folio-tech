@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
+import "driver.js/dist/driver.css";
 import AppThemeProvider from "@/components/providers/AppThemeProvider";
 import AppHeader from "@/components/ui/Business/AppHeader";
 import AppFooter from "@/components/ui/Business/AppFooter";
@@ -8,11 +9,14 @@ import { DefaultSeo } from "next-seo";
 import { UserProvider } from "@/components/providers/UserProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { appWithTranslation } from "next-i18next";
+import { useSiteTour } from "@/lib/tour/siteTour";
 
 import nextI18NextConfig from "../next-i18next.config";
 import nextSeoConfig from "../next-seo.config";
 
 const App = ({ Component, pageProps }: AppProps) => {
+  useSiteTour();
+
   return (
     <div className="flex min-h-screen flex-col font-sans">
       <AppThemeProvider>

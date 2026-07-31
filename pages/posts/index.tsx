@@ -18,7 +18,7 @@ function Posts({ metaList }: PostsPageProps) {
         canonical="https://www.techsanket.in/posts"
       />
       <section className="mt-8">
-        <div className="container max-w-3xl">
+        <div className="container max-w-3xl" data-tour="posts-list">
           <MarkDownListWithFilter
             redirectBase="posts"
             metaList={metaList}

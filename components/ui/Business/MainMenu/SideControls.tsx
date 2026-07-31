@@ -9,7 +9,7 @@ export const SideControls = () => {
   }, []);
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" data-tour="theme-toggle">
       {isMounted && <ThemeToggle></ThemeToggle>}
     </div>
   );
