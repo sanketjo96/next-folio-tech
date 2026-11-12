@@ -63,19 +63,18 @@ export default function Hero() {
 
           {/* Portrait panel */}
           <figure className="reveal relative mx-auto w-full max-w-[22rem]" style={style(2)}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-md border bg-gradient-to-b from-brand/25 via-card to-card">
-              <div className="dot-grid absolute inset-0 opacity-40" />
-              <div className="absolute left-1/2 top-1/3 size-56 -translate-x-1/2 rounded-full bg-brand/30 blur-3xl" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-md border bg-card">
               <Image
                 src={HERO_PORTRAIT}
                 alt="Sanket Joshi"
                 priority
+                fill
                 sizes="(min-width: 768px) 352px, 90vw"
-                className="absolute inset-x-0 bottom-0 mx-auto h-[92%] w-auto object-contain object-bottom"
+                className="object-cover object-[50%_20%]"
               />
             </div>
             <figcaption className="mt-3 flex items-center justify-between font-medium text-[11px] text-muted-foreground">
-              <span>sanket.jpg</span>
+              <span>Sanket Joshi</span>
               <span>Pune, IN · Remote</span>
             </figcaption>
           </figure>

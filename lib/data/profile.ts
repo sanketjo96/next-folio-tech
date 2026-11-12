@@ -1,12 +1,9 @@
 import type { StaticImageData } from "next/image";
-import portrait from "@/public/author_1.png";
+import portrait from "@/public/sanket-portrait.jpg";
 import stagePhoto from "@/public/artist/standup.jpg";
 
 /**
  * Profile content for the tech home page that isn't translated copy.
- *
- * TODO(sanket): swap HERO_PORTRAIT for a better portrait when available
- * (drop it in /public and import it here).
  */
 export const HERO_PORTRAIT: StaticImageData = portrait;
 export const BEYOND_PHOTO: StaticImageData = stagePhoto;
