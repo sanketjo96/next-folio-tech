@@ -10,6 +10,8 @@ import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList
 import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextSeo } from "next-seo";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl, articleJsonLd } from "@/lib/seo";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -17,12 +19,25 @@ type PostPageProps = {
 };
 
 function PostPage({ source, metaData }: PostPageProps) {
-  const { title, image, author, publishDate } = metaData;
+  const { id, title, image, author, publishDate, summary } = metaData;
+  const url = absoluteUrl(`/posts/${id}`);
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
-        canonical="https://www.techsanket.in/posts"
+        title={`${title} · Sanket Joshi`}
+        description={summary}
+        canonical={url}
+        openGraph={{
+          type: "article",
+          url,
+          title,
+          description: summary,
+          article: { publishedTime: publishDate, authors: [absoluteUrl("/")] },
+        }}
+      />
+      <JsonLd
+        id="article"
+        data={articleJsonLd({ type: "BlogPosting", url, title, description: summary, datePublished: publishDate })}
       />
       <article className="container prose prose-neutral max-w-3xl pt-12 dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand prose-img:rounded-2xl md:pt-16">
         <Link
@@ -79,7 +94,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   return {
     props: {
       source: content,
-      metaData: metaData,
+      metaData: { ...metaData, id: postId },
       ...(await serverSideTranslations(locale as string, ["posts", "common"])),
     },
     revalidate: 10,

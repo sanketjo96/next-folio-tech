@@ -6,7 +6,7 @@ import MarkDownListWithFilter from "@/components/ui/Business/Markdown/MarkdownLi
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 import { PageHeader } from "@/components/ui/Business/PageHeader";
-import { NextSeo, BreadcrumbJsonLd } from "next-seo";
+import { NextSeo } from "next-seo";
 
 type ProjectsPageProps = {
   metaList: MarkdownMetaData[];
@@ -16,24 +16,10 @@ function Projects({ metaList }: ProjectsPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Projects | Showcasing React, Node.js, AWS Skills"
+        title="Selected work · Sanket Joshi"
+        description="Projects Sanket Joshi has led or built: React and Angular platforms, healthcare, retail, travel and cloud device management."
         canonical="https://www.techsanket.in/projects"
-      />
-      <BreadcrumbJsonLd
-        type="ItemList"
-        name="Projects List"
-        itemListElements={[
-          {
-            position: 1,
-            name: "Staff Augmentation and Digital Transformation",
-            item: "https://techsanket.in/projects/project-6",
-          },
-          {
-            position: 2,
-            name: "Cloud-Based Remote Modem Management",
-            item: "https://techsanket.in/projects/project-5",
-          },
-        ]}
+        openGraph={{ url: "https://www.techsanket.in/projects" }}
       />
       <div className="container max-w-6xl">
         <PageHeader eyebrow="04 / Selected work" title={t("projects")} />

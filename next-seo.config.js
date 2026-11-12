@@ -1,39 +1,42 @@
-// next-seo.config.js
+// next-seo.config.js — site-wide defaults; pages override title/description/canonical.
+const SITE_URL = "https://www.techsanket.in";
+const DESCRIPTION =
+  "Sanket Joshi is a founding technical lead and frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products.";
+
 const nextSeoConfig = {
-  title: 'Sanket Joshi · Founding Technical Lead & Frontend Tech Lead',
-  description: 'Frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products.',
+  title: "Sanket Joshi · Founding Technical Lead & Frontend Tech Lead",
+  description: DESCRIPTION,
   openGraph: {
-    url: "https://www.techsanket.in/",
-    title: "Home | Sanket Joshi",
-    description:
-      "Home Page of Sanket Joshi, showcasing expertise in React, Node.js, AWS, and software development.",
+    type: "website",
+    locale: "en_IN",
+    url: `${SITE_URL}/`,
+    title: "Sanket Joshi · Founding Technical Lead & Frontend Tech Lead",
+    description: DESCRIPTION,
     images: [
       {
-        url: "https://www.techsanket.in/sj-og-image.jpg",
-        width: 800,
-        height: 600,
-        alt: "TechSanket Portfolio OG Image",
-      },
-      {
-        url: "https://www.techsanket.in/sj-og-image.jpg",
+        url: `${SITE_URL}/sj-og-image.jpg`,
         width: 1200,
-        height: 627,
-        alt: "TechSanket Portfolio OG Image",
+        height: 600,
+        alt: "Sanket Joshi",
       },
     ],
-    site_name: "TechSanket Portfolio",
+    site_name: "Sanket Joshi",
   },
-  additionalMetaTags:
-    [
-      {
-        property: "keywords",
-        content: "Full-Stack Developer, React, Node.js, AWS, Portfolio",
-      },
-    ],
+  additionalMetaTags: [
+    { name: "author", content: "Sanket Joshi" },
+    {
+      name: "keywords",
+      content:
+        "Sanket Joshi, frontend tech lead, founding technical lead, React, TypeScript, Node.js, engineering manager, Pune, Marathi stand-up comedian",
+    },
+  ],
+  additionalLinkTags: [
+    { rel: "alternate", type: "text/plain", href: `${SITE_URL}/llms.txt`, title: "LLM-readable site summary" },
+  ],
   twitter: {
-    handle: '@sanket84808866',
-    site: '@techsanket',
-    cardType: 'summary_large_image',
+    handle: "@sanket84808866",
+    site: "@techsanket",
+    cardType: "summary_large_image",
   },
 };
 

@@ -14,6 +14,8 @@ import MdxContent from "@/components/ui/Business/Markdown/MdxContent";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextSeo } from "next-seo";
+import JsonLd from "@/components/JsonLd";
+import { absoluteUrl, articleJsonLd } from "@/lib/seo";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -22,12 +24,19 @@ type PostPageProps = {
 
 function ProjectPage({ source, metaData }: PostPageProps) {
   const { t } = useTranslation("projects");
-  const { title, image, author, publishDate } = metaData;
+  const { id, title, image, author, publishDate, summary } = metaData;
+  const url = absoluteUrl(`/projects/${id}`);
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Projects | Showcasing React, Node.js, AWS Skills"
-        canonical="https://www.techsanket.in/projects"
+        title={`${title} · Projects · Sanket Joshi`}
+        description={summary}
+        canonical={url}
+        openGraph={{ type: "article", url, title, description: summary }}
+      />
+      <JsonLd
+        id="article"
+        data={articleJsonLd({ type: "CreativeWork", url, title, description: summary, datePublished: publishDate })}
       />
       <article className="container prose prose-neutral max-w-3xl pt-12 dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand prose-img:rounded-2xl md:pt-16">
         <Link
@@ -48,8 +57,11 @@ function ProjectPage({ source, metaData }: PostPageProps) {
             ></Image>
           </div>
         )}
-        <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
-          {author} · {formatDate(publishDate)}
+        <header className="not-prose mt-6">
+          <p className="font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
+            {author} · {formatDate(publishDate)}
+          </p>
+          <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">{title}</h1>
         </header>
         <MdxContent {...source} />
       </article>
@@ -80,7 +92,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
   return {
     props: {
       source: content,
-      metaData: metaData,
+      metaData: { ...metaData, id: projectId },
       ...(await serverSideTranslations(locale as string, [
         "projects",
         "common",

@@ -3,34 +3,17 @@ import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { PageHeader } from "@/components/ui/Business/PageHeader";
-import { NextSeo, LocalBusinessJsonLd } from "next-seo";
+import { NextSeo } from "next-seo";
 
 export default function Page() {
   const { t } = useTranslation("contacts");
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Contacts | Showcasing React, Node.js, AWS Skills"
-        canonical="https://www.techsanket.in/login"
-      />
-      <LocalBusinessJsonLd
-        type="Organization"
-        id="https://techsanket.in/contact"
-        name="TechSanket"
-        description="TechSanket is a web development freelance company specializing in providing tech solutions."
-        url="https://techsanket.in/"
-        telephone="+1-123-456-7890"
-        address={{
-          streetAddress: "1234 Tech Street",
-          addressLocality: "Tech City",
-          addressRegion: "TS",
-          postalCode: "12345",
-          addressCountry: "US",
-        }}
-        sameAs={[
-          "https://www.facebook.com/techsanket",
-          "https://www.linkedin.com/company/techsanket",
-        ]}
+        title="Contact · Sanket Joshi"
+        description="Get in touch with Sanket Joshi about engineering leadership roles, consulting, collaborations or stand-up bookings."
+        canonical="https://www.techsanket.in/contacts"
+        openGraph={{ url: "https://www.techsanket.in/contacts" }}
       />
       <div className="container max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">

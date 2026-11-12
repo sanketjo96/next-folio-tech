@@ -1,4 +1,6 @@
-import { NextSeo, SocialProfileJsonLd } from "next-seo";
+import { NextSeo } from "next-seo";
+import JsonLd from "@/components/JsonLd";
+import { DEFAULT_DESCRIPTION, absoluteUrl, personJsonLd } from "@/lib/seo";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import Hero from "@/components/ui/Business/Home/Hero";
 import Approach from "@/components/ui/Business/Home/Approach";
@@ -24,19 +26,11 @@ export default function Page({ recentPosts, recentProjects }: PageProps) {
     <>
       <NextSeo
         title="Sanket Joshi · Founding Technical Lead & Frontend Tech Lead"
-        description="Frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products."
-        canonical="https://www.techsanket.in/"
+        description={DEFAULT_DESCRIPTION}
+        canonical={absoluteUrl("/")}
+        openGraph={{ type: "profile", url: absoluteUrl("/") }}
       />
-      <SocialProfileJsonLd
-        type="Person"
-        name="Sanket Joshi"
-        url="https://techsanket.in"
-        sameAs={[
-          "https://www.facebook.com/techsanket",
-          "https://www.linkedin.com/in/sanket-joshi-7baa23185",
-          "https://twitter.com/techsanket",
-        ]}
-      />
+      <JsonLd id="person" data={personJsonLd} />
       <Hero />
       <Approach />
       <ExperienceTimeline />

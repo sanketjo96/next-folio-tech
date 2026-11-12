@@ -47,8 +47,9 @@ export default function LoginPage() {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Login | Showcasing React, Node.js, AWS Skills"
-        canonical="https://www.techsanket.in/login"
+        title="Login · Sanket Joshi"
+        noindex
+        nofollow
       />
       <section className="container max-w-md mt-8">
         <form onSubmit={handleSubmit(handleLoginSubmit)}>
