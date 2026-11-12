@@ -3,7 +3,7 @@ import React from "react";
 
 function AppThemeProvider({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark">
+    <ThemeProvider attribute="class" defaultTheme="system">
       {children}
     </ThemeProvider>
   );

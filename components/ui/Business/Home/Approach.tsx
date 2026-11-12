@@ -22,7 +22,7 @@ export default function Approach() {
 
         <div className="space-y-6">
           <p className="leading-relaxed text-foreground/75">{t("intro")}</p>
-          <div className="border-l-2 border-brand/50 pl-4 font-mono text-xs leading-6">
+          <div className="border-l-2 border-brand/50 pl-4 font-medium text-xs leading-6">
             <p className="text-muted-foreground">{"// "}{t("shortVersion")}</p>
             <p className="text-foreground/90">{SHORT_VERSION}</p>
           </div>
@@ -49,10 +49,10 @@ export default function Approach() {
             )}
           >
             <dt className="sr-only">{stat.label}</dt>
-            <dd className="font-display text-5xl leading-none sm:text-6xl">
+            <dd className="font-display text-5xl font-bold leading-none sm:text-6xl">
               {stat.value}
             </dd>
-            <dd className="mt-3 font-mono text-[11px] text-muted-foreground">{stat.label}</dd>
+            <dd className="mt-3 font-medium text-[11px] text-muted-foreground">{stat.label}</dd>
           </div>
         ))}
       </dl>
@@ -62,7 +62,7 @@ export default function Approach() {
         data-tour="home-skills"
       >
         <p className="eyebrow">{t("toolkit")}</p>
-        <ul className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-foreground/85">
+        <ul className="flex flex-wrap gap-x-6 gap-y-2 font-medium text-xs text-foreground/85">
           {TOOLKIT.map((name) => (
             <li key={name}>{name}</li>
           ))}

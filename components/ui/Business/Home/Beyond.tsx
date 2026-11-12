@@ -19,7 +19,7 @@ export default function Beyond() {
             className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
-          <p className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-background/80 px-3 py-1.5 font-mono text-[11px] backdrop-blur">
+          <p className="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-background/80 px-3 py-1.5 font-medium text-[11px] backdrop-blur">
             <Mic className="size-3.5 text-brand" /> {ARTIST.handle}
           </p>
         </div>

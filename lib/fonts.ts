@@ -1,31 +1,10 @@
-import {
-  Bricolage_Grotesque,
-  Inter,
-  Instrument_Serif,
-  JetBrains_Mono,
-} from "next/font/google";
+import { Bricolage_Grotesque } from "next/font/google";
 
-// Body copy for the tech site.
-export const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-});
+// The tech site uses the device's own system font (same as the original site).
+const SYSTEM_SANS =
+  'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"';
 
-// Editorial serif for headings on the tech site.
-export const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-// Small labels, tags, dates.
-export const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  display: "swap",
-});
-
-// Display face for the artist (link-in-bio) side.
+// Display face for the artist (link-in-bio) side only.
 export const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   display: "swap",
@@ -34,8 +13,6 @@ export const bricolage = Bricolage_Grotesque({
 // Exposed on :root (see _app) so portalled UI such as drawers and toasts
 // gets the same fonts as the page.
 export const fontRootCss = `:root {
-  --font-sans: ${inter.style.fontFamily};
-  --font-display: ${instrumentSerif.style.fontFamily};
-  --font-mono: ${jetbrainsMono.style.fontFamily};
+  --font-sans: ${SYSTEM_SANS};
   --font-artist: ${bricolage.style.fontFamily};
 }`;

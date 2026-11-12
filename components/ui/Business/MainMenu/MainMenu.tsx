@@ -21,7 +21,7 @@ export type MainMenuProps = {
 
 export const navItemClass = (active: boolean) =>
   cn(
-    "flex items-center gap-2 rounded-full px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors",
+    "flex items-center gap-2 rounded-full px-3.5 py-2 font-medium text-[11px] uppercase tracking-[0.14em] transition-colors",
     active
       ? "bg-accent text-foreground"
       : "text-muted-foreground hover:text-foreground"

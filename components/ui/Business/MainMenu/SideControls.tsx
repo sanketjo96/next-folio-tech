@@ -15,7 +15,7 @@ export const SideControls = () => {
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
         href="/?artist"
-        className="hidden items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
+        className="hidden items-center gap-2 font-medium text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
       >
         <span className="size-1.5 rounded-full bg-brand" aria-hidden />
         Artist side ↗

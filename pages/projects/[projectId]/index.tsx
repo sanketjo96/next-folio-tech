@@ -48,7 +48,7 @@ function ProjectPage({ source, metaData }: PostPageProps) {
             ></Image>
           </div>
         )}
-        <header className="not-prose mt-6 font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
+        <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
           {author} · {formatDate(publishDate)}
         </header>
         <MdxContent {...source} />

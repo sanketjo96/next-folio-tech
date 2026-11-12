@@ -29,7 +29,7 @@ export default function ExperienceTimeline() {
             style={style(i)}
           >
             {/* Period(s) */}
-            <div className="font-mono text-[11px] leading-6 text-muted-foreground">
+            <div className="font-medium text-[11px] leading-6 text-muted-foreground">
               {job.current && (
                 <span className="mb-2 inline-flex items-center gap-2 rounded-full border border-brand/40 bg-brand/10 px-2.5 py-0.5 text-brand">
                   <span className="relative flex size-1.5">
@@ -50,7 +50,7 @@ export default function ExperienceTimeline() {
               {job.context && (
                 <p className="mt-1 text-sm text-muted-foreground">{job.context}</p>
               )}
-              <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-foreground/85">
+              <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1 font-medium text-xs text-foreground/85">
                 {job.roles.map((r, ri) => (
                   <li key={r.title} className="flex items-center gap-2">
                     <span
@@ -76,7 +76,7 @@ export default function ExperienceTimeline() {
               {job.tags.map((tag) => (
                 <li
                   key={tag}
-                  className="rounded border px-2 py-0.5 font-mono text-[10px] text-muted-foreground"
+                  className="rounded border px-2 py-0.5 font-medium text-[10px] text-muted-foreground"
                 >
                   {tag}
                 </li>
@@ -94,10 +94,10 @@ export default function ExperienceTimeline() {
             {EDUCATION.map((e) => (
               <li key={e.name} className="flex items-baseline justify-between gap-4">
                 <div>
-                  <p className="font-display text-2xl">{e.name}</p>
+                  <p className="font-display text-2xl font-semibold">{e.name}</p>
                   <p className="text-sm text-muted-foreground">{e.detail}</p>
                 </div>
-                <span className="shrink-0 font-mono text-[11px] text-muted-foreground">
+                <span className="shrink-0 font-medium text-[11px] text-muted-foreground">
                   {e.period}
                 </span>
               </li>

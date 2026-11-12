@@ -16,7 +16,7 @@ export const SectionHeading = ({ index, label, title, action }: Props) => (
         {index} / {label}
       </p>
       {!title && (
-        <span className="font-mono text-brand" aria-hidden>
+        <span className="font-medium text-brand" aria-hidden>
           +
         </span>
       )}

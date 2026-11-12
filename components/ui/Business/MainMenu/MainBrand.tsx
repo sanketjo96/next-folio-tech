@@ -24,7 +24,7 @@ export const BrandIcon = () => {
   return (
     <Link
       href="/"
-      className="group flex items-center px-2 font-mono text-lg font-semibold tracking-tight"
+      className="group flex items-center px-2 font-medium text-lg font-semibold tracking-tight"
       data-tour="nav-brand"
       aria-label="Sanket Joshi, home"
     >

@@ -45,7 +45,7 @@ const Tags = ({ tags, accentFirst }: { tags?: string[]; accentFirst?: boolean })
         <li
           key={tag}
           className={
-            "rounded border px-2 py-0.5 font-mono text-[10px] " +
+            "rounded border px-2 py-0.5 font-medium text-[10px] " +
             (accentFirst && i === 0
               ? "border-brand/40 bg-brand/10 text-brand"
               : "text-muted-foreground")
@@ -65,7 +65,7 @@ const Rows = ({ metaList, redirectBase }: MarkdownListProps) => (
           href={`/${redirectBase}/${item.id}`}
           className="group grid grid-cols-[2rem_1fr] gap-x-4 py-7 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6"
         >
-          <span className="pt-1 font-mono text-[11px] text-muted-foreground">{pad(i)}</span>
+          <span className="pt-1 font-medium text-[11px] text-muted-foreground">{pad(i)}</span>
           <div className="min-w-0">
             <Tags tags={item.tags} accentFirst />
             <h3 className="mt-2 text-3xl leading-tight transition-colors group-hover:text-brand sm:text-[2.1rem]">
@@ -74,12 +74,12 @@ const Rows = ({ metaList, redirectBase }: MarkdownListProps) => (
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               {item.summary}
             </p>
-            <p className="mt-3 font-mono text-[11px] text-muted-foreground sm:hidden">
+            <p className="mt-3 font-medium text-[11px] text-muted-foreground sm:hidden">
               {item.publishDate && formatDate(item.publishDate)}
               {item.readingMinutes ? ` · ${item.readingMinutes} min read` : ""}
             </p>
           </div>
-          <div className="hidden flex-col items-end justify-between text-right font-mono text-[11px] text-muted-foreground sm:flex">
+          <div className="hidden flex-col items-end justify-between text-right font-medium text-[11px] text-muted-foreground sm:flex">
             <div className="space-y-1.5">
               {item.publishDate && <p>{formatDate(item.publishDate)}</p>}
               {item.readingMinutes ? <p>{item.readingMinutes} min read</p> : null}
@@ -104,7 +104,7 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
           >
             <div className="relative grid h-44 place-items-center border-b bg-gradient-to-b from-accent/60 to-transparent">
               <div className="dot-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]" />
-              <span className="absolute right-4 top-4 font-mono text-[10px] text-muted-foreground">
+              <span className="absolute right-4 top-4 font-medium text-[10px] text-muted-foreground">
                 {pad(i)} / WORK
               </span>
               <Icon
@@ -112,7 +112,7 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
                 strokeWidth={1.25}
               />
               {item.tags?.[0] && (
-                <span className="absolute bottom-4 font-mono text-[10px] text-muted-foreground">
+                <span className="absolute bottom-4 font-medium text-[10px] text-muted-foreground">
                   {item.tags.join(" · ")}
                 </span>
               )}
@@ -125,7 +125,7 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
               <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                 {item.summary}
               </p>
-              <div className="mt-auto flex items-center justify-between pt-6 font-mono text-[11px] text-muted-foreground">
+              <div className="mt-auto flex items-center justify-between pt-6 font-medium text-[11px] text-muted-foreground">
                 <span className="flex items-center gap-2">
                   <span className="size-1.5 rounded-full bg-brand" aria-hidden />
                   {item.tags?.[0] ?? "Project"}

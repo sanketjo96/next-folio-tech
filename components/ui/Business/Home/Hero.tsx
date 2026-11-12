@@ -15,17 +15,7 @@ export default function Hero() {
     <section className="container max-w-6xl" data-tour="home-intro">
       <div className="frame-corners relative isolate flex min-h-[calc(100svh-6.5rem)] flex-col border border-border/70">
         <span className="frame-corner-b" aria-hidden />
-
-        {/* Backdrop: dot grid, warm glow, portrait */}
-        <div className="dot-grid absolute inset-0 -z-20 opacity-60 [mask-image:radial-gradient(ellipse_at_center,#000_30%,transparent_75%)]" />
-        <div className="absolute left-1/2 top-1/3 -z-20 size-[520px] max-w-full -translate-x-1/2 rounded-full bg-brand/15 blur-[100px]" />
-        <Image
-          src={HERO_PORTRAIT}
-          alt=""
-          priority
-          sizes="(min-width: 768px) 520px, 80vw"
-          className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[82%] w-auto max-w-none -translate-x-1/2 object-contain opacity-40 grayscale [mask-image:radial-gradient(ellipse_48%_62%_at_50%_38%,#000_45%,transparent_100%)]"
-        />
+        <div className="dot-grid absolute inset-0 -z-10 opacity-50 [mask-image:radial-gradient(ellipse_at_30%_50%,#000_20%,transparent_70%)]" />
 
         {/* Top corners */}
         <div className="flex items-start justify-between gap-4 p-4 sm:p-5">
@@ -36,38 +26,59 @@ export default function Hero() {
           <p className="eyebrow hidden text-right sm:block">{t("heroTopRight")}</p>
         </div>
 
-        {/* Name */}
-        <div className="flex flex-1 flex-col items-center justify-center px-4 text-center">
-          <p className="eyebrow reveal">{t("heroEyebrow")}</p>
-          <h1
-            className="reveal mt-5 text-[clamp(4.25rem,15vw,10.5rem)] uppercase leading-[0.82] tracking-tight"
-            style={style(1)}
-          >
-            Sanket
-            <br />
-            <span className="text-foreground/55">Joshi</span>
-            <span className="text-brand">.</span>
-          </h1>
-          <p
-            className="reveal mt-7 max-w-md text-[15px] leading-relaxed text-foreground/80"
-            style={style(2)}
-          >
-            {t("heroLine")}
-          </p>
-          <div className="reveal mt-8 flex flex-wrap justify-center gap-3" style={style(3)}>
-            <Link
-              href="/projects"
-              className="inline-flex h-12 items-center gap-3 rounded-md bg-brand px-5 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"
+        {/* Name + portrait, side by side */}
+        <div className="grid flex-1 items-center gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.25fr_1fr] md:gap-12 md:px-10 lg:px-14">
+          <div>
+            <p className="eyebrow reveal">{t("heroEyebrow")}</p>
+            <h1
+              className="reveal mt-5 text-[clamp(3.25rem,8vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight"
+              style={style(1)}
             >
-              {t("ctaWork")} <ArrowUpRight className="size-4" />
-            </Link>
-            <Link
-              href="/posts"
-              className="inline-flex h-12 items-center gap-3 rounded-md border border-foreground/25 bg-background/40 px-5 text-sm font-medium backdrop-blur transition-colors hover:border-foreground/60"
+              Sanket
+              <br />
+              <span className="text-foreground/55">Joshi</span>
+              <span className="text-brand">.</span>
+            </h1>
+            <p
+              className="reveal mt-7 max-w-md text-base leading-relaxed text-foreground/80"
+              style={style(2)}
             >
-              {t("ctaWriting")} <ArrowUpRight className="size-4" />
-            </Link>
+              {t("heroLine")}
+            </p>
+            <div className="reveal mt-8 flex flex-wrap gap-3" style={style(3)}>
+              <Link
+                href="/projects"
+                className="inline-flex h-12 items-center gap-3 rounded-md bg-brand px-5 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"
+              >
+                {t("ctaWork")} <ArrowUpRight className="size-4" />
+              </Link>
+              <Link
+                href="/posts"
+                className="inline-flex h-12 items-center gap-3 rounded-md border border-foreground/25 px-5 text-sm font-medium transition-colors hover:border-foreground/60"
+              >
+                {t("ctaWriting")} <ArrowUpRight className="size-4" />
+              </Link>
+            </div>
           </div>
+
+          {/* Portrait panel */}
+          <figure className="reveal relative mx-auto w-full max-w-[22rem]" style={style(2)}>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-md border bg-gradient-to-b from-brand/25 via-card to-card">
+              <div className="dot-grid absolute inset-0 opacity-40" />
+              <div className="absolute left-1/2 top-1/3 size-56 -translate-x-1/2 rounded-full bg-brand/30 blur-3xl" />
+              <Image
+                src={HERO_PORTRAIT}
+                alt="Sanket Joshi"
+                priority
+                sizes="(min-width: 768px) 352px, 90vw"
+                className="absolute inset-x-0 bottom-0 mx-auto h-[92%] w-auto object-contain object-bottom"
+              />
+            </div>
+            <figcaption className="mt-3 flex items-center justify-between font-medium text-[11px] text-muted-foreground">
+              <span>sanket.jpg</span>
+              <span>Pune, IN · Remote</span>
+            </figcaption>
+          </figure>
         </div>
 
         {/* Bottom corners */}
@@ -86,7 +97,7 @@ export default function Hero() {
           </div>
           <div className="text-right">
             <p className="eyebrow mb-3">{t("currentlyInto")}</p>
-            <ul className="space-y-1.5 font-mono text-xs text-foreground/80">
+            <ul className="space-y-1.5 font-medium text-xs text-foreground/80">
               {CURRENTLY_INTO.map((item) => (
                 <li key={item}>{item}</li>
               ))}
