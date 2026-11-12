@@ -1,9 +1,11 @@
 import { NextSeo } from "next-seo";
 import JsonLd from "@/components/JsonLd";
-import { DEFAULT_DESCRIPTION, absoluteUrl, personJsonLd } from "@/lib/seo";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, absoluteUrl, personJsonLd } from "@/lib/seo";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import Hero from "@/components/ui/Business/Home/Hero";
 import Approach from "@/components/ui/Business/Home/Approach";
+import Expertise from "@/components/ui/Business/Home/Expertise";
+import Exploring from "@/components/ui/Business/Home/Exploring";
 import ExperienceTimeline from "@/components/ui/Business/Home/ExperienceTimeline";
 import FieldNotes from "@/components/ui/Business/Home/FieldNotes";
 import SelectedWork from "@/components/ui/Business/Home/SelectedWork";
@@ -25,17 +27,24 @@ export default function Page({ recentPosts, recentProjects }: PageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi · Founding Technical Lead & Frontend Tech Lead"
+        title={DEFAULT_TITLE}
         description={DEFAULT_DESCRIPTION}
         canonical={absoluteUrl("/")}
-        openGraph={{ type: "profile", url: absoluteUrl("/") }}
+        openGraph={{
+          type: "profile",
+          url: absoluteUrl("/"),
+          title: DEFAULT_TITLE,
+          description: DEFAULT_DESCRIPTION,
+        }}
       />
       <JsonLd id="person" data={personJsonLd} />
       <Hero />
       <Approach />
+      <Expertise />
       <ExperienceTimeline />
-      <FieldNotes posts={recentPosts} />
       <SelectedWork projects={recentProjects} />
+      <Exploring />
+      <FieldNotes posts={recentPosts} />
       <Beyond />
       <ContactCta />
     </>
@@ -59,4 +68,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       recentProjects,
     },
   };
-};
+};
