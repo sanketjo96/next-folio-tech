@@ -13,6 +13,7 @@ import { appWithTranslation } from "next-i18next";
 import { useSiteTour } from "@/lib/tour/siteTour";
 import { fontRootCss } from "@/lib/fonts";
 import Analytics from "@/components/Analytics";
+import SectionTracker from "@/components/SectionTracker";
 
 import nextI18NextConfig from "../next-i18next.config";
 import nextSeoConfig from "../next-seo.config";
@@ -37,6 +38,7 @@ const App = ({ Component, pageProps }: Props) => {
         <Component {...pageProps} />
         <SpeedInsights />
         <Analytics />
+        <SectionTracker />
       </div>
     );
   }
@@ -54,6 +56,7 @@ const App = ({ Component, pageProps }: Props) => {
           <Toaster />
           <SpeedInsights />
           <Analytics />
+          <SectionTracker />
           <AppFooter />
         </UserProvider>
       </AppThemeProvider>

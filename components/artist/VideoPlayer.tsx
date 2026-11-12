@@ -2,7 +2,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowUpRight, X } from "lucide-react";
 import type { ArtistItem } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
-import { trackAttrs } from "@/lib/analytics";
+import { durationBucket, track, trackAttrs } from "@/lib/analytics";
+import { useEffect, useRef } from "react";
 
 type Props = {
   item: ArtistItem | null;
@@ -12,6 +13,23 @@ type Props = {
 /** Plays a YouTube link in a modal, so visitors stay on the page. */
 export default function VideoPlayer({ item, onClose }: Props) {
   const video = item ? youtubeInfo(item.url) : null;
+
+  // Watch time: from opening the player to closing it (or leaving the page).
+  const openedAt = useRef<number | null>(null);
+  useEffect(() => {
+    if (!item || !video) return;
+    openedAt.current = Date.now();
+    const report = () => {
+      if (openedAt.current === null) return;
+      track("Video watch time", { title: item.title, duration: durationBucket(Date.now() - openedAt.current) });
+      openedAt.current = null;
+    };
+    window.addEventListener("pagehide", report);
+    return () => {
+      window.removeEventListener("pagehide", report);
+      report();
+    };
+  }, [item, video]);
 
   return (
     <Dialog.Root open={!!video} onOpenChange={(open) => !open && onClose()}>

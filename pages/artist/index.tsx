@@ -12,7 +12,7 @@ import {
   VideoSection,
 } from "@/components/artist/Sections";
 import JsonLd from "@/components/JsonLd";
-import { trackAttrs } from "@/lib/analytics";
+import { seenAttrs, trackAttrs } from "@/lib/analytics";
 import { artistJsonLd } from "@/lib/seo";
 import type { AppPage } from "../_app";
 
@@ -110,7 +110,7 @@ const ArtistPage: AppPage = () => {
           {ARTIST.sections.map((section, i) => renderSection(section, i + 1, setPlaying))}
         </main>
 
-        <footer className="border-t border-[var(--s-line)]">
+        <footer className="border-t border-[var(--s-line)]" {...seenAttrs("Artist: Reached the end")}>
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-5 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
             <p className="poster text-3xl">
               Laugh with <span className="text-[var(--s-orange)]">Sanket</span>

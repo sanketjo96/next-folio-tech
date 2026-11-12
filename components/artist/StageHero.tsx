@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Check, Facebook, Instagram, Play, Share2, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, BadgeCheck, Check, Facebook, Instagram, Play, Share2, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { ARTIST, type ArtistIcon } from "@/lib/data/artist";
 import { track, trackAttrs } from "@/lib/analytics";
@@ -111,6 +111,18 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
                 </li>
               ))}
             </ul>
+            <a
+              href={ARTIST.bookMyShow}
+              target="_blank"
+              rel="noopener noreferrer"
+              {...trackAttrs("Open: BookMyShow artist profile", { place: "hero badge" })}
+              className="artist-rise mt-4 inline-flex items-center gap-1.5 rounded-full border border-[var(--s-amber)]/40 bg-[var(--s-amber)]/10 px-3 py-1 text-xs font-semibold text-[var(--s-amber)] transition-colors hover:bg-[var(--s-amber)]/20 sm:mt-5"
+              style={rise(3)}
+            >
+              <BadgeCheck className="size-3.5" />
+              Registered artist on BookMyShow
+              <ArrowUpRight className="size-3" />
+            </a>
             <div className="artist-rise mt-5 flex items-center justify-center gap-3 sm:mt-8 lg:justify-start" style={rise(4)}>
               <a
                 href="#standup"

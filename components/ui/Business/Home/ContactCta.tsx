@@ -2,11 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { ArrowUpRight, SquareTerminal } from "lucide-react";
+import { seenAttrs } from "@/lib/analytics";
 
 export default function ContactCta() {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-36 max-w-6xl text-center">
+    <section className="container mt-36 max-w-6xl text-center" {...seenAttrs("Home: Contact")}>
       <span className="mx-auto grid size-14 place-items-center rounded-lg border border-brand/30 bg-brand/10 text-brand">
         <SquareTerminal className="size-6" />
       </span>

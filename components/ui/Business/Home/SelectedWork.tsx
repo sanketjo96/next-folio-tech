@@ -4,11 +4,12 @@ import { useTranslation } from "next-i18next";
 import { ArrowUpRight } from "lucide-react";
 import MarkdownList, { MarkdownMetaData } from "../Markdown/MarkDownList";
 import { SectionHeading } from "./SectionHeading";
+import { seenAttrs } from "@/lib/analytics";
 
 export default function SelectedWork({ projects }: { projects: MarkdownMetaData[] }) {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-32 max-w-6xl" id="work">
+    <section className="container mt-32 max-w-6xl" id="work" {...seenAttrs("Home: Selected work")}>
       <SectionHeading
         index="04"
         label={t("workEyebrow")}

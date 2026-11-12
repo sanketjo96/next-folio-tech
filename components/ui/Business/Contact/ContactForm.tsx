@@ -3,6 +3,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { track } from "@/lib/analytics";
+import { useRef } from "react";
 import { z } from "zod";
 import { Input } from "../../input";
 import { Textarea } from "../../textarea";
@@ -30,6 +31,8 @@ function ContactForm() {
     },
   });
 
+  const started = useRef(false);
+
   const onSubmitHandler: SubmitHandler<EmailInputs> = async (data) => {
     try {
       const response = await fetch("/api/contact", {
@@ -54,6 +57,11 @@ function ContactForm() {
     <section className="relative isolate" data-tour="contact-form">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
+        onFocusCapture={() => {
+          if (started.current) return;
+          started.current = true;
+          track("Tech: Contact form started");
+        }}
         noValidate
         className="lg:flex-auto"
       >

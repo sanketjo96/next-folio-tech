@@ -36,11 +36,45 @@ export function trackAttrs(name: string, data: EventData = {}) {
   return attrs;
 }
 
+// Events reported before the Umami script has loaded wait here.
+const pending: Array<[string, EventData | undefined]> = [];
+let flushTimer: ReturnType<typeof setInterval> | null = null;
+
+function flush() {
+  if (!window.umami) return false;
+  for (const [name, data] of pending.splice(0)) {
+    try {
+      window.umami.track(name, data);
+    } catch {
+      // Analytics must never break the page.
+    }
+  }
+  return true;
+}
+
 /** Reports an event from code, e.g. after a form submits successfully. */
 export function track(name: string, data?: EventData) {
-  try {
-    window.umami?.track(eventName(name), data);
-  } catch {
-    // Analytics must never break the page.
-  }
+  if (typeof window === "undefined" || !UMAMI_WEBSITE_ID) return;
+  pending.push([eventName(name), data]);
+  if (flush() || flushTimer) return;
+  // Retry for up to ~15s while the script loads, then give up quietly.
+  let tries = 0;
+  flushTimer = setInterval(() => {
+    if (flush() || ++tries > 60) {
+      clearInterval(flushTimer!);
+      flushTimer = null;
+    }
+  }, 250);
+}
+
+/** Marks an element so SectionTracker reports `Seen: <name>` once per page view. */
+export const seenAttrs = (name: string) => ({ "data-track-seen": name });
+
+/** Buckets a duration so watch time reads well in the dashboard. */
+export function durationBucket(ms: number) {
+  const s = ms / 1000;
+  if (s < 10) return "under 10s";
+  if (s < 30) return "10-30s";
+  if (s < 120) return "30s-2m";
+  return "2m+";
 }

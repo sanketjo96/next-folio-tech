@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Code, Mail, Play, Ticket } from "lucide-react";
 import type { ArtistItem, ArtistSection } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
-import { trackAttrs } from "@/lib/analytics";
+import { seenAttrs, trackAttrs } from "@/lib/analytics";
 
 /** Devanagari titles get the Marathi font. */
 const isMarathi = (text: string) => /[ऀ-ॿ]/.test(text);
@@ -34,7 +34,7 @@ function SectionHeader({ section, index }: { section: ArtistSection; index: numb
 export function FeatureSection({ section, index }: { section: ArtistSection; index: number }) {
   const item = section.items[0];
   return (
-    <section id={section.id} className="scroll-mt-20">
+    <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
       <a
         href={item.url}
@@ -150,7 +150,7 @@ export function VideoSection({
   onPlay: (item: ArtistItem) => void;
 }) {
   return (
-    <section id={section.id} className="scroll-mt-20">
+    <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
       <ul className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-3">
         {section.items.map((item) => (
@@ -167,7 +167,7 @@ export function VideoSection({
 
 export function AudioSection({ section, index }: { section: ArtistSection; index: number }) {
   return (
-    <section id={section.id} className="scroll-mt-20">
+    <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
       <ul className="grid gap-4">
         {section.items.map((item) => (
@@ -212,7 +212,7 @@ export function LinksSection({ section, index }: { section: ArtistSection; index
   const others = section.items.filter((i) => i !== booking);
 
   return (
-    <section id={section.id} className="scroll-mt-20">
+    <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
       {booking && (
         <Link
