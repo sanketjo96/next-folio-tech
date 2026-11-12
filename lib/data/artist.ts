@@ -1,5 +1,5 @@
 /**
- * Content for the artist side of the site (served at `/?artist`).
+ * Content for the artist side of the site (served at `/artist`; `/?artist` also works).
  *
  * Mirrors the Linktree at linktr.ee/laugh_with_sanket (November 2026).
  * To add something, append an item to the right section below.

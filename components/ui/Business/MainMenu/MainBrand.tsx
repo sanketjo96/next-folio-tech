@@ -55,9 +55,9 @@ export const MainBrand = ({ user }: MainBrandProps) => {
           <ul className="m-6 mb-8 flex flex-col gap-1 text-lg">
             <AppNavLinks user={user} />
             <li>
-              {/* Full load: `/?artist` is resolved by middleware. */}
+              {/* Full page load: the artist page renders without the tech-site layout. */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/?artist" className={navItemClass(false)}>
+              <a href="/artist" className={navItemClass(false)}>
                 ✦ Artist side
               </a>
             </li>

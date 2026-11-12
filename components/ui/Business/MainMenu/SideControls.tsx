@@ -10,11 +10,11 @@ export const SideControls = () => {
 
   return (
     <div className="flex items-center gap-2" data-tour="theme-toggle">
-      {/* Full page load on purpose: `/?artist` is resolved by a server-side
-          rewrite in middleware.ts and renders a different page shell. */}
+      {/* Full page load on purpose: the artist page renders without the
+          tech-site layout. */}
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
-        href="/?artist"
+        href="/artist"
         className="hidden items-center gap-2 font-medium text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
       >
         <span className="size-1.5 rounded-full bg-brand" aria-hidden />
