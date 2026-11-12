@@ -14,6 +14,23 @@ const nextConfig = {
     ],
   },
   poweredByHeader: false,
+  // Short links per channel (no "?" so any bio field accepts them). The UTM
+  // tags let analytics tell visitors from each channel apart.
+  async redirects() {
+    const go = (source, path, utmSource, utmMedium) => ({
+      source,
+      destination: `${path}?utm_source=${utmSource}&utm_medium=${utmMedium}`,
+      permanent: false,
+    });
+    return [
+      go('/ig', '/artist', 'instagram', 'bio'),
+      go('/fb', '/artist', 'facebook', 'profile'),
+      go('/bms', '/artist', 'bookmyshow', 'profile'),
+      go('/li', '/', 'linkedin', 'profile'),
+      go('/gh', '/', 'github', 'profile'),
+      go('/cv', '/', 'resume', 'pdf'),
+    ];
+  },
   // /api/llms reads the markdown in content/ at request time.
   outputFileTracingIncludes: {
     '/api/llms': ['./content/**/*'],

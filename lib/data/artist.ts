@@ -17,6 +17,7 @@ export type ArtistIcon =
   | "headphones"
   | "mail"
   | "code"
+  | "ticket"
   | "link";
 
 export type ArtistSocial = {
@@ -68,10 +69,16 @@ export type ArtistProfile = {
   /** Used as the link-preview image when the page is shared. */
   shareImage: StaticImageData;
   socials: ArtistSocial[];
+  /** Other public profiles (for search engines and AI agents). */
+  profiles: string[];
+  /** Registered-artist profile on BookMyShow, shown as a badge in the hero. */
+  bookMyShow: string;
   sections: ArtistSection[];
 };
 
 /** YouTube's own thumbnail for a video id. */
+const BOOKMYSHOW_URL = "https://in.bookmyshow.com/person/sanket-joshi/2045344";
+
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
 /** Video id and start time (seconds) for a YouTube link, or null for other links. */
@@ -102,6 +109,8 @@ export const ARTIST: ArtistProfile = {
     { name: "Instagram", url: "https://instagram.com/laugh_with_sanket", icon: "instagram" },
     { name: "Facebook", url: "https://www.facebook.com/sanket.joshi.121", icon: "facebook" },
   ],
+  profiles: [BOOKMYSHOW_URL],
+  bookMyShow: BOOKMYSHOW_URL,
   sections: [
     {
       id: "standup",
@@ -217,6 +226,12 @@ export const ARTIST: ArtistProfile = {
       short: "Bookings",
       layout: "links",
       items: [
+        {
+          title: "BookMyShow artist profile",
+          subtitle: "Registered artist on BookMyShow",
+          url: BOOKMYSHOW_URL,
+          icon: "ticket",
+        },
         {
           title: "Main portfolio",
           subtitle: "Work bio on Canva",

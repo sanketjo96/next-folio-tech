@@ -12,6 +12,7 @@ import {
   VideoSection,
 } from "@/components/artist/Sections";
 import JsonLd from "@/components/JsonLd";
+import { seenAttrs, trackAttrs } from "@/lib/analytics";
 import { artistJsonLd } from "@/lib/seo";
 import type { AppPage } from "../_app";
 
@@ -49,6 +50,7 @@ function JumpBar() {
           <li key={s.id} className="shrink-0">
             <a
               href={`#${s.id}`}
+              {...trackAttrs(`Artist menu: ${s.short}`)}
               className="block rounded-full px-3.5 py-1.5 text-sm font-semibold text-[var(--s-muted)] transition-colors hover:bg-white/5 hover:text-[var(--s-ink)]"
             >
               {s.short}
@@ -108,7 +110,7 @@ const ArtistPage: AppPage = () => {
           {ARTIST.sections.map((section, i) => renderSection(section, i + 1, setPlaying))}
         </main>
 
-        <footer className="border-t border-[var(--s-line)]">
+        <footer className="border-t border-[var(--s-line)]" {...seenAttrs("Artist: Reached the end")}>
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-2 px-5 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
             <p className="poster text-3xl">
               Laugh with <span className="text-[var(--s-orange)]">Sanket</span>

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { trackAttrs } from "@/lib/analytics";
 import ThemeToggle from "@/components/ui/Business/ThemeToggle";
 
 export const SideControls = () => {
@@ -15,6 +16,7 @@ export const SideControls = () => {
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
         href="/artist"
+        {...trackAttrs("Tech: Artist side link", { place: "header" })}
         className="hidden items-center gap-2 font-medium text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
       >
         <span className="size-1.5 rounded-full bg-brand" aria-hidden />

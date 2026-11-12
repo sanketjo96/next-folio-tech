@@ -4,11 +4,13 @@ import { useTranslation } from "next-i18next";
 import { ArrowUpRight, Mic } from "lucide-react";
 import { BEYOND_PHOTO } from "@/lib/data/profile";
 import { ARTIST } from "@/lib/data/artist";
+import { trackAttrs } from "@/lib/analytics";
+import { seenAttrs } from "@/lib/analytics";
 
 export default function Beyond() {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-32 max-w-6xl">
+    <section className="container mt-32 max-w-6xl" {...seenAttrs("Home: Beyond the keyboard")}>
       <div className="grid items-center gap-10 border-t pt-16 md:grid-cols-[1.1fr_1fr] md:gap-16">
         <div className="relative aspect-[4/3] overflow-hidden rounded-md border">
           <Image
@@ -37,7 +39,7 @@ export default function Beyond() {
           </p>
           {/* Full page load: the artist page renders without the tech-site layout. */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/artist" className="link-mono mt-8">
+          <a href="/artist" className="link-mono mt-8" {...trackAttrs("Tech: Artist side link", { place: "home" })}>
             {t("beyondCta")} <ArrowUpRight className="size-3.5" />
           </a>
         </div>

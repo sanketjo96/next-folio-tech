@@ -4,11 +4,12 @@ import { useTranslation } from "next-i18next";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import MarkdownList, { MarkdownMetaData } from "../Markdown/MarkDownList";
 import { SectionHeading } from "./SectionHeading";
+import { seenAttrs } from "@/lib/analytics";
 
 export default function FieldNotes({ posts }: { posts: MarkdownMetaData[] }) {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-32 max-w-6xl">
+    <section className="container mt-32 max-w-6xl" {...seenAttrs("Home: Writing")}>
       <SectionHeading
         index="03"
         label={t("notesEyebrow")}

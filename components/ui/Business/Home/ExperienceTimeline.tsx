@@ -3,13 +3,14 @@ import { useTranslation } from "next-i18next";
 import { ArrowUpRight } from "lucide-react";
 import { CERTIFICATIONS, EDUCATION, EXPERIENCE } from "@/lib/data/experience";
 import { SectionHeading, style } from "./SectionHeading";
+import { seenAttrs } from "@/lib/analytics";
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/sanket-joshi-7baa23185";
 
 export default function ExperienceTimeline() {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-32 max-w-6xl" id="experience">
+    <section className="container mt-32 max-w-6xl" id="experience" {...seenAttrs("Home: Experience")}>
       <SectionHeading
         index="02"
         label={t("experienceEyebrow")}

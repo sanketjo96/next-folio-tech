@@ -2,15 +2,17 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import { ArrowDownToLine } from "lucide-react";
 import { RESUME_FILE_NAME, RESUME_PUBLIC_PATH } from "@/lib/constants/resume";
+import { trackAttrs } from "@/lib/analytics";
 import { SHORT_VERSION, TOOLKIT } from "@/lib/data/profile";
 import { STATS } from "@/lib/data/experience";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./SectionHeading";
+import { seenAttrs } from "@/lib/analytics";
 
 export default function Approach() {
   const { t } = useTranslation("home");
   return (
-    <section className="container mt-32 max-w-6xl">
+    <section className="container mt-32 max-w-6xl" {...seenAttrs("Home: Approach")}>
       <SectionHeading index="01" label={t("approachEyebrow")} />
 
       <div className="grid gap-10 pt-12 md:grid-cols-2 md:gap-16">
@@ -29,6 +31,7 @@ export default function Approach() {
           <a
             href={RESUME_PUBLIC_PATH}
             download={RESUME_FILE_NAME}
+            {...trackAttrs("Tech: Download resume")}
             className="link-mono"
             data-tour="home-resume"
           >

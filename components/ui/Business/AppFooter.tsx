@@ -2,6 +2,7 @@ import React from "react";
 import socialMediaLinks from "./SocialIcons";
 import { useTranslation } from "next-i18next";
 import { ArrowUp } from "lucide-react";
+import { trackAttrs } from "@/lib/analytics";
 
 function AppFooter() {
   const { t } = useTranslation("common");
@@ -20,6 +21,7 @@ function AppFooter() {
               key={link.id}
               role="link"
               href={link.url}
+              {...trackAttrs(`Social: ${link.name}`, { page: "tech", place: "footer" })}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={link.name}

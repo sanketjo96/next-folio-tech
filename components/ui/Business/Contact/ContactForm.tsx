@@ -2,6 +2,8 @@ import { ContactFormSchema } from "@/lib/schema/schemas";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { track } from "@/lib/analytics";
+import { useRef } from "react";
 import { z } from "zod";
 import { Input } from "../../input";
 import { Textarea } from "../../textarea";
@@ -29,21 +31,25 @@ function ContactForm() {
     },
   });
 
+  const started = useRef(false);
+
   const onSubmitHandler: SubmitHandler<EmailInputs> = async (data) => {
     try {
-      await fetch("/api/contact", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         body: JSON.stringify({ message: data }),
         headers: {
           "Content-type": "application/json",
         },
       });
+      if (!response.ok) throw new Error(`Contact API responded ${response.status}`);
+      track("Tech: Contact form sent");
       toast({ title: "Thanks for reaching out!! We will revert soon" });
+      reset();
     } catch (e) {
+      track("Tech: Contact form failed");
       toast({ title: "Something went wrong, will comeback soon" });
       console.log("Error", e);
-    } finally {
-      reset();
     }
   };
 
@@ -51,6 +57,11 @@ function ContactForm() {
     <section className="relative isolate" data-tour="contact-form">
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
+        onFocusCapture={() => {
+          if (started.current) return;
+          started.current = true;
+          track("Tech: Contact form started");
+        }}
         noValidate
         className="lg:flex-auto"
       >

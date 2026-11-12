@@ -15,6 +15,7 @@ import {
 import { User } from "@/components/context/UserContext";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { useTranslation } from "next-i18next";
+import { trackAttrs } from "@/lib/analytics";
 
 export type MainBrandProps = {
   user: User | null;
@@ -57,7 +58,7 @@ export const MainBrand = ({ user }: MainBrandProps) => {
             <li>
               {/* Full page load: the artist page renders without the tech-site layout. */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a href="/artist" className={navItemClass(false)}>
+              <a href="/artist" className={navItemClass(false)} {...trackAttrs("Tech: Artist side link", { place: "menu" })}>
                 ✦ Artist side
               </a>
             </li>

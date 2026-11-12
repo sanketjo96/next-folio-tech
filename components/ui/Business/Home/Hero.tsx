@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import socialMediaLinks from "../SocialIcons";
 import { HERO_PORTRAIT, CURRENTLY_INTO } from "@/lib/data/profile";
 import { style } from "./SectionHeading";
+import { trackAttrs } from "@/lib/analytics";
 
 export default function Hero() {
   const { t } = useTranslation("home");
@@ -48,12 +49,14 @@ export default function Hero() {
             <div className="reveal mt-8 flex flex-wrap gap-3" style={style(3)}>
               <Link
                 href="/projects"
+                {...trackAttrs("Tech: Explore my work button")}
                 className="inline-flex h-12 items-center gap-3 rounded-md bg-brand px-5 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"
               >
                 {t("ctaWork")} <ArrowUpRight className="size-4" />
               </Link>
               <Link
                 href="/posts"
+                {...trackAttrs("Tech: Read the writing button")}
                 className="inline-flex h-12 items-center gap-3 rounded-md border border-foreground/25 px-5 text-sm font-medium transition-colors hover:border-foreground/60"
               >
                 {t("ctaWriting")} <ArrowUpRight className="size-4" />
@@ -87,7 +90,7 @@ export default function Hero() {
             <ul className="space-y-1.5">
               {connect.map((l) => (
                 <li key={l.id}>
-                  <a href={l.url} target="_blank" rel="noopener noreferrer" className="link-mono">
+                  <a href={l.url} target="_blank" rel="noopener noreferrer" className="link-mono" {...trackAttrs(`Social: ${l.name}`, { page: "tech", place: "hero" })}>
                     {l.name} <ArrowUpRight className="size-3" />
                   </a>
                 </li>

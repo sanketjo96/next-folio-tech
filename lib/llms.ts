@@ -28,6 +28,7 @@ export async function buildLlmsTxt(): Promise<string> {
   out.push(`- [LinkedIn](${PROFILE_LINKS.linkedin}): full work history`);
   out.push(`- [GitHub](${PROFILE_LINKS.github})`);
   out.push(`- [Instagram ${ARTIST.handle}](${PROFILE_LINKS.instagram}): comedy`);
+  out.push(`- [BookMyShow](${PROFILE_LINKS.bookmyshow}): registered artist profile`);
   out.push(`- [Contact form](${absoluteUrl("/contacts")}): roles, consulting, collaborations, bookings`, "");
 
   out.push("## Experience", "");
