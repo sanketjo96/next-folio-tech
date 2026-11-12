@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import { useGetAPI } from "@/hooks/use-get-api";
+import { NextSeo } from "next-seo";
 
 export default function Page() {
   const { t } = useTranslation("common");
@@ -23,6 +24,7 @@ export default function Page() {
 
   return (
     <div className="container max-w-3xl">
+      <NextSeo title="Dashboard · Sanket Joshi" noindex nofollow />
       <h1>
         {t("hello")} <span className="font-bold">{user?.email}</span>
       </h1>

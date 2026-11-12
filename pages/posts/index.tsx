@@ -17,8 +17,10 @@ function Posts({ metaList }: PostsPageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
+        title="Field notes · Sanket Joshi"
+        description="Writing by Sanket Joshi on frontend architecture, React, JavaScript and leading engineering teams."
         canonical="https://www.techsanket.in/posts"
+        openGraph={{ url: "https://www.techsanket.in/posts" }}
       />
       <div className="container max-w-6xl">
         <PageHeader eyebrow="03 / Field notes" title={t("post")} />

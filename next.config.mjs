@@ -14,6 +14,10 @@ const nextConfig = {
     ],
   },
   poweredByHeader: false,
+  // /api/llms reads the markdown in content/ at request time.
+  outputFileTracingIncludes: {
+    '/api/llms': ['./content/**/*'],
+  },
   async headers() {
     return [
       {

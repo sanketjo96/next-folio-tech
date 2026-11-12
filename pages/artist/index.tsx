@@ -11,10 +11,12 @@ import {
   LinksSection,
   VideoSection,
 } from "@/components/artist/Sections";
+import JsonLd from "@/components/JsonLd";
+import { artistJsonLd } from "@/lib/seo";
 import type { AppPage } from "../_app";
 
 const SITE_URL = "https://www.techsanket.in";
-const PAGE_URL = `${SITE_URL}/?artist`;
+const PAGE_URL = `${SITE_URL}/artist`;
 const TITLE = `${ARTIST.name} · ${ARTIST.handle}`;
 const DESCRIPTION = `${ARTIST.roles.join(" · ")}. Marathi stand-up, TV, short films, podcasts and more.`;
 
@@ -95,6 +97,7 @@ const ArtistPage: AppPage = () => {
         }}
         twitter={{ cardType: "summary_large_image" }}
       />
+      <JsonLd id="artist" data={artistJsonLd} />
 
       <div className="artist min-h-[100svh]">
         <StageHero shareUrl={PAGE_URL} shareTitle={TITLE} />
