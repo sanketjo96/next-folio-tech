@@ -1,13 +1,13 @@
 ---
 title: "Staff Augmentation and Digital Transformation"
-summary: "Led a project aimed at digitizing paper forms using legacy systems, managing a team of developers and QA, and optimizing performance with modern technologies."
+summary: "Led a team moving paper forms built on legacy systems to digital forms, owning the solution architecture and improving performance."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---
 
 ## Summary
-Led a staff augmentation project aimed at digitalizing paper forms using legacy systems. Managed a team of 3 developers and 1 QA. Played a key role in gathering requirements, solution design, sprint planning, and implementation. Improved product performance and introduced optimizations, state management, and automated E2E testing.
+A client relied on paper forms backed by legacy systems. On this staff augmentation project, I led a team of 3 developers and 1 QA to digitize them, owning requirements gathering, solution design, sprint planning and implementation. Along the way, I improved product performance, introduced state management and optimizations, and added automated Cypress E2E tests to cut down manual QA.
 
 ## Technology
 - ESLint
@@ -23,11 +23,11 @@ Led a staff augmentation project aimed at digitalizing paper forms using legacy 
 - Vercel
 
 ## Roles and Responsibility
-- Led the development team and was responsible for solution architecture.
-- Suggested and implemented performance optimizations.
-- Introduced Cypress E2E tests to streamline manual QA efforts.
-- Assisted team members in writing clean and maintainable code.
-- Collaborated with BAs to improve story structures.
+- Led the development team and owned the solution architecture.
+- Proposed and implemented performance optimizations.
+- Introduced Cypress E2E tests to reduce manual QA effort.
+- Helped team members write clean, maintainable code.
+- Worked with BAs to improve how stories were structured.
 
 ## Client Domain
 Digital Transformation (Paper to Digital Forms)

@@ -2,11 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useTranslation } from "next-i18next";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDownToLine, ArrowUpRight } from "lucide-react";
 import socialMediaLinks from "../SocialIcons";
 import { HERO_PORTRAIT, CURRENTLY_INTO } from "@/lib/data/profile";
 import { style } from "./SectionHeading";
 import { trackAttrs } from "@/lib/analytics";
+import { RESUME_FILE_NAME, RESUME_PUBLIC_PATH } from "@/lib/constants/resume";
+import { PROFILE_LINKS } from "@/lib/seo";
+import { Paragraphs } from "./Paragraphs";
 
 export default function Hero() {
   const { t } = useTranslation("home");
@@ -28,7 +31,7 @@ export default function Hero() {
         </div>
 
         {/* Name + portrait, side by side */}
-        <div className="grid flex-1 items-center gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.25fr_1fr] md:gap-12 md:px-10 lg:px-14">
+        <div className="grid flex-1 items-center gap-10 px-5 py-8 sm:px-8 md:grid-cols-[1.6fr_1fr] md:gap-12 md:px-10 lg:px-14">
           <div>
             <p className="eyebrow reveal">{t("heroEyebrow")}</p>
             <h1
@@ -41,26 +44,43 @@ export default function Hero() {
               <span className="text-brand">.</span>
             </h1>
             <p
-              className="reveal mt-7 max-w-md text-base leading-relaxed text-foreground/80"
+              className="reveal mt-6 max-w-lg font-display text-2xl font-semibold leading-tight sm:text-3xl"
               style={style(2)}
             >
-              {t("heroLine")}
+              {t("heroHeadline")}
             </p>
-            <div className="reveal mt-8 flex flex-wrap gap-3" style={style(3)}>
+            <div
+              className="reveal mt-5 max-w-lg space-y-4 text-base leading-relaxed text-foreground/80"
+              style={style(2)}
+            >
+              <Paragraphs text={t("heroLine")} />
+            </div>
+            <div className="reveal mt-8 flex flex-wrap gap-2.5" style={style(3)}>
               <Link
                 href="/projects"
                 {...trackAttrs("Tech: Explore my work button")}
-                className="inline-flex h-12 items-center gap-3 rounded-md bg-brand px-5 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"
+                className="inline-flex h-12 items-center gap-2.5 rounded-md bg-brand px-4 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"
               >
                 {t("ctaWork")} <ArrowUpRight className="size-4" />
               </Link>
-              <Link
-                href="/posts"
-                {...trackAttrs("Tech: Read the writing button")}
-                className="inline-flex h-12 items-center gap-3 rounded-md border border-foreground/25 px-5 text-sm font-medium transition-colors hover:border-foreground/60"
+              <a
+                href={RESUME_PUBLIC_PATH}
+                download={RESUME_FILE_NAME}
+                {...trackAttrs("Tech: Download resume")}
+                data-tour="home-resume"
+                className="inline-flex h-12 items-center gap-2.5 rounded-md border border-foreground/25 px-4 text-sm font-medium transition-colors hover:border-foreground/60"
               >
-                {t("ctaWriting")} <ArrowUpRight className="size-4" />
-              </Link>
+                {t("ctaResume")} <ArrowDownToLine className="size-4" />
+              </a>
+              <a
+                href={PROFILE_LINKS.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...trackAttrs("Social: LinkedIn", { page: "tech", place: "hero-cta" })}
+                className="inline-flex h-12 items-center gap-2.5 rounded-md border border-foreground/25 px-4 text-sm font-medium transition-colors hover:border-foreground/60"
+              >
+                {t("ctaLinkedIn")} <ArrowUpRight className="size-4" />
+              </a>
             </div>
           </div>
 
@@ -69,7 +89,7 @@ export default function Hero() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-md border bg-card">
               <Image
                 src={HERO_PORTRAIT}
-                alt="Sanket Joshi"
+                alt="Portrait of Sanket Joshi, software engineer"
                 priority
                 fill
                 sizes="(min-width: 768px) 352px, 90vw"

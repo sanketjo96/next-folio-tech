@@ -1,13 +1,13 @@
 ---
 title: "Retail and Wholesale Product Lifecycle Management"
-summary: "Developed and led UI and full-stack efforts for product lifecycle management solutions in retail and wholesale, focusing on improving user experience and system security."
+summary: "Led UI and full-stack work on product lifecycle management for retail and wholesale, improving user experience and resolving security concerns."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---
 
 ## Summary
-Developed and led UI and full-stack efforts for product lifecycle management solutions in retail and wholesale, focusing on improving user experience and system security.
+A product lifecycle management platform for retail and wholesale needed a better user experience and fixes for security concerns. I led UI and full-stack work on it: aligning stakeholders in UX discussions, introducing façade microservices to address the security fixes, and building backend APIs for PDF export and Excel import with React, GraphQL and Node.js.
 
 ## Technology
 - Code Quality Tools
@@ -22,10 +22,10 @@ Developed and led UI and full-stack efforts for product lifecycle management sol
 - mobx
 
 ## Roles and Responsibility
-- Contributed to UX/UI discussions for stakeholder alignment.
-- Led the development of facade microservices for security fixes.
-- Developed backend APIs, PDF exports, and Excel imports.
-- Took on agile management responsibilities.
+- Contributed to UX and UI discussions to align stakeholders.
+- Led the development of façade microservices to address security fixes.
+- Built backend APIs for PDF export and Excel import.
+- Took on agile management responsibilities for the team.
 
 ## Client Domain
 Product Lifecycle Management (Retail and Wholesale)

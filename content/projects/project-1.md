@@ -1,13 +1,13 @@
 ---
 title: "Healthcare Solutions Porting"
-summary: "Part of a team that modernized a legacy healthcare application, porting it to a new look and feel while mentoring team members on advanced JavaScript."
+summary: "Modernized a legacy healthcare application with a new look and feel, while mentoring the team on advanced JavaScript."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---
 
 ## Summary
-Part of a team that modernized a legacy healthcare application, porting it to a new look and feel while mentoring team members on advanced JavaScript.
+A legacy healthcare application needed porting to a modern look and feel. As part of the team doing it, I built advanced JavaScript features on the existing Perl and Oracle stack, worked on monitoring tools with Kibana and Grafana, and mentored teammates in JavaScript and Perl.
 
 ## Technology
 - GoJS
@@ -19,9 +19,9 @@ Part of a team that modernized a legacy healthcare application, porting it to a 
 - TypeScript
 
 ## Roles and Responsibility
-- Developed advanced JavaScript features using OOJS, HTML5, CSS, LESS.
-- Worked on monitoring tools using Kibana and Grafana.
-- Mentored team members in JS and Perl development.
+- Built advanced JavaScript features with OOJS, HTML5, CSS and LESS for the ported interface.
+- Worked on monitoring with Kibana and Grafana to keep the application observable.
+- Mentored team members in JavaScript and Perl development.
 
 ## Client Domain
 Healthcare Solutions

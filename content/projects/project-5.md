@@ -1,13 +1,13 @@
 ---
 title: "Cloud-Based Remote Modem Management"
-summary: "Led the front-end development of a cloud-based remote modem management web application, transforming requirements into maintainable code and introducing technical improvements."
+summary: "Key front-end developer on a cloud-based web application for managing modems remotely, turning requirements into maintainable React code."
 image: "https://fakeimg.pl/400x200/"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---
 
 ## Summary
-Led the front-end development of a cloud-based remote modem management web application, transforming requirements into maintainable code and introducing technical improvements.
+The product was a cloud-based web application for managing modems remotely. As a key front-end developer, I turned requirements into maintainable React and TypeScript code, introduced improvements to the existing codebase, and helped shape the feature set in brainstorming sessions.
 
 ## Technology
 - CSS
@@ -31,10 +31,10 @@ Led the front-end development of a cloud-based remote modem management web appli
 - styled components
 
 ## Roles and Responsibility
-- Contributed as a Key Front-end Developer.
-- Transformed requirements into maintainable code.
-- Introduced new ideas and improvements to existing code.
-- Collaborated in brainstorming sessions for feature set development.
+- Contributed as a key front-end developer.
+- Turned requirements into maintainable code.
+- Introduced new ideas and improvements to the existing code.
+- Helped shape the feature set in brainstorming sessions.
 
 ## Client Domain
 Cloud-Based Remote Management

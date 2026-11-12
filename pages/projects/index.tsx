@@ -17,7 +17,7 @@ function Projects({ metaList }: ProjectsPageProps) {
     <>
       <NextSeo
         title="Selected work · Sanket Joshi"
-        description="Projects Sanket Joshi has led or built: React and Angular platforms, healthcare, retail, travel and cloud device management."
+        description="Projects Sanket Joshi has led or built: modernizing legacy frontends and delivering React, Next.js and Angular platforms across healthcare, retail, travel and cloud device management."
         canonical="https://www.techsanket.in/projects"
         openGraph={{ url: "https://www.techsanket.in/projects" }}
       />

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { ArrowUpRight, SquareTerminal } from "lucide-react";
 import { seenAttrs } from "@/lib/analytics";
+import { Paragraphs } from "./Paragraphs";
 
 export default function ContactCta() {
   const { t } = useTranslation("home");
@@ -17,9 +18,9 @@ export default function ContactCta() {
         <br />
         <span className="text-muted-foreground">{t("contactTitle2")}</span>
       </h2>
-      <p className="mx-auto mt-6 max-w-md leading-relaxed text-foreground/75">
-        {t("contactBody")}
-      </p>
+      <div className="mx-auto mt-6 max-w-md space-y-4 leading-relaxed text-foreground/75">
+        <Paragraphs text={t("contactBody")} />
+      </div>
       <Link
         href="/contacts"
         className="mt-9 inline-flex h-12 items-center gap-3 rounded-md bg-brand px-6 text-sm font-medium text-brand-foreground transition-transform hover:-translate-y-0.5"

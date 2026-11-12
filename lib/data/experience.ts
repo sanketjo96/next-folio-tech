@@ -29,9 +29,9 @@ export const EXPERIENCE: Experience[] = [
     current: true,
     roles: [{ title: "Founding Technical Lead", period: "Jul 2026 – Present" }],
     highlights: [
-      "Own technical architecture, product development and release management end to end.",
-      "Drive cloud, security and scalability strategy; lead technical discovery and solution design for customers.",
-      "Set engineering standards and mentor the team as it scales toward a larger leadership structure.",
+      "Own the technical architecture, product development and release management of UtilConnect end to end.",
+      "Shape cloud, security and scalability decisions, and lead technical discovery and solution design with customers.",
+      "Set engineering standards and mentor the team as it grows toward a larger leadership structure.",
     ],
     tags: ["Architecture", "Cloud", "Leadership"],
   },
@@ -40,9 +40,9 @@ export const EXPERIENCE: Experience[] = [
     location: "Pune",
     roles: [{ title: "Software Engineering Consultant", period: "Jan 2026 – Jul 2026" }],
     highlights: [
-      "Structured front-end applications in React and Angular and set up CI/CD.",
-      "Handled deployments, monitoring and telemetry, and guided teams to maintain them.",
-      "Pre-sales: estimated project flows and managed engineering artifacts.",
+      "Gave React and Angular front ends a maintainable structure and set up CI/CD pipelines to ship them.",
+      "Set up deployments, monitoring and telemetry, then guided client teams to run them independently.",
+      "Supported pre-sales with project estimates, delivery flows and engineering artifacts.",
     ],
     tags: ["React", "Angular", "CI/CD"],
   },
@@ -52,9 +52,9 @@ export const EXPERIENCE: Experience[] = [
     location: "Pune",
     roles: [{ title: "Senior Software Engineer III", period: "Jun 2022 – Aug 2025" }],
     highlights: [
-      "Independently led an engineering pod: sprint planning, stakeholder handoffs, 1:1s and coaching.",
-      "Introduced 20+ tech-debt initiatives across performance, security and accessibility.",
-      "Delivered a digital forms transformation, Cypress E2E testing and performance optimisations.",
+      "Led an engineering pod independently, owning sprint planning, stakeholder handoffs, 1:1s and coaching.",
+      "Drove 20+ tech-debt initiatives to make an existing codebase faster, more secure and more accessible.",
+      "Moved paper forms to a digital workflow, adding Cypress E2E tests and performance optimisations along the way.",
     ],
     tags: ["React", "TypeScript", "Cypress"],
   },
@@ -66,9 +66,9 @@ export const EXPERIENCE: Experience[] = [
       { title: "Senior Software Engineer", period: "May 2019 – Jan 2022" },
     ],
     highlights: [
-      "Led a team of 5 full-stack developers through a resource crunch, acting as Scrum Master.",
-      "Shipped a façade microservice to address security concerns; built APIs for PDF export and Excel import; managed AWS environments.",
-      "Built React features with MobX and GraphQL, a Node.js PDF microservice, and an Angular real-time dashboard with Socket.IO.",
+      "Led a team of 5 full-stack developers through a resource crunch, also acting as Scrum Master.",
+      "Resolved security concerns with a façade microservice, built APIs for PDF export and Excel import, and managed AWS environments.",
+      "Built React features with MobX and GraphQL, a Node.js PDF microservice, and a real-time Angular dashboard with Socket.IO.",
     ],
     tags: ["React", "Node.js", "AWS"],
   },
@@ -97,7 +97,7 @@ export const EXPERIENCE: Experience[] = [
     ],
     highlights: [
       "Led a team of 4 developers delivering complex UI modules in Angular 5.",
-      "Built reusable JavaScript libraries and advanced UI with Canvas, SVG, D3.js and Chart.js.",
+      "Built reusable JavaScript libraries and data-heavy UI with Canvas, SVG, D3.js and Chart.js.",
       "Started as a Perl developer on web applications for athenahealth.",
     ],
     tags: ["Angular", "JavaScript", "D3.js"],
@@ -118,7 +118,7 @@ export const CERTIFICATIONS = [
 
 /** Numbers shown in the stats strip. Every figure comes from the LinkedIn profile. */
 export const STATS = [
-  { value: "10+", label: "years building for the web" },
+  { value: "12+", label: "years building for the web" },
   { value: "20+", label: "tech-debt initiatives led at EPAM" },
   { value: "5", label: "engineers led as team lead" },
   { value: "3", label: "training programs delivered" },

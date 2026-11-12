@@ -27,7 +27,7 @@ export default function Beyond() {
         </div>
 
         <div>
-          <p className="eyebrow">05 / {t("beyondEyebrow")}</p>
+          <p className="eyebrow">07 / {t("beyondEyebrow")}</p>
           <h2 className="mt-5 text-5xl leading-[0.95] sm:text-6xl">
             {t("beyondTitle1")}
             <br />

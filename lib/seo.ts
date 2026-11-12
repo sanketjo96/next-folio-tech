@@ -8,8 +8,9 @@ import { TOOLKIT } from "@/lib/data/profile";
 
 export const SITE_URL = "https://www.techsanket.in";
 export const SITE_NAME = "Sanket Joshi";
+export const DEFAULT_TITLE = "Sanket Joshi | Senior Software Engineer | React, Node.js & AI";
 export const DEFAULT_DESCRIPTION =
-  "Sanket Joshi is a founding technical lead and frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products. Also a Marathi stand-up comedian (@laugh_with_sanket).";
+  "Sanket Joshi is a software engineer with 12+ years building modern web applications with React, TypeScript, Next.js and Node.js, and exploring Generative AI.";
 
 /** Absolute URL for a site path, always on the English (default) locale. */
 export const absoluteUrl = (path = "/") => `${SITE_URL}${path === "/" ? "/" : path}`;
@@ -39,7 +40,14 @@ export const personJsonLd = {
   description: DEFAULT_DESCRIPTION,
   address: { "@type": "PostalAddress", addressLocality: "Pune", addressCountry: "IN" },
   alumniOf: EDUCATION.map((e) => ({ "@type": "EducationalOrganization", name: e.name })),
-  knowsAbout: [...TOOLKIT, "Frontend architecture", "Engineering leadership", "Mentoring", "Stand-up comedy"],
+  knowsAbout: [
+    ...TOOLKIT,
+    "Frontend architecture",
+    "Generative AI",
+    "Engineering leadership",
+    "Mentoring",
+    "Stand-up comedy",
+  ],
   sameAs: Object.values(PROFILE_LINKS),
 };
 

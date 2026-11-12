@@ -4,19 +4,19 @@ import { ArrowUpRight } from "lucide-react";
 import { CERTIFICATIONS, EDUCATION, EXPERIENCE } from "@/lib/data/experience";
 import { SectionHeading, style } from "./SectionHeading";
 import { seenAttrs } from "@/lib/analytics";
+import { PROFILE_LINKS } from "@/lib/seo";
 
-const LINKEDIN_URL = "https://www.linkedin.com/in/sanket-joshi-7baa23185";
 
 export default function ExperienceTimeline() {
   const { t } = useTranslation("home");
   return (
     <section className="container mt-32 max-w-6xl" id="experience" {...seenAttrs("Home: Experience")}>
       <SectionHeading
-        index="02"
+        index="03"
         label={t("experienceEyebrow")}
         title={t("experienceTitle")}
         action={
-          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="link-mono">
+          <a href={PROFILE_LINKS.linkedin} target="_blank" rel="noopener noreferrer" className="link-mono">
             {t("fullProfile")} <ArrowUpRight className="size-3.5" />
           </a>
         }
