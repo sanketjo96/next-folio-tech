@@ -19,6 +19,7 @@ export const PROFILE_LINKS = {
   github: "https://github.com/sanketjo96",
   instagram: "https://www.instagram.com/laugh_with_sanket",
   facebook: "https://www.facebook.com/sanket.joshi.121",
+  bookmyshow: "https://in.bookmyshow.com/person/sanket-joshi/2045344",
 };
 
 const current = EXPERIENCE.find((e) => e.current);
@@ -56,7 +57,7 @@ export const artistJsonLd = {
     jobTitle: "Stand-up comedian",
     description: `${ARTIST.roles.join(", ")}. Marathi stand-up on ZEE5, appearances on Zee Marathi's Chala Hawa Yeu Dya, short films, podcasts and an audiobook.`,
     image: `${SITE_URL}${ARTIST.shareImage.src}`,
-    sameAs: ARTIST.socials.map((s) => s.url),
+    sameAs: [...ARTIST.socials.map((s) => s.url), ...ARTIST.profiles],
   },
 };
 

@@ -2,6 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowUpRight, X } from "lucide-react";
 import type { ArtistItem } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
+import { trackAttrs } from "@/lib/analytics";
 
 type Props = {
   item: ArtistItem | null;
@@ -47,6 +48,7 @@ export default function VideoPlayer({ item, onClose }: Props) {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              {...trackAttrs(`Open on YouTube: ${item.title}`)}
               className="mt-3 inline-flex items-center gap-1.5 text-sm text-[var(--s-muted)] transition-colors hover:text-[var(--s-ink)]"
             >
               Open on YouTube <ArrowUpRight className="size-4" />

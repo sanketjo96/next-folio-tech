@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import { ArrowDownToLine } from "lucide-react";
 import { RESUME_FILE_NAME, RESUME_PUBLIC_PATH } from "@/lib/constants/resume";
+import { trackAttrs } from "@/lib/analytics";
 import { SHORT_VERSION, TOOLKIT } from "@/lib/data/profile";
 import { STATS } from "@/lib/data/experience";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,7 @@ export default function Approach() {
           <a
             href={RESUME_PUBLIC_PATH}
             download={RESUME_FILE_NAME}
+            {...trackAttrs("Tech: Download resume")}
             className="link-mono"
             data-tour="home-resume"
           >

@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import { ArrowUpRight, Mic } from "lucide-react";
 import { BEYOND_PHOTO } from "@/lib/data/profile";
 import { ARTIST } from "@/lib/data/artist";
+import { trackAttrs } from "@/lib/analytics";
 
 export default function Beyond() {
   const { t } = useTranslation("home");
@@ -37,7 +38,7 @@ export default function Beyond() {
           </p>
           {/* Full page load: the artist page renders without the tech-site layout. */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/artist" className="link-mono mt-8">
+          <a href="/artist" className="link-mono mt-8" {...trackAttrs("Tech: Artist side link", { place: "home" })}>
             {t("beyondCta")} <ArrowUpRight className="size-3.5" />
           </a>
         </div>

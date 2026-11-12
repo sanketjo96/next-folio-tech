@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Check, Facebook, Instagram, Play, Share2, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { ARTIST, type ArtistIcon } from "@/lib/data/artist";
+import { track, trackAttrs } from "@/lib/analytics";
 
 const SOCIAL_ICONS: Partial<Record<ArtistIcon, LucideIcon>> = {
   instagram: Instagram,
@@ -17,10 +18,12 @@ function ShareButton({ url, title }: { url: string; title: string }) {
     try {
       if (navigator.share) {
         await navigator.share({ title, url });
+        track("Artist: Share page", { method: "share sheet" });
         return;
       }
       await navigator.clipboard.writeText(url);
       setCopied(true);
+      track("Artist: Share page", { method: "copy link" });
       setTimeout(() => setCopied(false), 1800);
     } catch {
       // Share sheet dismissed or clipboard blocked: nothing to do.
@@ -111,6 +114,7 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
             <div className="artist-rise mt-5 flex items-center justify-center gap-3 sm:mt-8 lg:justify-start" style={rise(4)}>
               <a
                 href="#standup"
+                {...trackAttrs("Artist: Watch the set button")}
                 className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[var(--s-orange)] pl-2 pr-5 font-bold text-[var(--s-bg)] transition-transform hover:-translate-y-0.5"
               >
                 <span className="grid size-8 place-items-center rounded-full bg-[var(--s-bg)] text-[var(--s-orange)]">
@@ -127,6 +131,7 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
+                    {...trackAttrs(`Social: ${s.name}`, { page: "artist" })}
                     className="grid size-12 place-items-center rounded-full border border-[var(--s-line)] transition-colors hover:border-[var(--s-amber)] hover:text-[var(--s-amber)]"
                   >
                     <Icon className="size-5" />

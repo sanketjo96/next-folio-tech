@@ -12,6 +12,7 @@ import {
   VideoSection,
 } from "@/components/artist/Sections";
 import JsonLd from "@/components/JsonLd";
+import { trackAttrs } from "@/lib/analytics";
 import { artistJsonLd } from "@/lib/seo";
 import type { AppPage } from "../_app";
 
@@ -49,6 +50,7 @@ function JumpBar() {
           <li key={s.id} className="shrink-0">
             <a
               href={`#${s.id}`}
+              {...trackAttrs(`Artist menu: ${s.short}`)}
               className="block rounded-full px-3.5 py-1.5 text-sm font-semibold text-[var(--s-muted)] transition-colors hover:bg-white/5 hover:text-[var(--s-ink)]"
             >
               {s.short}

@@ -12,6 +12,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { appWithTranslation } from "next-i18next";
 import { useSiteTour } from "@/lib/tour/siteTour";
 import { fontRootCss } from "@/lib/fonts";
+import Analytics from "@/components/Analytics";
 
 import nextI18NextConfig from "../next-i18next.config";
 import nextSeoConfig from "../next-seo.config";
@@ -35,6 +36,7 @@ const App = ({ Component, pageProps }: Props) => {
         {fonts}
         <Component {...pageProps} />
         <SpeedInsights />
+        <Analytics />
       </div>
     );
   }
@@ -51,6 +53,7 @@ const App = ({ Component, pageProps }: Props) => {
           </main>
           <Toaster />
           <SpeedInsights />
+          <Analytics />
           <AppFooter />
         </UserProvider>
       </AppThemeProvider>
