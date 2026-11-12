@@ -20,7 +20,7 @@ const socialMediaLinks: SocialMediaLink[] = [
     name: "Instagram",
     url: "https://www.instagram.com/laugh_with_sanket?igsh=MTd5OTFtajYzY21ndw==",
     icon: () => (
-      <InstagramLogoIcon className="font-bold text-md w-[20px] h-[20px]" />
+      <InstagramLogoIcon className="size-4" />
     ),
   },
   {
@@ -28,7 +28,7 @@ const socialMediaLinks: SocialMediaLink[] = [
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/sanket-joshi-7baa23185",
     icon: () => (
-      <LinkedInLogoIcon className="font-bold text-md w-[20px] h-[20px]" />
+      <LinkedInLogoIcon className="size-4" />
     ),
   },
   {
@@ -36,7 +36,7 @@ const socialMediaLinks: SocialMediaLink[] = [
     name: "GitHub",
     url: "https://github.com/sanketjo96",
     icon: () => (
-      <GitHubLogoIcon className="font-bold text-md w-[20px] h-[20px]" />
+      <GitHubLogoIcon className="size-4" />
     ),
   },
 ];

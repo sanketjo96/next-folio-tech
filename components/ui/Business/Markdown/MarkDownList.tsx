@@ -1,6 +1,7 @@
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
+import { ArrowTopRightIcon } from "@radix-ui/react-icons";
 
 export type MarkdownMetaData = {
   id: string;
@@ -19,22 +20,31 @@ export type MarkdownListProps = {
 const MarkdownList = (props: MarkdownListProps) => {
   const { metaList, redirectBase } = props;
   return (
-    <ul>
-      {metaList.map((item) => (
-        <li key={item.id}>
+    <ul className="grid gap-3">
+      {metaList.map((item, i) => (
+        <li
+          key={item.id}
+          className="reveal"
+          style={{ "--i": i } as React.CSSProperties}
+        >
           <Link
-            href={`${redirectBase}/${item.id}`}
-            className="flex items-center justify-between gap-2 mt-2 mb-4"
+            href={`/${redirectBase}/${item.id}`}
+            className="surface surface-hover group flex items-start justify-between gap-6 p-5 sm:p-6"
           >
-            <div className="max-w-lg">
-              <p className="text-lg font-semibold">{item.title}</p>
-              <p className="text-sm font-light">{item.summary}</p>
-            </div>
-            {item.publishDate && (
-              <p className="mt-1 text-sm font-light">
-                {formatDate(item.publishDate)}
+            <div className="min-w-0">
+              {item.publishDate && (
+                <p className="eyebrow mb-2">{formatDate(item.publishDate)}</p>
+              )}
+              <p className="font-display text-lg font-semibold leading-snug transition-colors group-hover:text-brand">
+                {item.title}
               </p>
-            )}
+              <p className="mt-1.5 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                {item.summary}
+              </p>
+            </div>
+            <span className="grid size-9 shrink-0 place-items-center rounded-full border transition-all group-hover:border-brand/60 group-hover:bg-brand group-hover:text-brand-foreground">
+              <ArrowTopRightIcon className="transition-transform group-hover:rotate-45" />
+            </span>
           </Link>
         </li>
       ))}

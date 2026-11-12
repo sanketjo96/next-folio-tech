@@ -32,13 +32,11 @@ export default function Page({ recentPosts }: PageProps) {
           "https://twitter.com/techsanket",
         ]}
       />
-      <div className="container max-w-3xl">
-        <section>
-          <Introduction></Introduction>
-          <ResumeDownloader></ResumeDownloader>
-          <SkillMetric></SkillMetric>
-          <RecentPosts list={recentPosts}></RecentPosts>
-        </section>
+      <div className="container max-w-5xl">
+        <Introduction />
+        <ResumeDownloader />
+        <SkillMetric />
+        <RecentPosts list={recentPosts} />
       </div>
     </>
   );

@@ -1,12 +1,44 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import { User } from "@/components/context/UserContext";
 import { useMediaQuery } from "@/hooks/use-media.query";
 import { Login } from "./Login";
 import { useLoggedInUser } from "@/components/providers/UserProvider";
+import { cn } from "@/lib/utils";
 
 export type MainMenuProps = {
   user: User | null;
+};
+
+export const navItemClass = (active: boolean) =>
+  cn(
+    "block rounded-full px-3.5 py-1.5 text-sm transition-colors",
+    active
+      ? "bg-foreground text-background"
+      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+  );
+
+type NavItemProps = {
+  href: string;
+  label: string;
+  tour?: string;
+};
+
+const NavItem = ({ href, label, tour }: NavItemProps) => {
+  const { pathname } = useRouter();
+  const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
+  return (
+    <li data-tour={tour}>
+      <Link
+        href={href}
+        className={navItemClass(active)}
+        aria-current={active ? "page" : undefined}
+      >
+        {label}
+      </Link>
+    </li>
+  );
 };
 
 export const AppNavLinks = ({ user }: MainMenuProps) => {
@@ -15,28 +47,12 @@ export const AppNavLinks = ({ user }: MainMenuProps) => {
   const { setUser } = useLoggedInUser();
   return (
     <>
-      {!isDesktop && (
-        <li className="align-left hover:text-orange-600">
-          <Link href="/">{t("home")}</Link>
-        </li>
-      )}
-      <li className="hover:text-orange-600" data-tour="nav-posts">
-        <Link href="/posts">{t("post")}</Link>
-      </li>
-      <li className="hover:text-orange-600" data-tour="nav-projects">
-        <Link href="/projects">{t("projects")}</Link>
-      </li>
-      <li className="hover:text-orange-600" data-tour="nav-contacts">
-        <Link href="/contacts">{t("contacts")}</Link>
-      </li>
-
-      <Login user={user} setUser={setUser}></Login>
-
-      {user?.email ? (
-        <li className="hover:text-orange-600">
-          <Link href="/dashboard">{t("dashboard")}</Link>
-        </li>
-      ) : null}
+      {!isDesktop && <NavItem href="/" label={t("home")} />}
+      <NavItem href="/posts" label={t("post")} tour="nav-posts" />
+      <NavItem href="/projects" label={t("projects")} tour="nav-projects" />
+      <NavItem href="/contacts" label={t("contacts")} tour="nav-contacts" />
+      {user?.email ? <NavItem href="/dashboard" label={t("dashboard")} /> : null}
+      <Login user={user} setUser={setUser} />
     </>
   );
 };
@@ -45,8 +61,8 @@ export const MainMenu = ({ user }: MainMenuProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return (
     isDesktop && (
-      <ul className="flex items-center gap-4 font-light">
-        <AppNavLinks user={user}></AppNavLinks>
+      <ul className="flex items-center gap-1">
+        <AppNavLinks user={user} />
       </ul>
     )
   );

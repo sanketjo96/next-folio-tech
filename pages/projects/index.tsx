@@ -4,12 +4,15 @@ import { getProjects } from "@/lib/data/projects";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import MarkDownListWithFilter from "@/components/ui/Business/Markdown/MarkdownListWithFilter";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { PageHeader } from "@/components/ui/Business/PageHeader";
 import { NextSeo, BreadcrumbJsonLd } from "next-seo";
 
 type ProjectsPageProps = {
   metaList: MarkdownMetaData[];
 };
 function Projects({ metaList }: ProjectsPageProps) {
+  const { t } = useTranslation("common");
   return (
     <>
       <NextSeo
@@ -32,14 +35,12 @@ function Projects({ metaList }: ProjectsPageProps) {
           },
         ]}
       />
-      <section className="mt-8">
-        <div className="container max-w-3xl" data-tour="projects-list">
-          <MarkDownListWithFilter
-            redirectBase="projects"
-            metaList={metaList}
-          ></MarkDownListWithFilter>
+      <div className="container max-w-5xl">
+        <PageHeader eyebrow="projects" title={t("projects")} />
+        <div data-tour="projects-list">
+          <MarkDownListWithFilter redirectBase="projects" metaList={metaList} />
         </div>
-      </section>
+      </div>
     </>
   );
 }

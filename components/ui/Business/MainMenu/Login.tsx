@@ -1,6 +1,7 @@
 import { User } from "@/components/context/UserContext";
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import { navItemClass } from "./MainMenu";
 
 export type LoginProps = {
   user: User | null;
@@ -30,14 +31,16 @@ export const Login = ({ user, setUser }: LoginProps) => {
     loggedOut();
   };
   return (
-    <li className="hover:text-orange-600 cursor-pointer">
-      <span
+    <li>
+      <button
+        type="button"
+        className={navItemClass(router.pathname === "/login")}
         onClick={() =>
           !user?.email ? router.push("/login") : onLogoutHandler()
         }
       >
         {!user?.email ? t("login") : t("logout")}
-      </span>
+      </button>
     </li>
   );
 };

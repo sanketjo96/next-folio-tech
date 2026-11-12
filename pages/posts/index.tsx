@@ -4,6 +4,8 @@ import { getPosts } from "@/lib/data/posts";
 import MarkDownListWithFilter from "@/components/ui/Business/Markdown/MarkdownListWithFilter";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
+import { PageHeader } from "@/components/ui/Business/PageHeader";
 import { NextSeo } from "next-seo";
 
 type PostsPageProps = {
@@ -11,20 +13,19 @@ type PostsPageProps = {
 };
 
 function Posts({ metaList }: PostsPageProps) {
+  const { t } = useTranslation("common");
   return (
     <>
       <NextSeo
         title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/posts"
       />
-      <section className="mt-8">
-        <div className="container max-w-3xl" data-tour="posts-list">
-          <MarkDownListWithFilter
-            redirectBase="posts"
-            metaList={metaList}
-          ></MarkDownListWithFilter>
+      <div className="container max-w-5xl">
+        <PageHeader eyebrow="posts" title={t("post")} />
+        <div data-tour="posts-list">
+          <MarkDownListWithFilter redirectBase="posts" metaList={metaList} />
         </div>
-      </section>
+      </div>
     </>
   );
 }

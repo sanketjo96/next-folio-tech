@@ -52,9 +52,8 @@ export default function LoginPage() {
       />
       <section className="container max-w-md mt-8">
         <form onSubmit={handleSubmit(handleLoginSubmit)}>
-          <div className="flex flex-col gap-3 bg-gray-100 p-16 rounded-lg">
+          <div className="surface mt-16 flex flex-col gap-3 p-8 sm:p-12">
             <Input
-              className="dark:border-orange-600"
               id="email"
               placeholder="Email"
               {...register("email")}
@@ -63,7 +62,6 @@ export default function LoginPage() {
               <ErrorLine message={errors.email.message} />
             )}
             <Input
-              className="dark:border-orange-600"
               type="password"
               id="password"
               placeholder="Password"
@@ -74,7 +72,7 @@ export default function LoginPage() {
             )}
             <Button
               disabled={isSubmitting}
-              className="max-w-[200] self-center"
+              className="mt-2"
               type="submit"
             >
               {t("login")}

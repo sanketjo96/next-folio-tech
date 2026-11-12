@@ -5,7 +5,7 @@ import React from "react";
 
 const components = {
   h2: (props: any) => (
-    <h2 {...props} className="text-orange-700">
+    <h2 {...props} className="text-brand">
       {props.children}
     </h2>
   ),

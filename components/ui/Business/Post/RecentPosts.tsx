@@ -2,6 +2,8 @@ import React from "react";
 import MarkdownList, { MarkdownMetaData } from "../Markdown/MarkDownList";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { SectionHeading } from "../SkillMetric";
 
 type Props = {
   list: MarkdownMetaData[];
@@ -10,13 +12,22 @@ type Props = {
 function RecentPosts({ list }: Props) {
   const { t } = useTranslation("home");
   return (
-    <section className="mt-10">
-      <div>
-        <h2 className="text-xl font-bold">{t("recentPosts")}</h2>
-        <MarkdownList redirectBase={"posts"} metaList={list}></MarkdownList>
-        <Link href="/posts" className="hover: text-foreground">
-          <span className="text-sm text-blue-400">{t("seeMore")}</span>
-        </Link>
+    <section className="mt-20">
+      <SectionHeading
+        eyebrow="02"
+        title={t("recentPosts")}
+        action={
+          <Link
+            href="/posts"
+            className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+          >
+            {t("seeMore")}
+            <ArrowRightIcon className="transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        }
+      />
+      <div className="mt-6">
+        <MarkdownList redirectBase="posts" metaList={list} />
       </div>
     </section>
   );
