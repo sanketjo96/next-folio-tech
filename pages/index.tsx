@@ -1,9 +1,13 @@
-import Introduction from "@/components/ui/Business/Introduction";
 import { NextSeo, SocialProfileJsonLd } from "next-seo";
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
-import RecentPosts from "@/components/ui/Business/Post/RecentPosts";
-import { ResumeDownloader } from "@/components/ui/Business/ResumeDownloader";
-import SkillMetric from "@/components/ui/Business/SkillMetric";
+import Hero from "@/components/ui/Business/Home/Hero";
+import Approach from "@/components/ui/Business/Home/Approach";
+import ExperienceTimeline from "@/components/ui/Business/Home/ExperienceTimeline";
+import FieldNotes from "@/components/ui/Business/Home/FieldNotes";
+import SelectedWork from "@/components/ui/Business/Home/SelectedWork";
+import Beyond from "@/components/ui/Business/Home/Beyond";
+import ContactCta from "@/components/ui/Business/Home/ContactCta";
+import { getProjects } from "@/lib/data/projects";
 import { downloadPDF } from "@/lib/common/pdfFileDownload";
 import { resumePath, resumeURL } from "@/lib/constants/resume";
 import { getPosts } from "@/lib/data/posts";
@@ -15,11 +19,12 @@ type PageProps = {
   recentProjects: MarkdownMetaData[];
 };
 
-export default function Page({ recentPosts }: PageProps) {
+export default function Page({ recentPosts, recentProjects }: PageProps) {
   return (
     <>
       <NextSeo
-        title="Sanket Joshi | Home | Showcasing React, Node.js, AWS Skills"
+        title="Sanket Joshi · Founding Technical Lead & Frontend Tech Lead"
+        description="Frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products."
         canonical="https://www.techsanket.in/"
       />
       <SocialProfileJsonLd
@@ -28,22 +33,24 @@ export default function Page({ recentPosts }: PageProps) {
         url="https://techsanket.in"
         sameAs={[
           "https://www.facebook.com/techsanket",
-          "https://www.linkedin.com/in/techsanket",
+          "https://www.linkedin.com/in/sanket-joshi-7baa23185",
           "https://twitter.com/techsanket",
         ]}
       />
-      <div className="container max-w-5xl">
-        <Introduction />
-        <ResumeDownloader />
-        <SkillMetric />
-        <RecentPosts list={recentPosts} />
-      </div>
+      <Hero />
+      <Approach />
+      <ExperienceTimeline />
+      <FieldNotes posts={recentPosts} />
+      <SelectedWork projects={recentProjects} />
+      <Beyond />
+      <ContactCta />
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const recentPosts = await getPosts(2);
+  const recentPosts = await getPosts(3);
+  const recentProjects = await getProjects(4);
 
   try {
     await downloadPDF(resumeURL, resumePath);
@@ -55,6 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
     props: {
       ...(await serverSideTranslations(locale as string, ["home", "common"])),
       recentPosts,
+      recentProjects,
     },
   };
 };

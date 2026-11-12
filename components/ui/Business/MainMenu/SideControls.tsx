@@ -15,9 +15,10 @@ export const SideControls = () => {
       {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
       <a
         href="/?artist"
-        className="hidden items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-brand/50 hover:text-foreground sm:inline-flex"
+        className="hidden items-center gap-2 font-mono text-[11px] text-muted-foreground transition-colors hover:text-foreground sm:inline-flex"
       >
-        <span aria-hidden>✦</span> Artist side
+        <span className="size-1.5 rounded-full bg-brand" aria-hidden />
+        Artist side ↗
       </a>
       {isMounted ? <ThemeToggle /> : <span className="size-10" aria-hidden />}
     </div>

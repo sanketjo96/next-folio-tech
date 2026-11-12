@@ -1,8 +1,8 @@
 import {
   Bricolage_Grotesque,
   Inter,
+  Instrument_Serif,
   JetBrains_Mono,
-  Space_Grotesk,
 } from "next/font/google";
 
 // Body copy for the tech site.
@@ -11,9 +11,11 @@ export const inter = Inter({
   display: "swap",
 });
 
-// Headings on the tech site.
-export const spaceGrotesk = Space_Grotesk({
+// Editorial serif for headings on the tech site.
+export const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -33,7 +35,7 @@ export const bricolage = Bricolage_Grotesque({
 // gets the same fonts as the page.
 export const fontRootCss = `:root {
   --font-sans: ${inter.style.fontFamily};
-  --font-display: ${spaceGrotesk.style.fontFamily};
+  --font-display: ${instrumentSerif.style.fontFamily};
   --font-mono: ${jetbrainsMono.style.fontFamily};
   --font-artist: ${bricolage.style.fontFamily};
 }`;

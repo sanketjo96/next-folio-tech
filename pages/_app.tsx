@@ -42,14 +42,6 @@ const App = ({ Component, pageProps }: Props) => {
   return (
     <div className="relative flex min-h-screen flex-col font-sans">
       {fonts}
-      <div
-        aria-hidden
-        className="bg-grid pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-[-180px] -z-10 h-[420px] w-[720px] max-w-full -translate-x-1/2 rounded-full bg-[hsl(var(--brand)/0.14)] blur-3xl"
-      />
       <AppThemeProvider>
         <UserProvider>
           <DefaultSeo {...nextSeoConfig} />

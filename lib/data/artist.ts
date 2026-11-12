@@ -1,17 +1,20 @@
 /**
  * Content for the artist side of the site (served at `/?artist`).
  *
- * Everything shown on the artist link-in-bio page comes from this file, so
- * adding a show, a video or a new platform is a one-line change here.
+ * Mirrors the Linktree at linktr.ee/laugh_with_sanket (November 2026).
+ * To add something, append an item to the right section below.
  */
+import type { StaticImageData } from "next/image";
+import avatar from "@/public/artist/avatar.png";
+import standup from "@/public/artist/standup.jpg";
+import kothimbirVadi from "@/public/artist/kothimbir-vadi.jpg";
 
 export type ArtistIcon =
   | "instagram"
+  | "facebook"
   | "youtube"
-  | "spotify"
-  | "ticket"
-  | "mic"
-  | "video"
+  | "play"
+  | "headphones"
   | "mail"
   | "code"
   | "link";
@@ -22,15 +25,26 @@ export type ArtistSocial = {
   icon: ArtistIcon;
 };
 
-export type ArtistLink = {
+export type ArtistItem = {
   title: string;
-  description?: string;
+  subtitle?: string;
   url: string;
-  icon: ArtistIcon;
-  /** Highlighted card, shown first. Use for the one thing you want clicked. */
-  featured?: boolean;
+  /** Local image or a remote thumbnail URL (YouTube thumbnails are allowed in next.config). */
+  thumbnail?: StaticImageData | string;
+  /** Icon shown when there is no thumbnail. */
+  icon?: ArtistIcon;
   /** Opens in the same tab (for links inside this site). */
   internal?: boolean;
+};
+
+export type ArtistSection = {
+  id: string;
+  title: string;
+  /** Short label for the jump bar at the top of the page. */
+  short: string;
+  /** "feature": one large card. "list": stacked rows. */
+  layout?: "feature" | "list";
+  items: ArtistItem[];
 };
 
 export type ArtistProfile = {
@@ -39,43 +53,138 @@ export type ArtistProfile = {
   tagline: string;
   /** Short sticker shown on the avatar. */
   badge: string;
+  avatar: StaticImageData;
+  /** Used as the link-preview image when the page is shared. */
+  shareImage: StaticImageData;
   socials: ArtistSocial[];
-  links: ArtistLink[];
+  sections: ArtistSection[];
 };
 
-const INSTAGRAM_URL = "https://www.instagram.com/laugh_with_sanket";
+/** YouTube's own thumbnail for a video id. */
+const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
 export const ARTIST: ArtistProfile = {
   name: "Sanket Joshi",
   handle: "@laugh_with_sanket",
-  // TODO(sanket): replace with your own one-liner.
-  tagline: "Laugh with Sanket. Everything I'm up to, in one place.",
-  badge: "Hi!",
-  socials: [{ name: "Instagram", url: INSTAGRAM_URL, icon: "instagram" }],
-  links: [
+  tagline: "Stand-up comedian 🎤 · Tech enthusiast 💻 · Storyteller ✍️",
+  badge: "Laughs await!",
+  avatar,
+  shareImage: standup,
+  socials: [
+    { name: "Instagram", url: "https://instagram.com/laugh_with_sanket", icon: "instagram" },
+    { name: "Facebook", url: "https://www.facebook.com/sanket.joshi.121", icon: "facebook" },
+  ],
+  sections: [
     {
-      title: "Watch on Instagram",
-      description: "Latest reels and posts",
-      url: INSTAGRAM_URL,
-      icon: "instagram",
-      featured: true,
+      id: "standup",
+      title: "Stand-up",
+      short: "Stand-up",
+      layout: "feature",
+      items: [
+        {
+          title: "Just Joshi Things with Sanket",
+          subtitle: "Marathi stand-up · Watch on ZEE5",
+          url: "https://www.zee5.com/zee5originals/details/hasvahasvi/0-6-4z51076479/just-joshi-things-with-sanket/0-1-6z51076730",
+          thumbnail: standup,
+        },
+      ],
     },
-    // TODO(sanket): add your artist links here, for example:
-    // { title: "Upcoming shows", description: "Book tickets", url: "https://…", icon: "ticket" },
-    // { title: "YouTube", description: "Full sets", url: "https://youtube.com/@…", icon: "youtube" },
     {
-      title: "Collabs & bookings",
-      description: "Send me a message",
-      url: "/contacts",
-      icon: "mail",
-      internal: true,
+      id: "mhj",
+      title: "MHJ",
+      short: "MHJ",
+      items: [
+        { title: "With Sameer Chaugule", url: "https://youtu.be/eVhV3SaS3ew?t=120", thumbnail: yt("eVhV3SaS3ew") },
+        { title: "With Isha Day", url: "https://youtu.be/oGhoPgLUTAg?t=37", thumbnail: yt("oGhoPgLUTAg") },
+        { title: "With Namrata Sambherao", url: "https://youtu.be/fXPlEUTgB6o?t=35", thumbnail: yt("fXPlEUTgB6o") },
+      ],
     },
     {
-      title: "The tech side",
-      description: "My work as a software engineer",
-      url: "/",
-      icon: "code",
-      internal: true,
+      id: "chyd",
+      title: "चला हवा येऊ द्या",
+      short: "Chala Hawa Yeu Dya",
+      items: [
+        {
+          title: "'सेलिब्रिटी चड्डीवाला'",
+          subtitle: "Chala Hawa Yeu Dya · Zee Marathi",
+          url: "https://www.youtube.com/watch?v=Czi1NdON-w0",
+          thumbnail: yt("Czi1NdON-w0"),
+        },
+        {
+          title: "कॉमेडीचं गँगवॉर",
+          subtitle: "Chala Hawa Yeu Dya · Zee Marathi",
+          url: "https://youtu.be/98jrxOCdINw",
+          thumbnail: yt("98jrxOCdINw"),
+        },
+        {
+          title: "नाटकातून दिग्दर्शाचीच हकालपट्टी",
+          subtitle: "Chala Hawa Yeu Dya · Zee Marathi",
+          url: "https://youtu.be/hRfGeaM_kTc",
+          thumbnail: yt("hRfGeaM_kTc"),
+        },
+      ],
+    },
+    {
+      id: "films",
+      title: "Short films & videos",
+      short: "Films",
+      items: [
+        { title: "At Crosswalks", subtitle: "Short film", url: "https://www.youtube.com/watch?v=6BViLAov99I", thumbnail: yt("6BViLAov99I") },
+        { title: "Beyond Prejudice", subtitle: "Team Kalaad", url: "https://www.youtube.com/watch?v=8uI0L9hkHU0", thumbnail: yt("8uI0L9hkHU0") },
+        {
+          title: "He Chandra Surya Taare",
+          subtitle: "Vinda Karandikar · Marathi song",
+          url: "https://www.youtube.com/watch?v=cy9H2smOflM",
+          thumbnail: yt("cy9H2smOflM"),
+        },
+      ],
+    },
+    {
+      id: "podcasts",
+      title: "Podcasts & vlogs",
+      short: "Podcasts",
+      items: [
+        {
+          title: "Benaras special Malaiyo, first time in Pune!",
+          subtitle: "Vlog",
+          url: "https://www.youtube.com/watch?v=WJ63zP-Ko-M",
+          thumbnail: yt("WJ63zP-Ko-M"),
+        },
+        {
+          title: "Comedyचा 'पंच'नामा with Akshay Joshi",
+          subtitle: "Digital Gappa · Ep 23",
+          url: "https://www.youtube.com/watch?v=FurIEW_awNs",
+          thumbnail: yt("FurIEW_awNs"),
+        },
+      ],
+    },
+    {
+      id: "audio",
+      title: "Audio",
+      short: "Audio",
+      items: [
+        {
+          title: "Kothimbir Vadi: A short story",
+          subtitle: "Audiobook · Google Play",
+          url: "https://play.google.com/store/audiobooks/details/Kothimbir_Vadi_A_short_story?id=AQAAAEBcMm1yIM",
+          thumbnail: kothimbirVadi,
+        },
+      ],
+    },
+    {
+      id: "work",
+      title: "Work & bookings",
+      short: "Work",
+      items: [
+        {
+          title: "Main portfolio",
+          subtitle: "Work bio on Canva",
+          url: "https://www.canva.com/design/DAG-ZDaDghw/cQfdpyGsgpQFPm_hmdy1Vw/view?utlId=h1dbb379e1c",
+          icon: "link",
+        },
+        { title: "Collabs & bookings", subtitle: "Send me a message", url: "/contacts", icon: "mail", internal: true },
+        { title: "The tech side", subtitle: "My work as a software engineer", url: "/", icon: "code", internal: true },
+      ],
     },
   ],
 };

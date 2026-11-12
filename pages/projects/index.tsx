@@ -35,10 +35,10 @@ function Projects({ metaList }: ProjectsPageProps) {
           },
         ]}
       />
-      <div className="container max-w-5xl">
-        <PageHeader eyebrow="projects" title={t("projects")} />
+      <div className="container max-w-6xl">
+        <PageHeader eyebrow="04 / Selected work" title={t("projects")} />
         <div data-tour="projects-list">
-          <MarkDownListWithFilter redirectBase="projects" metaList={metaList} />
+          <MarkDownListWithFilter redirectBase="projects" metaList={metaList} variant="cards" />
         </div>
       </div>
     </>

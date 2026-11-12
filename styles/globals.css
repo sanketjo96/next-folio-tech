@@ -34,27 +34,27 @@
   }
 
   .dark {
-    --background: 240 12% 5%;
+    --background: 222 28% 7%;
     --foreground: 0 0% 96%;
-    --card: 240 10% 8%;
+    --card: 222 24% 10%;
     --card-foreground: 0 0% 96%;
-    --popover: 240 10% 8%;
+    --popover: 222 24% 10%;
     --popover-foreground: 0 0% 96%;
     --primary: 0 0% 96%;
     --primary-foreground: 240 10% 8%;
-    --secondary: 240 8% 13%;
+    --secondary: 222 18% 14%;
     --secondary-foreground: 0 0% 96%;
-    --muted: 240 8% 13%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 240 8% 14%;
+    --muted: 222 18% 14%;
+    --muted-foreground: 220 9% 62%;
+    --accent: 222 18% 15%;
     --accent-foreground: 0 0% 96%;
     --brand: 22 95% 58%;
     --brand-foreground: 240 12% 5%;
     --brand-2: 330 90% 66%;
     --destructive: 0 62.8% 45%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 7% 17%;
-    --input: 240 7% 20%;
+    --border: 222 16% 18%;
+    --input: 222 16% 22%;
     --ring: 22 95% 58%;
     --grid: 0 0% 100% / 0.045;
   }
@@ -77,7 +77,7 @@
   h1,
   h2,
   h3 {
-    @apply font-display tracking-tight;
+    @apply font-display font-normal tracking-tight;
   }
 
   ::selection {
@@ -101,15 +101,35 @@
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
   }
 
-  .text-gradient {
-    background: linear-gradient(100deg, hsl(var(--brand)), hsl(var(--brand-2)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  .dot-grid {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
+  /* Viewfinder-style corner brackets; put on a relatively positioned box */
+  .frame-corners::before,
+  .frame-corners::after,
+  .frame-corners > .frame-corner-b::before,
+  .frame-corners > .frame-corner-b::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: hsl(var(--foreground) / 0.45);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .frame-corners::before { top: -1px; left: -1px; border-top: 1px solid; border-left: 1px solid; }
+  .frame-corners::after { top: -1px; right: -1px; border-top: 1px solid; border-right: 1px solid; }
+  .frame-corners > .frame-corner-b::before { bottom: -1px; left: -1px; border-bottom: 1px solid; border-left: 1px solid; }
+  .frame-corners > .frame-corner-b::after { bottom: -1px; right: -1px; border-bottom: 1px solid; border-right: 1px solid; }
+
   .eyebrow {
-    @apply font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground;
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground;
+  }
+
+  .link-mono {
+    @apply inline-flex items-center gap-2 font-mono text-xs text-foreground/80 transition-colors hover:text-brand;
   }
 
   .surface {

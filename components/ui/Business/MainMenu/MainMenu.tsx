@@ -6,6 +6,14 @@ import { useMediaQuery } from "@/hooks/use-media.query";
 import { Login } from "./Login";
 import { useLoggedInUser } from "@/components/providers/UserProvider";
 import { cn } from "@/lib/utils";
+import {
+  FileText,
+  FolderGit2,
+  LayoutDashboard,
+  Mail,
+  Terminal,
+  type LucideIcon,
+} from "lucide-react";
 
 export type MainMenuProps = {
   user: User | null;
@@ -13,19 +21,20 @@ export type MainMenuProps = {
 
 export const navItemClass = (active: boolean) =>
   cn(
-    "block rounded-full px-3.5 py-1.5 text-sm transition-colors",
+    "flex items-center gap-2 rounded-full px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors",
     active
-      ? "bg-foreground text-background"
-      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+      ? "bg-accent text-foreground"
+      : "text-muted-foreground hover:text-foreground"
   );
 
 type NavItemProps = {
   href: string;
   label: string;
+  icon: LucideIcon;
   tour?: string;
 };
 
-const NavItem = ({ href, label, tour }: NavItemProps) => {
+const NavItem = ({ href, label, icon: Icon, tour }: NavItemProps) => {
   const { pathname } = useRouter();
   const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
   return (
@@ -35,6 +44,7 @@ const NavItem = ({ href, label, tour }: NavItemProps) => {
         className={navItemClass(active)}
         aria-current={active ? "page" : undefined}
       >
+        <Icon className={cn("size-3.5", active && "text-brand")} aria-hidden />
         {label}
       </Link>
     </li>
@@ -43,15 +53,16 @@ const NavItem = ({ href, label, tour }: NavItemProps) => {
 
 export const AppNavLinks = ({ user }: MainMenuProps) => {
   const { t } = useTranslation("common");
-  const isDesktop = useMediaQuery("(min-width: 768px)");
   const { setUser } = useLoggedInUser();
   return (
     <>
-      {!isDesktop && <NavItem href="/" label={t("home")} />}
-      <NavItem href="/posts" label={t("post")} tour="nav-posts" />
-      <NavItem href="/projects" label={t("projects")} tour="nav-projects" />
-      <NavItem href="/contacts" label={t("contacts")} tour="nav-contacts" />
-      {user?.email ? <NavItem href="/dashboard" label={t("dashboard")} /> : null}
+      <NavItem href="/" label={t("home")} icon={Terminal} />
+      <NavItem href="/posts" label={t("post")} icon={FileText} tour="nav-posts" />
+      <NavItem href="/projects" label={t("projects")} icon={FolderGit2} tour="nav-projects" />
+      <NavItem href="/contacts" label={t("contacts")} icon={Mail} tour="nav-contacts" />
+      {user?.email ? (
+        <NavItem href="/dashboard" label={t("dashboard")} icon={LayoutDashboard} />
+      ) : null}
       <Login user={user} setUser={setUser} />
     </>
   );
@@ -61,7 +72,7 @@ export const MainMenu = ({ user }: MainMenuProps) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return (
     isDesktop && (
-      <ul className="flex items-center gap-1">
+      <ul className="flex items-center gap-0.5 rounded-full border bg-background/60 p-1 backdrop-blur-xl">
         <AppNavLinks user={user} />
       </ul>
     )

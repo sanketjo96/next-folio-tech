@@ -24,16 +24,11 @@ export const BrandIcon = () => {
   return (
     <Link
       href="/"
-      className="group flex items-center gap-2.5"
+      className="group flex items-center px-2 font-mono text-lg font-semibold tracking-tight"
       data-tour="nav-brand"
       aria-label="Sanket Joshi, home"
     >
-      <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-brand to-brand-2 font-display text-sm font-bold text-white shadow-inner transition-transform group-hover:rotate-[-8deg]">
-        SJ
-      </span>
-      <span className="hidden font-display text-[15px] font-semibold tracking-tight sm:inline">
-        Sanket Joshi
-      </span>
+      sj<span className="text-brand transition-opacity group-hover:animate-pulse">_</span>
     </Link>
   );
 };

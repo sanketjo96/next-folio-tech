@@ -32,9 +32,9 @@ export default function Page() {
           "https://www.linkedin.com/company/techsanket",
         ]}
       />
-      <div className="container max-w-5xl">
+      <div className="container max-w-6xl">
         <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
-          <PageHeader eyebrow="contact" title={t("header")}>
+          <PageHeader eyebrow="Let's talk" title={t("header")}>
             <p>{t("body")}</p>
           </PageHeader>
           <div className="surface p-6 sm:p-8 md:mt-20">

@@ -20,8 +20,8 @@ function Posts({ metaList }: PostsPageProps) {
         title="Sanket Joshi | Posts | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/posts"
       />
-      <div className="container max-w-5xl">
-        <PageHeader eyebrow="posts" title={t("post")} />
+      <div className="container max-w-6xl">
+        <PageHeader eyebrow="03 / Field notes" title={t("post")} />
         <div data-tour="posts-list">
           <MarkDownListWithFilter redirectBase="posts" metaList={metaList} />
         </div>

@@ -5,7 +5,7 @@ import { useTranslation } from "next-i18next";
 
 const MarkDownListWithFilter = (props: MarkdownListProps) => {
   const { t } = useTranslation("common");
-  const { metaList, redirectBase } = props;
+  const { metaList, redirectBase, variant } = props;
   const [query, setQuery] = useState("");
 
   const needle = query.trim().toLowerCase();
@@ -22,7 +22,7 @@ const MarkDownListWithFilter = (props: MarkdownListProps) => {
           aria-label={`Search ${redirectBase}`}
           placeholder={`Search ${redirectBase}…`}
           onChange={(e) => setQuery(e.target.value)}
-          className="h-12 w-full rounded-full border bg-card/70 pl-11 pr-24 text-sm backdrop-blur placeholder:text-muted-foreground focus:border-brand/60 focus:outline-none"
+          className="h-12 w-full rounded-md border bg-card/70 font-mono pl-11 pr-24 text-sm backdrop-blur placeholder:text-muted-foreground focus:border-brand/60 focus:outline-none"
         />
         <div className="absolute right-2 top-1/2 flex -translate-y-1/2 items-center gap-2">
           <span className="font-mono text-[11px] text-muted-foreground">
@@ -40,7 +40,7 @@ const MarkDownListWithFilter = (props: MarkdownListProps) => {
           )}
         </div>
       </div>
-      <MarkdownList redirectBase={redirectBase} metaList={filtered} />
+      <MarkdownList redirectBase={redirectBase} metaList={filtered} variant={variant} />
     </>
   );
 };
