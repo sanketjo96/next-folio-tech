@@ -7,7 +7,7 @@ const nextConfig = {
     locales: ["en", "fr", "nl"]
   },
   images: {
-    domains: ['images.unsplash.com', 'fakeimg.pl']
+    domains: ['images.unsplash.com', 'fakeimg.pl', 'i.ytimg.com']
   }
 };
 

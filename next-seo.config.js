@@ -1,7 +1,7 @@
 // next-seo.config.js
 const nextSeoConfig = {
-  title: 'Sanket Joshi | Frontend Developer with Nodejs and AWS',
-  description: 'Portfolio of Sanket Joshi, showcasing expertise in React, Node.js, AWS, and software development.',
+  title: 'Sanket Joshi · Founding Technical Lead & Frontend Tech Lead',
+  description: 'Frontend tech lead with 10+ years building teams and shipping React, TypeScript and Node.js products.',
   openGraph: {
     url: "https://www.techsanket.in/",
     title: "Home | Sanket Joshi",

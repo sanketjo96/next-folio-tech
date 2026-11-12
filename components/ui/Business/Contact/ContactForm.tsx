@@ -52,13 +52,12 @@ function ContactForm() {
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         noValidate
-        className="mt-8 lg:flex-auto"
+        className="lg:flex-auto"
       >
         <div className="flex flex-col gap-6">
           <Input
             id="name"
             type="text"
-            className="dark:border-orange-600"
             {...register("name")}
             placeholder="Enter your Name"
           ></Input>
@@ -68,7 +67,6 @@ function ContactForm() {
           <Input
             id="email"
             type="text"
-            className="dark:border-orange-600"
             {...register("email")}
             placeholder="Enter your Email"
           ></Input>
@@ -77,7 +75,6 @@ function ContactForm() {
           )}
           <Textarea
             id="message"
-            className="dark:border-orange-600"
             {...register("message")}
             placeholder="Your Message"
           ></Textarea>

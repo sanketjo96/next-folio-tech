@@ -9,11 +9,13 @@ export default function AppHeader() {
   const { user } = useLoggedInUser();
 
   return (
-    <header className="py-6 z-50">
-      <nav className="container max-w-3xl flex justify-between">
-        <MainBrand user={user}></MainBrand>
-        <MainMenu user={user}></MainMenu>
-        <SideControls></SideControls>
+    <header className="sticky top-0 z-50 bg-gradient-to-b from-background via-background/80 to-transparent pb-3 pt-4">
+      <nav className="container max-w-6xl">
+        <div className="flex h-12 items-center justify-between gap-4">
+          <MainBrand user={user} />
+          <MainMenu user={user} />
+          <SideControls />
+        </div>
       </nav>
     </header>
   );

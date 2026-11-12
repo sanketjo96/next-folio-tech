@@ -4,7 +4,21 @@ import * as jose from 'jose'
 import { jwtConfig } from "./lib/routes/jwtConfig";
 import { PROTECTED_APIS, PROTECTED_PAGES } from "./lib/routes/routes";
 
+// `/?artist` (any value, including none) serves the artist link-in-bio page
+// from the same URL. Done here rather than as a next.config rewrite because
+// `has: query` rules don't match a bare `?artist` with an empty value.
+const ARTIST_PARAM = 'artist'
+
 export const middleware = async (request: NextRequest) => {
+  if (request.nextUrl.pathname === '/') {
+    if (!request.nextUrl.searchParams.has(ARTIST_PARAM)) {
+      return NextResponse.next()
+    }
+    const url = request.nextUrl.clone()
+    url.pathname = '/artist'
+    return NextResponse.rewrite(url)
+  }
+
   const requestHeaders = new Headers(request.headers)
   const isProtectedPage = PROTECTED_PAGES.includes(request.nextUrl.pathname);
   const isProtectedAPI = PROTECTED_APIS.includes(request.nextUrl.pathname);
@@ -48,6 +62,7 @@ export const middleware = async (request: NextRequest) => {
 
 export const config = {
   matcher: [
+    '/',
     '/api/auth2/logout',
     '/api/private/:path*',
 

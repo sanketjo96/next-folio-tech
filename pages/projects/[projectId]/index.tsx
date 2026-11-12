@@ -29,12 +29,12 @@ function ProjectPage({ source, metaData }: PostPageProps) {
         title="Sanket Joshi | Projects | Showcasing React, Node.js, AWS Skills"
         canonical="https://www.techsanket.in/projects"
       />
-      <div className="container max-w-3xl prose dark:prose-invert mt-16">
+      <article className="container prose prose-neutral max-w-3xl pt-12 dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand prose-img:rounded-2xl md:pt-16">
         <Link
           href="/projects"
-          className="no-underline flex items-center gap-3 mb-8"
+          className="not-prose group mb-10 inline-flex items-center gap-2 rounded-full border bg-card/70 px-4 py-2 text-sm text-muted-foreground no-underline backdrop-blur transition-colors hover:text-foreground"
         >
-          <ArrowLeftIcon></ArrowLeftIcon>
+          <ArrowLeftIcon className="transition-transform group-hover:-translate-x-0.5" />
           <span>{t("backToProjects")}</span>
         </Link>
         {image && (
@@ -44,17 +44,15 @@ function ProjectPage({ source, metaData }: PostPageProps) {
               width={800}
               src={image}
               alt={title}
-              className="object-cover"
+              className="aspect-[4/1] w-full object-cover"
             ></Image>
           </div>
         )}
-        <header>
-          <p>
-            {author} | {formatDate(publishDate)}
-          </p>
+        <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
+          {author} · {formatDate(publishDate)}
         </header>
         <MdxContent {...source} />
-      </div>
+      </article>
     </>
   );
 }

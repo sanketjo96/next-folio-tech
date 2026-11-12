@@ -2,6 +2,7 @@ import ContactForm from "@/components/ui/Business/Contact/ContactForm";
 import { GetStaticProps } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { PageHeader } from "@/components/ui/Business/PageHeader";
 import { NextSeo, LocalBusinessJsonLd } from "next-seo";
 
 export default function Page() {
@@ -31,13 +32,16 @@ export default function Page() {
           "https://www.linkedin.com/company/techsanket",
         ]}
       />
-      <section className="pb-24 mt-8">
-        <div className="container max-w-3xl">
-          <h1 className="title text-xl mb-8">{t("header")}</h1>
-          <p className="text-muted-foreground text-md">{t("body")}</p>
-          <ContactForm></ContactForm>
+      <div className="container max-w-6xl">
+        <div className="grid gap-10 md:grid-cols-[1fr_1.1fr] md:gap-16">
+          <PageHeader eyebrow="Let's talk" title={t("header")}>
+            <p>{t("body")}</p>
+          </PageHeader>
+          <div className="surface p-6 sm:p-8 md:mt-20">
+            <ContactForm />
+          </div>
         </div>
-      </section>
+      </div>
     </>
   );
 }

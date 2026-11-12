@@ -3,6 +3,7 @@ import fs from "fs";
 import matter from "gray-matter";
 import { serialize } from 'next-mdx-remote/serialize';
 import { MarkdownMetaData } from "@/components/ui/Business/Markdown/MarkDownList";
+import { readingMinutes, techTags } from "./markdownMeta";
 
 const markdownDirPath = path.join("content", "posts");
 
@@ -18,8 +19,12 @@ export const getPostFilMetaData = async (fileName: string) => {
     "utf-8"
   );
 
-  const { data } = matter(markdownWithMeta);
-  return data as Omit<MarkdownMetaData, 'id'>;
+  const { data, content } = matter(markdownWithMeta);
+  return {
+    ...(data as Omit<MarkdownMetaData, 'id'>),
+    readingMinutes: readingMinutes(content),
+    tags: techTags(content),
+  };
 }
 
 export const getPostFileContent = async (postId: string) => {

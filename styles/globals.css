@@ -2,60 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------ */
+/* Tech side: design tokens                                            */
+/* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 40 20% 98%;
+    --foreground: 240 10% 8%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 240 10% 8%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
+    --popover-foreground: 240 10% 8%;
+    --primary: 240 10% 8%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --secondary: 240 6% 94%;
+    --secondary-foreground: 240 10% 10%;
+    --muted: 240 6% 94%;
+    --muted-foreground: 240 4% 40%;
+    --accent: 240 6% 94%;
+    --accent-foreground: 240 10% 10%;
+    --brand: 18 92% 50%;
+    --brand-foreground: 0 0% 100%;
+    --brand-2: 330 85% 58%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem
+    --border: 240 6% 88%;
+    --input: 240 6% 86%;
+    --ring: 18 92% 50%;
+    --grid: 240 10% 8% / 0.05;
+    --radius: 0.875rem;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 222 16% 12%;
+    --foreground: 0 0% 96%;
+    --card: 222 14% 15%;
+    --card-foreground: 0 0% 96%;
+    --popover: 222 14% 15%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 240 10% 8%;
+    --secondary: 222 12% 19%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 222 12% 19%;
+    --muted-foreground: 220 10% 70%;
+    --accent: 222 12% 20%;
+    --accent-foreground: 0 0% 96%;
+    --brand: 22 95% 58%;
+    --brand-foreground: 240 12% 5%;
+    --brand-2: 330 90% 66%;
+    --destructive: 0 62.8% 45%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
+    --border: 222 10% 24%;
+    --input: 222 10% 28%;
+    --ring: 22 95% 58%;
+    --grid: 0 0% 100% / 0.045;
   }
 }
 
@@ -64,7 +65,203 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-bold tracking-tight;
+  }
+
+  ::selection {
+    background: hsl(var(--brand) / 0.25);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  /* Faint engineering grid behind the tech site, fading out downwards */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid)) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Viewfinder-style corner brackets; put on a relatively positioned box */
+  .frame-corners::before,
+  .frame-corners::after,
+  .frame-corners > .frame-corner-b::before,
+  .frame-corners > .frame-corner-b::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-color: hsl(var(--foreground) / 0.45);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .frame-corners::before { top: -1px; left: -1px; border-top: 1px solid; border-left: 1px solid; }
+  .frame-corners::after { top: -1px; right: -1px; border-top: 1px solid; border-right: 1px solid; }
+  .frame-corners > .frame-corner-b::before { bottom: -1px; left: -1px; border-bottom: 1px solid; border-left: 1px solid; }
+  .frame-corners > .frame-corner-b::after { bottom: -1px; right: -1px; border-bottom: 1px solid; border-right: 1px solid; }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground;
+  }
+
+  .link-mono {
+    @apply inline-flex items-center gap-2 text-sm text-foreground/80 transition-colors hover:text-brand;
+  }
+
+  .surface {
+    @apply rounded-2xl border bg-card/70 backdrop-blur-sm transition-colors;
+  }
+
+  .surface-hover {
+    @apply hover:border-[hsl(var(--brand)/0.5)] hover:bg-card;
+  }
+
+  /* Staggered entrance */
+  .reveal {
+    animation: reveal 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 80ms);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Artist side: scoped, always-light link-in-bio theme                 */
+/* ------------------------------------------------------------------ */
+.artist {
+  --a-bg: #f1edff;
+  --a-ink: #14121a;
+  --a-card: #ffffff;
+  --a-violet: #6d28d9;
+  --a-lime: #c4f135;
+  --a-line: rgba(20, 18, 26, 0.12);
+  --a-soft: rgba(20, 18, 26, 0.6);
+  background-color: var(--a-bg);
+  background-image: radial-gradient(rgba(20, 18, 26, 0.09) 1px, transparent 1px);
+  background-size: 18px 18px;
+  color: var(--a-ink);
+  color-scheme: light;
+}
+
+.artist :focus-visible {
+  outline: 3px solid var(--a-ink);
+  outline-offset: 3px;
+  border-radius: 1rem;
+}
+
+.artist-display {
+  font-family: var(--font-artist), system-ui, sans-serif;
+}
+
+.artist-mark {
+  background: linear-gradient(transparent 58%, var(--a-lime) 58%, var(--a-lime) 92%, transparent 92%);
+  padding: 0 0.12em;
+}
+
+.artist-card {
+  border: 2px solid var(--a-ink);
+  background: var(--a-card);
+  box-shadow: 4px 4px 0 var(--a-ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.artist-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--a-ink);
+}
+
+.artist-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--a-ink);
+}
+
+.artist-card--featured {
+  background: var(--a-lime);
+}
+
+.artist-icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 2px solid var(--a-ink);
+  background: var(--a-card);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.artist-icon-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--a-ink);
+}
+
+.artist-rise {
+  animation: artist-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+@keyframes artist-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.artist-wiggle:hover {
+  animation: artist-wiggle 0.5s ease;
+}
+
+@keyframes artist-wiggle {
+  0%, 100% { transform: rotate(0); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .artist-rise,
+  .artist-wiggle:hover {
+    animation: none !important;
+  }
+  .artist-card,
+  .artist-icon-btn {
+    transition: none;
   }
 }
