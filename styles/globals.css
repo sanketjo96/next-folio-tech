@@ -161,82 +161,186 @@
 /* ------------------------------------------------------------------ */
 /* Artist side: scoped, always-light link-in-bio theme                 */
 /* ------------------------------------------------------------------ */
+/* ---------------------------------------------------------------------------
+ * Artist side (/?artist): a dark comedy-club stage, always dark.
+ * ------------------------------------------------------------------------ */
 .artist {
-  --a-bg: #f1edff;
-  --a-ink: #14121a;
-  --a-card: #ffffff;
-  --a-violet: #6d28d9;
-  --a-lime: #c4f135;
-  --a-line: rgba(20, 18, 26, 0.12);
-  --a-soft: rgba(20, 18, 26, 0.6);
-  background-color: var(--a-bg);
-  background-image: radial-gradient(rgba(20, 18, 26, 0.09) 1px, transparent 1px);
-  background-size: 18px 18px;
-  color: var(--a-ink);
-  color-scheme: light;
+  --s-bg: #0d0a09;
+  --s-bg-2: #15100e;
+  --s-card: #1b1512;
+  --s-ink: #f7efe5;
+  --s-muted: rgba(247, 239, 229, 0.62);
+  --s-faint: rgba(247, 239, 229, 0.38);
+  --s-line: rgba(247, 239, 229, 0.12);
+  --s-orange: #ff6b2c;
+  --s-amber: #ffc861;
+  --s-curtain: #7a1420;
+  background: var(--s-bg);
+  color: var(--s-ink);
+  color-scheme: dark;
+  font-family: var(--font-artist), system-ui, sans-serif;
+  overflow-x: clip;
+}
+
+.artist ::selection {
+  background: var(--s-orange);
+  color: var(--s-bg);
 }
 
 .artist :focus-visible {
-  outline: 3px solid var(--a-ink);
+  outline: 2px solid var(--s-amber);
   outline-offset: 3px;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
 }
 
-.artist-display {
+/* Condensed poster type (Bricolage width axis). */
+.poster {
   font-family: var(--font-artist), system-ui, sans-serif;
+  font-stretch: 75%;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 0.86;
 }
 
-.artist-mark {
-  background: linear-gradient(transparent 58%, var(--a-lime) 58%, var(--a-lime) 92%, transparent 92%);
-  padding: 0 0.12em;
+.marathi {
+  font-family: var(--font-marathi), system-ui, sans-serif;
+  font-stretch: 100%;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
-.artist-card {
-  border: 2px solid var(--a-ink);
-  background: var(--a-card);
-  box-shadow: 4px 4px 0 var(--a-ink);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(247, 239, 229, 0.16);
 }
 
-.artist-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--a-ink);
+/* Stage: spotlight cone, curtains, floor glow. */
+.stage {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 38% 70% at 50% -8%, rgba(255, 200, 97, 0.34), rgba(255, 200, 97, 0.08) 55%, transparent 75%),
+    radial-gradient(ellipse 70% 30% at 50% 100%, rgba(255, 107, 44, 0.16), transparent 70%),
+    var(--s-bg);
 }
 
-.artist-card:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--a-ink);
+.stage-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 18%;
+  max-width: 220px;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0 6px, transparent 6px 22px, rgba(255, 255, 255, 0.05) 22px 26px, transparent 26px 34px),
+    linear-gradient(180deg, #5a0e17, var(--s-curtain) 40%, #3a0910);
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent);
+  mask-image: linear-gradient(180deg, #000 55%, transparent);
 }
 
-.artist-card--featured {
-  background: var(--a-lime);
+.stage-curtain--left {
+  left: 0;
+  border-bottom-right-radius: 60% 18%;
 }
 
-.artist-icon-btn {
-  display: grid;
-  place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: 999px;
-  border: 2px solid var(--a-ink);
-  background: var(--a-card);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+.stage-curtain--right {
+  right: 0;
+  border-bottom-left-radius: 60% 18%;
 }
 
-.artist-icon-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 var(--a-ink);
+.stage-beam {
+  animation: stage-flicker 6s ease-in-out infinite;
+}
+
+@keyframes stage-flicker {
+  0%, 100% { opacity: 1; }
+  48% { opacity: 0.92; }
+  50% { opacity: 0.78; }
+  52% { opacity: 0.95; }
+}
+
+.stage-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Marquee strip. */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Horizontal scroller (section menu). */
+.reel {
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.reel::-webkit-scrollbar {
+  display: none;
+}
+
+.play-ring {
+  box-shadow: 0 0 0 0 rgba(255, 107, 44, 0.55);
+  animation: play-ring 2.4s ease-out infinite;
+}
+
+@keyframes play-ring {
+  0% { box-shadow: 0 0 0 0 rgba(255, 107, 44, 0.55); }
+  70%, 100% { box-shadow: 0 0 0 18px rgba(255, 107, 44, 0); }
+}
+
+/* Audio equaliser. */
+.eq span {
+  display: block;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--s-amber);
+  animation: eq 1.1s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.eq span:nth-child(2) { animation-delay: -0.4s; }
+.eq span:nth-child(3) { animation-delay: -0.8s; }
+.eq span:nth-child(4) { animation-delay: -0.2s; }
+.eq span:nth-child(5) { animation-delay: -0.6s; }
+
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+/* Ticket stub with punched notches. */
+.ticket {
+  --notch: 14px;
+  -webkit-mask:
+    radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
+  mask:
+    radial-gradient(circle var(--notch) at 0 50%, #0000 98%, #000) left / 51% 100% no-repeat,
+    radial-gradient(circle var(--notch) at 100% 50%, #0000 98%, #000) right / 51% 100% no-repeat;
 }
 
 .artist-rise {
-  animation: artist-rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms);
+  animation: artist-rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
 }
 
 @keyframes artist-rise {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.98);
+    transform: translateY(18px);
   }
   to {
     opacity: 1;
@@ -244,24 +348,31 @@
   }
 }
 
-.artist-wiggle:hover {
-  animation: artist-wiggle 0.5s ease;
+.figure-rise {
+  animation: figure-rise 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-@keyframes artist-wiggle {
-  0%, 100% { transform: rotate(0); }
-  25% { transform: rotate(-4deg); }
-  75% { transform: rotate(4deg); }
+@keyframes figure-rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    filter: brightness(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .artist-rise,
-  .artist-wiggle:hover {
+  .figure-rise,
+  .stage-beam,
+  .marquee,
+  .play-ring,
+  .eq span {
     animation: none !important;
-  }
-  .artist-card,
-  .artist-icon-btn {
-    transition: none;
   }
 }

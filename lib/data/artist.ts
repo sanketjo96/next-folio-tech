@@ -40,10 +40,16 @@ export type ArtistItem = {
 export type ArtistSection = {
   id: string;
   title: string;
+  /** Small line above the title, e.g. "On Zee Marathi". */
+  kicker?: string;
   /** Short label for the jump bar at the top of the page. */
   short: string;
-  /** "feature": one large card. "list": stacked rows. */
-  layout?: "feature" | "list";
+  /**
+   * "feature": one cinematic card. "videos": stacked rows on phones, a grid on
+   * wider screens; YouTube links play in the page. "audio": listening card.
+   * "links": ticket-style call to action.
+   */
+  layout: "feature" | "videos" | "audio" | "links";
   items: ArtistItem[];
 };
 
@@ -51,8 +57,13 @@ export type ArtistProfile = {
   name: string;
   handle: string;
   tagline: string;
-  /** Short sticker shown on the avatar. */
+  /** Short sticker shown near the hero figure. */
   badge: string;
+  /** What he does, shown as separate chips in the hero. */
+  roles: string[];
+  /** Words that scroll across the marquee strip. */
+  marquee: string[];
+  /** Transparent cut-out portrait used in the stage hero. */
   avatar: StaticImageData;
   /** Used as the link-preview image when the page is shared. */
   shareImage: StaticImageData;
@@ -63,11 +74,28 @@ export type ArtistProfile = {
 /** YouTube's own thumbnail for a video id. */
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
+/** Video id and start time (seconds) for a YouTube link, or null for other links. */
+export function youtubeInfo(url: string): { id: string; start: number } | null {
+  try {
+    const u = new URL(url);
+    let id: string | null = null;
+    if (u.hostname === "youtu.be") id = u.pathname.slice(1);
+    else if (u.hostname.endsWith("youtube.com")) id = u.searchParams.get("v");
+    if (!id) return null;
+    const start = parseInt(u.searchParams.get("t") ?? u.searchParams.get("start") ?? "0", 10);
+    return { id, start: Number.isFinite(start) ? start : 0 };
+  } catch {
+    return null;
+  }
+}
+
 export const ARTIST: ArtistProfile = {
   name: "Sanket Joshi",
   handle: "@laugh_with_sanket",
   tagline: "Stand-up comedian 🎤 · Tech enthusiast 💻 · Storyteller ✍️",
   badge: "Laughs await!",
+  roles: ["Stand-up comedian", "Storyteller", "Tech enthusiast"],
+  marquee: ["Marathi stand-up", "ZEE5", "Chala Hawa Yeu Dya", "Short films", "Podcasts", "Audiobook"],
   avatar,
   shareImage: standup,
   socials: [
@@ -78,6 +106,7 @@ export const ARTIST: ArtistProfile = {
     {
       id: "standup",
       title: "Stand-up",
+      kicker: "Now streaming",
       short: "Stand-up",
       layout: "feature",
       items: [
@@ -92,7 +121,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "mhj",
       title: "MHJ",
+      kicker: "Episodes",
       short: "MHJ",
+      layout: "videos",
       items: [
         { title: "With Sameer Chaugule", url: "https://youtu.be/eVhV3SaS3ew?t=120", thumbnail: yt("eVhV3SaS3ew") },
         { title: "With Isha Day", url: "https://youtu.be/oGhoPgLUTAg?t=37", thumbnail: yt("oGhoPgLUTAg") },
@@ -102,7 +133,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "chyd",
       title: "चला हवा येऊ द्या",
+      kicker: "On Zee Marathi",
       short: "Chala Hawa Yeu Dya",
+      layout: "videos",
       items: [
         {
           title: "'सेलिब्रिटी चड्डीवाला'",
@@ -127,7 +160,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "films",
       title: "Short films & videos",
+      kicker: "On screen",
       short: "Films",
+      layout: "videos",
       items: [
         { title: "At Crosswalks", subtitle: "Short film", url: "https://www.youtube.com/watch?v=6BViLAov99I", thumbnail: yt("6BViLAov99I") },
         { title: "Beyond Prejudice", subtitle: "Team Kalaad", url: "https://www.youtube.com/watch?v=8uI0L9hkHU0", thumbnail: yt("8uI0L9hkHU0") },
@@ -142,7 +177,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "podcasts",
       title: "Podcasts & vlogs",
+      kicker: "Conversations",
       short: "Podcasts",
+      layout: "videos",
       items: [
         {
           title: "Benaras special Malaiyo, first time in Pune!",
@@ -161,7 +198,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "audio",
       title: "Audio",
+      kicker: "Listen",
       short: "Audio",
+      layout: "audio",
       items: [
         {
           title: "Kothimbir Vadi: A short story",
@@ -174,7 +213,9 @@ export const ARTIST: ArtistProfile = {
     {
       id: "work",
       title: "Work & bookings",
-      short: "Work",
+      kicker: "Book the show",
+      short: "Bookings",
+      layout: "links",
       items: [
         {
           title: "Main portfolio",
