@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers";
 import * as jose from 'jose'
 import { jwtConfig } from "./lib/routes/jwtConfig";
-import { PROTECTED_APIS, PROTECTED_PAGES } from "./lib/routes/routes";
+import { PROTECTED_PAGES } from "./lib/routes/routes";
 
 // `/?artist` (any value, including none) serves the artist link-in-bio page
 // from the same URL. Done here rather than as a next.config rewrite because
@@ -21,42 +20,37 @@ export const middleware = async (request: NextRequest) => {
 
   const requestHeaders = new Headers(request.headers)
   const isProtectedPage = PROTECTED_PAGES.includes(request.nextUrl.pathname);
-  const isProtectedAPI = PROTECTED_APIS.includes(request.nextUrl.pathname);
   const redirectToRoot = () => {
     return NextResponse.redirect(new URL('/', request.nextUrl))
   }
 
-  const token = cookies().get('auth2-token')?.value;
-  if (!token && isProtectedAPI) {
-    return NextResponse.json({
-      message: 'This request is not authenticated',
-      success: false,
-    });
-  }
+  const token = request.cookies.get('auth2-token')?.value;
+  const unauthorized = () =>
+    isProtectedPage
+      ? redirectToRoot()
+      : NextResponse.json(
+          { message: 'This request is not authenticated', success: false },
+          { status: 401 },
+        )
 
-  if (!token && isProtectedPage) {
-    return redirectToRoot()
+  // Never trust an x-user-header sent by the client.
+  requestHeaders.delete("x-user-header")
+
+  if (!token) {
+    return unauthorized()
   }
 
   try {
-    const decoded = await jose.jwtVerify(token as string, jwtConfig.secret)
-    if (!decoded && isProtectedPage) {
-      return redirectToRoot()
-    }
-
+    const decoded = await jose.jwtVerify(token, jwtConfig.secret, { algorithms: ['HS256'] })
     requestHeaders.set("x-user-header", JSON.stringify(decoded.payload))
     return NextResponse.next({
       request: {
         headers: requestHeaders,
       },
     });
-  } catch (e) {
-    console.log('Server Error', e)
-    return NextResponse.json({
-      message: 'Auth Error. Something went wrong',
-      success: false,
-    });
-
+  } catch {
+    // Invalid, expired or tampered token.
+    return unauthorized()
   }
 }
 
