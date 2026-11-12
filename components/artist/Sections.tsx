@@ -51,7 +51,7 @@ export function FeatureSection({ section, index }: { section: ArtistSection; ind
         rel="noopener noreferrer"
         className="group relative block overflow-hidden rounded-3xl bg-[var(--s-card)] ring-1 ring-[var(--s-line)]"
       >
-        <div className="relative aspect-[4/5] sm:aspect-[16/9]">
+        <div className="relative aspect-[4/3] sm:aspect-[16/9]">
           {item.thumbnail && (
             <Image
               src={item.thumbnail}
@@ -69,7 +69,7 @@ export function FeatureSection({ section, index }: { section: ArtistSection; ind
           <span className="play-ring absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[var(--s-orange)] text-[var(--s-bg)] transition-transform group-hover:scale-110 sm:size-24">
             <Play className="ml-1 size-8 fill-current" />
           </span>
-          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
+          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-10">
             <p className="text-sm font-semibold text-[var(--s-amber)]">{item.subtitle}</p>
             <p className="poster mt-2 max-w-2xl text-[clamp(2.6rem,9vw,5.5rem)]">{item.title}</p>
             <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--s-ink)] px-5 py-2.5 text-sm font-bold text-[var(--s-bg)] transition-colors group-hover:bg-[var(--s-amber)]">

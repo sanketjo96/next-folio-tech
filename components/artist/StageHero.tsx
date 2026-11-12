@@ -62,9 +62,9 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
 
         <div className="grid items-end gap-2 lg:mt-6 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
           {/* Figure in the spotlight */}
-          <div className="relative order-1 mx-auto mt-4 w-full max-w-[420px] lg:order-2 lg:mt-10 lg:max-w-[520px]">
+          <div className="relative order-1 mx-auto mt-1 w-full max-w-[230px] sm:mt-4 sm:max-w-[420px] lg:order-2 lg:mt-10 lg:max-w-[520px]">
             <p
-              className="poster outline-text pointer-events-none absolute inset-x-0 top-[6%] select-none text-center text-[clamp(6rem,30vw,12rem)]"
+              className="poster outline-text pointer-events-none absolute inset-x-0 top-[6%] select-none text-center text-[clamp(4.5rem,24vw,12rem)]"
               aria-hidden
             >
               Laugh
@@ -78,7 +78,7 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
               className="figure-rise relative mx-auto w-[86%] drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]"
             />
             <span
-              className="artist-rise absolute right-[2%] top-[22%] rotate-[10deg] rounded-full bg-[var(--s-amber)] px-3 py-1.5 text-xs font-extrabold text-[var(--s-bg)] shadow-lg sm:text-sm"
+              className="artist-rise absolute -right-[22%] top-[18%] rotate-[10deg] rounded-full bg-[var(--s-amber)] px-3 py-1.5 text-xs font-extrabold sm:right-[2%] sm:top-[22%] text-[var(--s-bg)] shadow-lg sm:text-sm"
               style={rise(5)}
             >
               {ARTIST.badge}
@@ -86,16 +86,19 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
           </div>
 
           {/* Name and intro */}
-          <div className="order-2 pb-10 text-center lg:order-1 lg:pb-20 lg:text-left">
-            <p className="artist-rise text-xs font-semibold uppercase tracking-[0.3em] text-[var(--s-amber)]" style={rise(1)}>
+          <div className="order-2 pb-9 text-center sm:pb-10 lg:order-1 lg:pb-20 lg:text-left">
+            <p className="artist-rise hidden text-xs font-semibold uppercase tracking-[0.3em] text-[var(--s-amber)] sm:block" style={rise(1)}>
               Live on stage
             </p>
-            <h1 className="poster artist-rise mt-3 text-[clamp(4.25rem,19vw,9.5rem)]" style={rise(2)}>
+            <h1 className="poster artist-rise mt-1 text-[clamp(3.5rem,16vw,9.5rem)] sm:mt-3" style={rise(2)}>
               {first}
               <br />
               <span className="text-[var(--s-orange)]">{last}</span>
             </h1>
-            <ul className="artist-rise mt-6 flex flex-wrap justify-center gap-2 lg:justify-start" style={rise(3)}>
+            <p className="artist-rise mt-3 text-sm text-[var(--s-muted)] sm:hidden" style={rise(3)}>
+              {ARTIST.roles.join(" · ")}
+            </p>
+            <ul className="artist-rise mt-6 hidden flex-wrap justify-center gap-2 sm:flex lg:justify-start" style={rise(3)}>
               {ARTIST.roles.map((role) => (
                 <li
                   key={role}
@@ -105,7 +108,7 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
                 </li>
               ))}
             </ul>
-            <div className="artist-rise mt-8 flex items-center justify-center gap-3 lg:justify-start" style={rise(4)}>
+            <div className="artist-rise mt-5 flex items-center justify-center gap-3 sm:mt-8 lg:justify-start" style={rise(4)}>
               <a
                 href="#standup"
                 className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[var(--s-orange)] pl-2 pr-5 font-bold text-[var(--s-bg)] transition-transform hover:-translate-y-0.5"

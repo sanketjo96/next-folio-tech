@@ -41,7 +41,7 @@ function Marquee() {
 
 function JumpBar() {
   return (
-    <nav aria-label="Sections" className="sticky top-0 z-30 mt-10 border-y border-[var(--s-line)] bg-[var(--s-bg)]/85 backdrop-blur-md">
+    <nav aria-label="Sections" className="sticky top-0 z-30 mt-6 border-y sm:mt-10 border-[var(--s-line)] bg-[var(--s-bg)]/85 backdrop-blur-md">
       <ul className="reel mx-auto flex max-w-6xl gap-1 overflow-x-auto px-5 py-2.5">
         {ARTIST.sections.map((s) => (
           <li key={s.id} className="shrink-0">
@@ -101,7 +101,7 @@ const ArtistPage: AppPage = () => {
         <Marquee />
         <JumpBar />
 
-        <main className="mx-auto flex max-w-6xl flex-col gap-20 px-5 pb-16 pt-14 sm:gap-24">
+        <main className="mx-auto flex max-w-6xl flex-col gap-16 px-5 pb-16 pt-8 sm:gap-24 sm:pt-14">
           {ARTIST.sections.map((section, i) => renderSection(section, i + 1, setPlaying))}
         </main>
 
