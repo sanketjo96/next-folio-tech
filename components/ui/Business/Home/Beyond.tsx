@@ -35,9 +35,9 @@ export default function Beyond() {
           <p className="mt-6 max-w-md leading-relaxed text-foreground/75">
             {t("beyondBody")}
           </p>
-          {/* Full load: `/?artist` is resolved by middleware. */}
+          {/* Full page load: the artist page renders without the tech-site layout. */}
           {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/?artist" className="link-mono mt-8">
+          <a href="/artist" className="link-mono mt-8">
             {t("beyondCta")} <ArrowUpRight className="size-3.5" />
           </a>
         </div>
