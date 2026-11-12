@@ -7,9 +7,9 @@ import StageHero from "@/components/artist/StageHero";
 import VideoPlayer from "@/components/artist/VideoPlayer";
 import {
   AudioSection,
-  CarouselSection,
   FeatureSection,
   LinksSection,
+  VideoSection,
 } from "@/components/artist/Sections";
 import type { AppPage } from "../_app";
 
@@ -62,8 +62,8 @@ function renderSection(section: ArtistSection, index: number, onPlay: (item: Art
   switch (section.layout) {
     case "feature":
       return <FeatureSection key={section.id} section={section} index={index} />;
-    case "carousel":
-      return <CarouselSection key={section.id} section={section} index={index} onPlay={onPlay} />;
+    case "videos":
+      return <VideoSection key={section.id} section={section} index={index} onPlay={onPlay} />;
     case "audio":
       return <AudioSection key={section.id} section={section} index={index} />;
     case "links":

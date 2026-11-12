@@ -281,20 +281,14 @@
   to { transform: translateX(-50%); }
 }
 
-/* Video cards. */
+/* Horizontal scroller (section menu). */
 .reel {
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 1.25rem;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
 }
 
 .reel::-webkit-scrollbar {
   display: none;
-}
-
-.reel > * {
-  scroll-snap-align: start;
 }
 
 .play-ring {

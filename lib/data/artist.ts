@@ -45,10 +45,11 @@ export type ArtistSection = {
   /** Short label for the jump bar at the top of the page. */
   short: string;
   /**
-   * "feature": one cinematic card. "carousel": swipeable video cards that play
-   * in the page. "audio": listening card. "links": ticket-style call to action.
+   * "feature": one cinematic card. "videos": stacked rows on phones, a grid on
+   * wider screens; YouTube links play in the page. "audio": listening card.
+   * "links": ticket-style call to action.
    */
-  layout: "feature" | "carousel" | "audio" | "links";
+  layout: "feature" | "videos" | "audio" | "links";
   items: ArtistItem[];
 };
 
@@ -122,7 +123,7 @@ export const ARTIST: ArtistProfile = {
       title: "MHJ",
       kicker: "Episodes",
       short: "MHJ",
-      layout: "carousel",
+      layout: "videos",
       items: [
         { title: "With Sameer Chaugule", url: "https://youtu.be/eVhV3SaS3ew?t=120", thumbnail: yt("eVhV3SaS3ew") },
         { title: "With Isha Day", url: "https://youtu.be/oGhoPgLUTAg?t=37", thumbnail: yt("oGhoPgLUTAg") },
@@ -134,7 +135,7 @@ export const ARTIST: ArtistProfile = {
       title: "चला हवा येऊ द्या",
       kicker: "On Zee Marathi",
       short: "Chala Hawa Yeu Dya",
-      layout: "carousel",
+      layout: "videos",
       items: [
         {
           title: "'सेलिब्रिटी चड्डीवाला'",
@@ -161,7 +162,7 @@ export const ARTIST: ArtistProfile = {
       title: "Short films & videos",
       kicker: "On screen",
       short: "Films",
-      layout: "carousel",
+      layout: "videos",
       items: [
         { title: "At Crosswalks", subtitle: "Short film", url: "https://www.youtube.com/watch?v=6BViLAov99I", thumbnail: yt("6BViLAov99I") },
         { title: "Beyond Prejudice", subtitle: "Team Kalaad", url: "https://www.youtube.com/watch?v=8uI0L9hkHU0", thumbnail: yt("8uI0L9hkHU0") },
@@ -178,7 +179,7 @@ export const ARTIST: ArtistProfile = {
       title: "Podcasts & vlogs",
       kicker: "Conversations",
       short: "Podcasts",
-      layout: "carousel",
+      layout: "videos",
       items: [
         {
           title: "Benaras special Malaiyo, first time in Pune!",

@@ -1,24 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Code, Mail, Play, Ticket } from "lucide-react";
+import { ArrowUpRight, Code, Mail, Play, Ticket } from "lucide-react";
 import type { ArtistItem, ArtistSection } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
 
 /** Devanagari titles get the Marathi font. */
 const isMarathi = (text: string) => /[ऀ-ॿ]/.test(text);
 
-function SectionHeader({
-  section,
-  index,
-  controls,
-}: {
-  section: ArtistSection;
-  index: number;
-  controls?: React.ReactNode;
-}) {
+function SectionHeader({ section, index }: { section: ArtistSection; index: number }) {
   return (
-    <div className="mb-6 flex items-end justify-between gap-4">
+    <div className="mb-5 sm:mb-6">
       <div>
         <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.28em] text-[var(--s-amber)]">
           <span className="text-[var(--s-faint)]">{String(index).padStart(2, "0")}</span>
@@ -33,7 +24,6 @@ function SectionHeader({
           {section.title}
         </h2>
       </div>
-      {controls}
     </div>
   );
 }
@@ -82,51 +72,64 @@ export function FeatureSection({ section, index }: { section: ArtistSection; ind
   );
 }
 
-/* --------------------------------------------------------------- Carousel */
+/* ----------------------------------------------------------------- Videos */
 
+/**
+ * Phones: a full-width row (thumbnail left, title right), stacked like a
+ * link-in-bio list. Wider screens: a thumbnail card in a grid.
+ */
 function VideoCard({ item, onPlay }: { item: ArtistItem; onPlay: (item: ArtistItem) => void }) {
   const playable = !!youtubeInfo(item.url);
+  const cls =
+    "group flex w-full items-center gap-3.5 rounded-2xl bg-[var(--s-card)] p-2.5 pr-4 text-left ring-1 ring-[var(--s-line)] transition-colors hover:ring-[var(--s-amber)]/50 active:scale-[0.99] sm:block sm:bg-transparent sm:p-0 sm:ring-0";
   const body = (
     <>
-      <span className="relative block aspect-video overflow-hidden rounded-2xl bg-[var(--s-card)] ring-1 ring-[var(--s-line)]">
+      <span className="relative block aspect-video w-32 shrink-0 overflow-hidden rounded-xl bg-[var(--s-bg-2)] sm:w-full sm:rounded-2xl sm:ring-1 sm:ring-[var(--s-line)]">
         {item.thumbnail && (
           <Image
             src={item.thumbnail}
             alt=""
             fill
-            sizes="(min-width: 640px) 340px, 80vw"
+            sizes="(min-width: 640px) 340px, 128px"
             className="object-cover transition-transform duration-500 group-hover:scale-[1.06]"
           />
         )}
-        <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80 transition-opacity group-hover:opacity-50" />
-        <span className="absolute bottom-3 left-3 grid size-11 place-items-center rounded-full bg-[var(--s-orange)] text-[var(--s-bg)] shadow-lg transition-transform group-hover:scale-110">
-          <Play className="ml-0.5 size-4 fill-current" />
+        <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent sm:opacity-80 sm:transition-opacity sm:group-hover:opacity-50" />
+        <span className="absolute bottom-1.5 left-1.5 grid size-7 place-items-center rounded-full bg-[var(--s-orange)] text-[var(--s-bg)] shadow-lg transition-transform group-hover:scale-110 sm:bottom-3 sm:left-3 sm:size-11">
+          <Play className="ml-0.5 size-3 fill-current sm:size-4" />
         </span>
       </span>
-      <span
-        className={
-          "mt-3 line-clamp-2 block text-[17px] font-bold leading-snug " +
-          (isMarathi(item.title) ? "marathi" : "")
-        }
-      >
-        {item.title}
+      <span className="min-w-0 flex-1 sm:mt-3 sm:block">
+        <span
+          className={
+            "line-clamp-2 block text-[15px] font-bold leading-snug sm:text-[17px] " +
+            (isMarathi(item.title) ? "marathi" : "")
+          }
+        >
+          {item.title}
+        </span>
+        {item.subtitle && (
+          <span className="mt-0.5 block truncate text-[13px] text-[var(--s-muted)] sm:mt-1 sm:text-sm">
+            {item.subtitle}
+          </span>
+        )}
       </span>
-      {item.subtitle && <span className="mt-1 block text-sm text-[var(--s-muted)]">{item.subtitle}</span>}
+      <ArrowUpRight className="size-4 shrink-0 text-[var(--s-faint)] sm:hidden" />
     </>
   );
 
   return playable ? (
-    <button type="button" onClick={() => onPlay(item)} className="group block w-full text-left">
+    <button type="button" onClick={() => onPlay(item)} className={cls}>
       {body}
     </button>
   ) : (
-    <a href={item.url} target="_blank" rel="noopener noreferrer" className="group block">
+    <a href={item.url} target="_blank" rel="noopener noreferrer" className={cls}>
       {body}
     </a>
   );
 }
 
-export function CarouselSection({
+export function VideoSection({
   section,
   index,
   onPlay,
@@ -135,37 +138,12 @@ export function CarouselSection({
   index: number;
   onPlay: (item: ArtistItem) => void;
 }) {
-  const reel = useRef<HTMLUListElement>(null);
-  const scroll = (dir: number) =>
-    reel.current?.scrollBy({ left: dir * reel.current.clientWidth * 0.8, behavior: "smooth" });
-
-  const arrow =
-    "grid size-11 place-items-center rounded-full border border-[var(--s-line)] transition-colors hover:border-[var(--s-amber)] hover:text-[var(--s-amber)]";
-
   return (
     <section id={section.id} className="scroll-mt-20">
-      <SectionHeader
-        section={section}
-        index={index}
-        controls={
-          section.items.length > 3 ? (
-            <div className="hidden gap-2 sm:flex">
-              <button type="button" className={arrow} onClick={() => scroll(-1)} aria-label="Previous">
-                <ArrowLeft className="size-4" />
-              </button>
-              <button type="button" className={arrow} onClick={() => scroll(1)} aria-label="Next">
-                <ArrowRight className="size-4" />
-              </button>
-            </div>
-          ) : null
-        }
-      />
-      <ul
-        ref={reel}
-        className="reel -mx-5 flex gap-4 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3"
-      >
+      <SectionHeader section={section} index={index} />
+      <ul className="flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-x-4 sm:gap-y-8 lg:grid-cols-3">
         {section.items.map((item) => (
-          <li key={item.url} className="w-[80vw] max-w-[340px] shrink-0 sm:w-auto sm:max-w-none">
+          <li key={item.url}>
             <VideoCard item={item} onPlay={onPlay} />
           </li>
         ))}
