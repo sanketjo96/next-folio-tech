@@ -16,9 +16,12 @@ export type MarkdownMetaData = {
   id: string;
   title: string;
   author: string;
-  image: string;
+  image?: string;
   publishDate: string;
   summary: string;
+  /** Set on posts synced from LinkedIn (via Typefully). */
+  source?: "linkedin";
+  linkedinUrl?: string;
   /** Estimated minutes to read, derived from the body. */
   readingMinutes?: number;
   /** Short tech tags, derived from a "## Technology" list in the body. */

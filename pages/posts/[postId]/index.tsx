@@ -19,8 +19,9 @@ type PostPageProps = {
 };
 
 function PostPage({ source, metaData }: PostPageProps) {
-  const { id, title, image, author, publishDate, summary } = metaData;
+  const { id, title, image, author, publishDate, summary, linkedinUrl } = metaData;
   const url = absoluteUrl(`/posts/${id}`);
+  const ogImage = image?.startsWith("/") ? absoluteUrl(image) : image;
   return (
     <>
       <NextSeo
@@ -33,6 +34,7 @@ function PostPage({ source, metaData }: PostPageProps) {
           title,
           description: summary,
           article: { publishedTime: publishDate, authors: [absoluteUrl("/")] },
+          ...(ogImage ? { images: [{ url: ogImage, alt: title }] } : {}),
         }}
       />
       <JsonLd
@@ -62,6 +64,19 @@ function PostPage({ source, metaData }: PostPageProps) {
           {author} · {formatDate(publishDate)}
         </header>
         <MdxContent {...source} />
+        {linkedinUrl && (
+          <p className="not-prose mt-10 border-t pt-6 text-sm text-muted-foreground">
+            Originally posted on LinkedIn.{" "}
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-brand hover:underline"
+            >
+              Join the discussion there ↗
+            </a>
+          </p>
+        )}
       </article>
     </>
   );
