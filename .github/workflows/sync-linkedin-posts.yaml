@@ -42,7 +42,7 @@ jobs:
           TYPEFULLY_SOCIAL_SET_ID: ${{ vars.TYPEFULLY_SOCIAL_SET_ID || '360374' }}
           # Optional: without these, covers fall back to the plain title card.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
 
       - name: Commit new posts
         id: commit

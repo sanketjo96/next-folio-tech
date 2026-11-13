@@ -11,8 +11,8 @@
  * Env:
  *   TYPEFULLY_API_KEY        required
  *   TYPEFULLY_SOCIAL_SET_ID  required (Typefully account id)
- *   ANTHROPIC_API_KEY        optional, with GEMINI_API_KEY enables AI covers
- *   GEMINI_API_KEY           optional
+ *   ANTHROPIC_API_KEY        optional, enables photo covers (Claude picks the photos)
+ *   PEXELS_API_KEY           optional, background photos from Pexels
  *   POSTS_AUTHOR             optional, defaults to "Sanket Joshi"
  */
 import fs from "node:fs/promises";
@@ -100,7 +100,7 @@ async function coverFields(draftId, draft) {
   const text = postText(draft);
   await fs.mkdir(IMAGES_DIR, { recursive: true });
   const fileBase = `li-${draftId}`;
-  const { credit, creditUrl } = await renderCover(path.join(IMAGES_DIR, `${fileBase}.png`), {
+  const { credits } = await renderCover(path.join(IMAGES_DIR, `${fileBase}.png`), {
     title: titleFrom(draft.draft_title, text),
     date: publishDate(draft),
     tags: hashtagsFrom(text),
@@ -108,8 +108,7 @@ async function coverFields(draftId, draft) {
   });
   return {
     image: `/images/posts/${fileBase}.png`,
-    imageCredit: credit ?? null,
-    imageCreditUrl: creditUrl ?? null,
+    imageCredits: credits.length ? credits : null,
   };
 }
 
