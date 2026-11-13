@@ -10,8 +10,15 @@ export type Role = {
   period: string;
 };
 
+/**
+ * Company logo as a single-colour alpha mask (black on transparent) in
+ * public/logos, tinted by the theme. width/height are the file's pixel size.
+ */
+export type Logo = { src: string; width: number; height: number };
+
 export type Experience = {
   company: string;
+  logo?: Logo;
   /** Short context line under the company name. */
   context?: string;
   location?: string;
@@ -48,6 +55,7 @@ export const EXPERIENCE: Experience[] = [
   },
   {
     company: "EPAM Systems",
+    logo: { src: "/logos/epam.png", width: 273, height: 96 },
     context: "Insurance domain client",
     location: "Pune",
     roles: [{ title: "Senior Software Engineer III", period: "Jun 2022 – Aug 2025" }],
@@ -60,6 +68,7 @@ export const EXPERIENCE: Experience[] = [
   },
   {
     company: "Excellarate",
+    logo: { src: "/logos/excellarate.png", width: 518, height: 96 },
     location: "Pune",
     roles: [
       { title: "Team Lead", period: "Jan 2021 – Jun 2022" },
@@ -89,6 +98,7 @@ export const EXPERIENCE: Experience[] = [
   },
   {
     company: "Cybage Software",
+    logo: { src: "/logos/cybage.png", width: 704, height: 96 },
     context: "athenahealth · TravelClick",
     location: "Pune",
     roles: [
