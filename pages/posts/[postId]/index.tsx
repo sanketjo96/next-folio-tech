@@ -19,7 +19,8 @@ type PostPageProps = {
 };
 
 function PostPage({ source, metaData }: PostPageProps) {
-  const { id, title, image, author, publishDate, summary, linkedinUrl } = metaData;
+  const { id, title, image, imageCredit, imageCreditUrl, author, publishDate, summary, linkedinUrl } =
+    metaData;
   const url = absoluteUrl(`/posts/${id}`);
   const ogImage = image?.startsWith("/") ? absoluteUrl(image) : image;
   return (
@@ -58,6 +59,17 @@ function PostPage({ source, metaData }: PostPageProps) {
               alt={title}
               className="aspect-[4/1] w-full object-cover"
             ></Image>
+            {imageCredit && (
+              <p className="not-prose mt-2 text-right text-[11px] text-muted-foreground">
+                {imageCreditUrl ? (
+                  <a href={imageCreditUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {imageCredit}
+                  </a>
+                ) : (
+                  imageCredit
+                )}
+              </p>
+            )}
           </div>
         )}
         <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">

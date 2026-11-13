@@ -17,6 +17,9 @@ export type MarkdownMetaData = {
   title: string;
   author: string;
   image?: string;
+  /** Attribution for a licensed photo in the cover image (e.g. Wikimedia Commons). */
+  imageCredit?: string;
+  imageCreditUrl?: string;
   publishDate: string;
   summary: string;
   /** Set on posts synced from LinkedIn (via Typefully). */
