@@ -1,11 +1,33 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { ArrowUpRight } from "lucide-react";
-import { CERTIFICATIONS, EDUCATION, EXPERIENCE } from "@/lib/data/experience";
+import { CERTIFICATIONS, EDUCATION, EXPERIENCE, type Logo } from "@/lib/data/experience";
 import { SectionHeading, style } from "./SectionHeading";
 import { seenAttrs } from "@/lib/analytics";
 import { PROFILE_LINKS } from "@/lib/seo";
 
+
+const LOGO_HEIGHT = 22;
+
+/**
+ * The logo file is used as a mask, so it takes the text colour and works in
+ * light and dark themes. Decorative: the company name follows as text.
+ */
+const CompanyLogo = ({ logo }: { logo: Logo }) => {
+  const mask = `url(${logo.src}) left center / contain no-repeat`;
+  return (
+    <span
+      aria-hidden
+      className="mb-3 block bg-foreground/70"
+      style={{
+        height: LOGO_HEIGHT,
+        width: Math.round((logo.width / logo.height) * LOGO_HEIGHT),
+        mask,
+        WebkitMask: mask,
+      }}
+    />
+  );
+};
 
 export default function ExperienceTimeline() {
   const { t } = useTranslation("home");
@@ -47,6 +69,7 @@ export default function ExperienceTimeline() {
 
             {/* Company, roles, highlights */}
             <div>
+              {job.logo && <CompanyLogo logo={job.logo} />}
               <h3 className="text-3xl leading-tight sm:text-[2.1rem]">{job.company}</h3>
               {job.context && (
                 <p className="mt-1 text-sm text-muted-foreground">{job.context}</p>
