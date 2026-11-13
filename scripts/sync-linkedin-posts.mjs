@@ -12,7 +12,6 @@
  *   TYPEFULLY_API_KEY        required
  *   TYPEFULLY_SOCIAL_SET_ID  required (Typefully account id)
  *   ANTHROPIC_API_KEY        optional, enables photo covers (Claude picks the photos)
- *   PEXELS_API_KEY           optional, background photos from Pexels
  *   POSTS_AUTHOR             optional, defaults to "Sanket Joshi"
  */
 import fs from "node:fs/promises";

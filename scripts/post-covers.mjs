@@ -2,9 +2,9 @@
  * Cover banners for synced LinkedIn posts (1600x400, the 4:1 header on the post page).
  * Built only from licensed real photos, never AI-generated imagery:
  *
- * 1. Claude reads the post and plans the cover: Pexels search terms for the
+ * 1. Claude reads the post and plans the cover: Wikimedia Commons search terms for the
  *    background, plus the Wikipedia title of a public figure when one is central.
- * 2. The script fetches Pexels candidates; Claude looks at them and picks the best
+ * 2. The script fetches freely licensed Commons candidates; Claude looks at them and picks the best
  *    one and where to crop it.
  * 3. sharp crops it to 4:1 and grades it in the site's orange/magenta palette.
  * 4. For a public figure, their lead photo from Wikipedia is framed on the right,
@@ -81,9 +81,9 @@ async function askClaude({ system, content, schema }) {
   return JSON.parse(block.text);
 }
 
-const PLAN_SYSTEM = `You art-direct wide 4:1 cover banners for a software engineer's blog posts, reposted from LinkedIn. Covers use real stock photos from Pexels, toned in the site's warm orange and magenta on dark charcoal, with the title overlaid on the left.
+const PLAN_SYSTEM = `You art-direct wide 4:1 cover banners for a software engineer's blog posts, reposted from LinkedIn. Covers use real, freely licensed photos from Wikimedia Commons, toned in the site's warm orange and magenta on dark charcoal, with the title overlaid on the left.
 
-Give 2 or 3 Pexels search queries for the background. Aim for a concrete, editorial photo that captures this post's specific story or idea, not generic tech imagery (no "technology", "computer", "AI" on their own). Think in things a photographer could shoot: "press conference camera flashes", "empty office chair spotlight", "server room red alert lights". Short queries (2 to 5 words) find more.
+Give 2 or 3 Wikimedia Commons search queries for the background. Aim for a concrete, editorial photo that captures this post's specific story or idea, not generic tech imagery (no "technology", "computer", "AI" on their own). Think in things a photographer could shoot: "press conference camera flashes", "empty office chair spotlight", "server room red alert lights". Commons is a photo archive, not a stock site, so short, literal queries (2 to 4 words naming visible things) find more than moods or concepts.
 
 If the post is mainly about one real, well-known public figure, give their exact English Wikipedia article title; their own photo will be framed beside the background, so the background should be the atmosphere around the story, without people's faces as the subject.`;
 
@@ -113,50 +113,95 @@ const PICK_SCHEMA = {
   additionalProperties: false,
 };
 
-// ---------------------------------------------------------- background (Pexels)
+// ------------------------------------------------- background (Wikimedia Commons)
 
-async function pexelsSearch(query) {
-  const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&orientation=landscape&size=medium&per_page=${CANDIDATES_PER_QUERY}`;
-  const res = await fetch(url, { headers: { Authorization: process.env.PEXELS_API_KEY } });
-  if (!res.ok) throw new Error(`Pexels ${res.status} for "${query}"`);
-  return (await res.json()).photos ?? [];
+/**
+ * Freely licensed, landscape, large-enough photos on Commons matching `query`.
+ * Each candidate carries a small preview URL, its credit and its file title.
+ */
+async function commonsSearch(query) {
+  const url =
+    "https://commons.wikimedia.org/w/api.php?action=query&format=json&generator=search&gsrnamespace=6" +
+    `&gsrlimit=${CANDIDATES_PER_QUERY * 3}&gsrsearch=${encodeURIComponent(`${query} filetype:bitmap`)}` +
+    "&prop=imageinfo&iiprop=url|size|mime|extmetadata&iiurlwidth=500";
+  const json = await wikiJson(url);
+  const pages = Object.values(json.query?.pages ?? {}).sort((a, b) => a.index - b.index);
+  const out = [];
+  for (const page of pages) {
+    const ii = page.imageinfo?.[0];
+    if (!ii || !/^image\/(jpeg|png)$/.test(ii.mime)) continue;
+    if (ii.width < 1600 || ii.width / ii.height < 1.2) continue; // need a wide, sharp source
+    const meta = ii.extmetadata ?? {};
+    const license = stripHtml(meta.LicenseShortName?.value);
+    if (!FREE_LICENSE.test(license)) continue;
+    out.push({
+      id: page.title,
+      preview: ii.thumburl,
+      description: stripHtml(meta.ImageDescription?.value).slice(0, 200) || page.title,
+      credit: {
+        text: `Background: ${stripHtml(meta.Artist?.value) || "Unknown author"}, ${license}, via Wikimedia Commons`,
+        url: ii.descriptionurl,
+      },
+    });
+    if (out.length === CANDIDATES_PER_QUERY) break;
+  }
+  return out;
+}
+
+async function commonsImage(fileTitle, width) {
+  const json = await wikiJson(
+    `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url&iiurlwidth=${width}&titles=${encodeURIComponent(fileTitle)}`
+  );
+  const ii = Object.values(json.query?.pages ?? {})[0]?.imageinfo?.[0];
+  if (!ii) throw new Error(`no image info for ${fileTitle}`);
+  return getBuffer(ii.thumburl ?? ii.url, { "user-agent": WIKI_UA });
 }
 
 async function pickBackground(postText, queries, log) {
   const seen = new Set();
   const candidates = [];
   for (const q of queries.slice(0, 3)) {
-    for (const p of await pexelsSearch(q)) {
-      if (seen.has(p.id)) continue;
-      seen.add(p.id);
-      candidates.push(p);
+    for (const c of await commonsSearch(q)) {
+      if (seen.has(c.id)) continue;
+      seen.add(c.id);
+      candidates.push(c);
     }
   }
-  if (!candidates.length) return null;
+  if (!candidates.length) {
+    log("  no freely licensed background candidates found");
+    return null;
+  }
 
-  // Claude sees small JPEG previews, numbered.
-  const previews = await Promise.all(
-    candidates.map(async (p) =>
-      (await sharp(await getBuffer(p.src.medium)).resize({ width: 640, withoutEnlargement: true }).jpeg({ quality: 70 }).toBuffer()).toString("base64")
+  // Claude sees small JPEG previews, numbered. Unfetchable previews are dropped.
+  const previews = await Promise.allSettled(
+    candidates.map(async (c) =>
+      (
+        await sharp(await getBuffer(c.preview, { "user-agent": WIKI_UA }))
+          .resize({ width: 500, withoutEnlargement: true })
+          .jpeg({ quality: 70 })
+          .toBuffer()
+      ).toString("base64")
     )
   );
+  const usable = candidates
+    .map((c, i) => ({ ...c, data: previews[i].status === "fulfilled" ? previews[i].value : null }))
+    .filter((c) => c.data);
+  if (!usable.length) return null;
+
   const content = [{ type: "text", text: `<post>\n${postText}\n</post>\n\nCandidates:` }];
-  candidates.forEach((p, i) => {
-    content.push({ type: "text", text: `Candidate ${i}: ${p.alt || "(no description)"}` });
-    content.push({ type: "image", source: { type: "base64", media_type: "image/jpeg", data: previews[i] } });
+  usable.forEach((c, i) => {
+    content.push({ type: "text", text: `Candidate ${i}: ${c.description}` });
+    content.push({ type: "image", source: { type: "base64", media_type: "image/jpeg", data: c.data } });
   });
   const pick = await askClaude({ system: PICK_SYSTEM, content, schema: PICK_SCHEMA });
-  log(`  pick: ${pick.choice} of ${candidates.length} – ${pick.reason}`);
-  const photo = candidates[pick.choice];
-  if (!photo) return null;
+  log(`  pick: ${pick.choice} of ${usable.length} – ${pick.reason}`);
+  const chosen = usable[pick.choice];
+  if (!chosen) return null;
 
-  const original = await getBuffer(`${photo.src.original}?auto=compress&w=2400`);
+  const original = await commonsImage(chosen.id, 1920);
   return {
     buffer: await gradeBackground(original, pick.focus_x, pick.focus_y),
-    credits: [
-      { text: `Background: photo by ${photo.photographer} on Pexels`, url: photo.url },
-      { text: "Photos provided by Pexels", url: "https://www.pexels.com" },
-    ],
+    credits: [chosen.credit],
   };
 }
 
@@ -252,6 +297,10 @@ function overlaySvg({ title, date, tags, hasBackground, hasPhoto }) {
       <stop offset="0.5" stop-color="#14161c" stop-opacity="0.7"/>
       <stop offset="1" stop-color="#14161c" stop-opacity="0.05"/>
     </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0.6" stop-color="#14161c" stop-opacity="0"/>
+      <stop offset="1" stop-color="#14161c" stop-opacity="0.75"/>
+    </linearGradient>
     <radialGradient id="glow" cx="0.85" cy="0.5" r="0.45">
       <stop offset="0" stop-color="#f6762a" stop-opacity="0.35"/><stop offset="1" stop-color="#f6762a" stop-opacity="0"/>
     </radialGradient>
@@ -260,7 +309,7 @@ function overlaySvg({ title, date, tags, hasBackground, hasPhoto }) {
     </linearGradient>
   </defs>
   ${hasBackground
-    ? `<rect width="${W}" height="${H}" fill="url(#scrim)"/>`
+    ? `<rect width="${W}" height="${H}" fill="url(#scrim)"/><rect width="${W}" height="${H}" fill="url(#floor)"/>`
     : `<rect width="${W}" height="${H}" fill="#1a1c23"/><rect width="${W}" height="${H}" fill="url(#glow)"/><g fill="url(#fade)">${dots.join("")}</g>`}
   ${hasPhoto ? `<rect x="${photoX - 5}" y="${(H - PHOTO) / 2 - 5}" width="${PHOTO + 10}" height="${PHOTO + 10}" rx="32" fill="url(#brand)"/>` : ""}
   <rect x="96" y="${titleY - size - 64}" width="56" height="6" rx="3" fill="url(#brand)"/>
@@ -294,14 +343,13 @@ export async function renderCover(outPath, { title, date, tags, text }, log = co
       const figure = plan.public_figure_wikipedia_title;
       log(`  plan: figure=${figure ?? "none"}; queries=${JSON.stringify(plan.background_queries)}`);
       const [bg, ph] = await Promise.allSettled([
-        process.env.PEXELS_API_KEY ? pickBackground(text, plan.background_queries, log) : null,
+        pickBackground(text, plan.background_queries, log),
         figure ? freePhoto(figure) : null,
       ]);
       if (bg.status === "fulfilled") background = bg.value;
       else log(`  background failed: ${bg.reason.message}`);
       if (ph.status === "fulfilled") photo = ph.value;
       else log(`  photo failed: ${ph.reason.message}`);
-      if (!process.env.PEXELS_API_KEY) log("  PEXELS_API_KEY not set, no background photo");
       if (figure && !photo) log("  no freely licensed photo of the figure");
     } catch (err) {
       log(`  cover planning failed, using title card: ${err.message}`);
