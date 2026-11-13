@@ -82,7 +82,7 @@ const Rows = ({ metaList, redirectBase }: MarkdownListProps) => (
                 width={640}
                 height={360}
                 sizes="(min-width: 640px) 13rem, 100vw"
-                className="mb-4 aspect-video w-full rounded-md border object-cover transition-opacity group-hover:opacity-90 sm:order-last sm:mb-0 sm:w-52 sm:shrink-0"
+                className="mb-4 aspect-video w-full rounded-md border object-cover transition-opacity group-hover:opacity-90 sm:mb-0 sm:w-52 sm:shrink-0"
               />
             )}
             <div className="min-w-0 flex-1">
