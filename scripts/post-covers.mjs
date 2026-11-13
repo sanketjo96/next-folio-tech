@@ -3,13 +3,15 @@
  * Built only from licensed real photos, never AI-generated imagery:
  *
  * 1. Claude reads the post and plans the cover: Wikimedia Commons search terms for the
- *    background, plus the Wikipedia title of a public figure when one is central.
+ *    background, plus the Wikipedia title of a featured subject (a person, or a
+ *    product/organisation shown by its logo) when one is central.
  * 2. The script fetches freely licensed Commons candidates; Claude looks at them and picks the best
  *    one and where to crop it.
  * 3. sharp crops it to 4:1 and grades it in the site's orange/magenta palette.
- * 4. For a public figure, their lead photo from Wikipedia is framed on the right,
- *    only if it is a freely licensed Wikimedia Commons file.
+ * 4. For a featured subject, the lead image of its Wikipedia article (photo or logo)
+ *    is framed on the right, only if it is a freely licensed Wikimedia Commons file.
  * 5. Title, date and hashtags are drawn on top.
+ * 6. A 16:9 thumbnail (photo and framed subject, no text) is saved for post lists.
  *
  * Credits for every photo used are returned for the post page. Any failure degrades
  * gracefully: no photo, or the plain title card when there is no background either.
@@ -20,6 +22,8 @@ import sharp from "sharp";
 const W = 1600;
 const H = 400;
 const PHOTO = 300;
+const THUMB_W = 640;
+const THUMB_H = 360;
 const CLAUDE_MODEL = "claude-opus-5-5";
 const CANDIDATES_PER_QUERY = 5;
 const WIKI_UA = "techsanket-post-sync/1.0 (https://www.techsanket.in)";
@@ -83,17 +87,17 @@ async function askClaude({ system, content, schema }) {
 
 const PLAN_SYSTEM = `You art-direct wide 4:1 cover banners for a software engineer's blog posts, reposted from LinkedIn. Covers use real, freely licensed photos from Wikimedia Commons, toned in the site's warm orange and magenta on dark charcoal, with the title overlaid on the left.
 
-Give 2 or 3 Wikimedia Commons search queries for the background. Aim for a concrete, editorial photo that captures this post's specific story or idea, not generic tech imagery (no "technology", "computer", "AI" on their own). Think in things a photographer could shoot: "press conference camera flashes", "empty office chair spotlight", "server room red alert lights". Commons is a photo archive, not a stock site, so short, literal queries (2 to 4 words naming visible things) find more than moods or concepts.
+Give 2 or 3 Wikimedia Commons search queries for the background. Aim for a concrete, editorial photo that captures this post's specific story or idea, not generic tech imagery (no "technology", "computer", "AI" on their own). Think in things a photographer could shoot: "press conference camera flashes", "empty office chair spotlight", "server room red alert lights". When the post is about an idea rather than an event, find a real-world visual metaphor for its point and search for that: connecting tools under human control can be "telephone switchboard operators"; staying accountable while automation does the work can be "airline pilots cockpit". Commons is a photo archive, not a stock site, so short, literal queries (2 to 4 words naming visible things) find more than moods or concepts.
 
-If the post is mainly about one real, well-known public figure, give their exact English Wikipedia article title; their own photo will be framed beside the background, so the background should be the atmosphere around the story, without people's faces as the subject.`;
+If the post is mainly about one real, well-known public figure, or one specific product, protocol or organisation, give the exact English Wikipedia article title as featured_wikipedia_title: its lead image (their photo, or the product's logo) will be framed beside the background. Never feature a person the post does not name or discuss. When something is featured, the background should be the atmosphere around the story, without people's faces as the subject.`;
 
 const PLAN_SCHEMA = {
   type: "object",
   properties: {
-    public_figure_wikipedia_title: { type: ["string", "null"] },
+    featured_wikipedia_title: { type: ["string", "null"] },
     background_queries: { type: "array", items: { type: "string" } },
   },
-  required: ["public_figure_wikipedia_title", "background_queries"],
+  required: ["featured_wikipedia_title", "background_queries"],
   additionalProperties: false,
 };
 
@@ -200,34 +204,35 @@ async function pickBackground(postText, queries, log) {
 
   const original = await commonsImage(chosen.id, 1920);
   return {
-    buffer: await gradeBackground(original, pick.focus_x, pick.focus_y),
+    buffer: await gradeBackground(original, pick.focus_x, pick.focus_y, W, H),
+    thumb: await gradeBackground(original, pick.focus_x, pick.focus_y, THUMB_W, THUMB_H),
     credits: [chosen.credit],
   };
 }
 
-/** Crop to 4:1 around the focus point, then tone into the brand palette. */
-async function gradeBackground(buffer, fx, fy) {
+/** Crop to w x h around the focus point, then tone into the brand palette. */
+async function gradeBackground(buffer, fx, fy, w, h) {
   const { width, height } = await sharp(buffer).metadata();
-  const scale = Math.max(W / width, H / height);
+  const scale = Math.max(w / width, h / height);
   const sw = Math.round(width * scale);
   const sh = Math.round(height * scale);
-  const left = clamp(Math.round(clamp(fx, 0, 1) * sw - W / 2), 0, sw - W);
-  const top = clamp(Math.round(clamp(fy, 0, 1) * sh - H / 2), 0, sh - H);
-  const tint = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+  const left = clamp(Math.round(clamp(fx, 0, 1) * sw - w / 2), 0, sw - w);
+  const top = clamp(Math.round(clamp(fy, 0, 1) * sh - h / 2), 0, sh - h);
+  const tint = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
     <defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#f6762a"/><stop offset="1" stop-color="#c2307a"/>
     </linearGradient></defs>
-    <rect width="${W}" height="${H}" fill="url(#t)" opacity="0.8"/></svg>`);
+    <rect width="${w}" height="${h}" fill="url(#t)" opacity="0.8"/></svg>`);
   return sharp(buffer)
     .resize(sw, sh)
-    .extract({ left, top, width: W, height: H })
+    .extract({ left, top, width: w, height: h })
     .modulate({ saturation: 0.45, brightness: 1.05 })
     .composite([{ input: tint, blend: "overlay" }])
     .png()
     .toBuffer();
 }
 
-// --------------------------------------------------- public figure (Wikimedia)
+// ------------------------------------------- featured subject (Wikimedia)
 
 async function wikiJson(url) {
   const res = await fetch(url, { headers: { "user-agent": WIKI_UA } });
@@ -235,8 +240,11 @@ async function wikiJson(url) {
   return res.json();
 }
 
-/** Lead photo of a Wikipedia article, only if it is a freely licensed Commons file. */
-async function freePhoto(wikipediaTitle) {
+/**
+ * Lead image of a Wikipedia article (a person's photo, or a product's logo), only if
+ * it is a freely licensed Commons file. SVG files are treated as logos.
+ */
+async function featuredImage(wikipediaTitle) {
   const summary = await wikiJson(
     `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(wikipediaTitle.replace(/ /g, "_"))}`
   );
@@ -246,9 +254,12 @@ async function freePhoto(wikipediaTitle) {
   // Files under /wikipedia/en/ are local uploads, usually non-free (fair use): skip them.
   if (!pathname.includes("/wikipedia/commons/")) return null;
   const fileName = decodeURIComponent(pathname.split("/").pop());
+  // Thumbnail URLs end in "<width>px-<name>.png"; the file itself is the folder before it.
+  const commonsName = pathname.includes("/thumb/") ? decodeURIComponent(pathname.split("/").at(-2)) : fileName;
+  const isLogo = /\.svg$/i.test(commonsName);
 
   const info = await wikiJson(
-    `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=900&titles=${encodeURIComponent(`File:${fileName}`)}`
+    `https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=900&titles=${encodeURIComponent(`File:${commonsName}`)}`
   );
   const ii = Object.values(info.query?.pages ?? {})[0]?.imageinfo?.[0];
   const meta = ii?.extmetadata ?? {};
@@ -256,21 +267,66 @@ async function freePhoto(wikipediaTitle) {
   if (!ii || !FREE_LICENSE.test(license)) return null;
 
   const author = stripHtml(meta.Artist?.value) || "Unknown author";
+  const kind = isLogo ? "Logo" : "Photo";
   return {
     buffer: await getBuffer(ii.thumburl ?? ii.url, { "user-agent": WIKI_UA }),
-    credits: [{ text: `Photo of ${summary.title}: ${author}, ${license}, via Wikimedia Commons`, url: ii.descriptionurl }],
+    isLogo,
+    credits: [{ text: `${kind} of ${summary.title}: ${author}, ${license}, via Wikimedia Commons`, url: ii.descriptionurl }],
   };
 }
 
-async function framedPhoto(buffer) {
+/** Rounded square: photos are cropped to fill it, logos sit whole on a light tile. */
+async function framedPhoto(buffer, size, isLogo) {
+  const radius = Math.round(size * 0.093);
   const mask = Buffer.from(
-    `<svg width="${PHOTO}" height="${PHOTO}"><rect width="${PHOTO}" height="${PHOTO}" rx="28" fill="#fff"/></svg>`
+    `<svg width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="#fff"/></svg>`
   );
-  return sharp(buffer)
-    .resize(PHOTO, PHOTO, { fit: "cover", position: sharp.strategy.attention })
+  const image = isLogo
+    ? sharp({ create: { width: size, height: size, channels: 4, background: "#f5f5f4" } }).composite([
+        {
+          input: await sharp(buffer)
+            .resize(Math.round(size * 0.68), Math.round(size * 0.68), { fit: "contain", background: "#0000" })
+            .png()
+            .toBuffer(),
+          gravity: "center",
+        },
+      ])
+    : sharp(buffer).resize(size, size, { fit: "cover", position: sharp.strategy.attention });
+  return sharp(await image.png().toBuffer())
     .composite([{ input: mask, blend: "dest-in" }])
     .png()
     .toBuffer();
+}
+
+/** Brand-gradient ring behind a framed image. */
+const ringSvg = (size, ring) =>
+  `<rect width="${size + ring * 2}" height="${size + ring * 2}" rx="${Math.round(size * 0.107)}" fill="url(#brand)"/>`;
+
+/** 16:9 thumbnail for post lists: the graded photo, plus the framed subject if any. No text. */
+async function renderThumbnail(outPath, background, photo) {
+  const layers = [];
+  if (photo) {
+    const size = 210;
+    const ring = 4;
+    const left = THUMB_W - 48 - size;
+    const top = (THUMB_H - size) / 2;
+    layers.push({
+      input: Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${THUMB_W}" height="${THUMB_H}">
+        <defs><linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#f6762a"/><stop offset="1" stop-color="#f0569b"/></linearGradient>
+          <linearGradient id="shade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0.4" stop-color="#14161c" stop-opacity="0"/><stop offset="1" stop-color="#14161c" stop-opacity="0.45"/></linearGradient></defs>
+        <rect width="${THUMB_W}" height="${THUMB_H}" fill="url(#shade)"/>
+        <g transform="translate(${left - ring} ${top - ring})">${ringSvg(size, ring)}</g></svg>`),
+      left: 0,
+      top: 0,
+    });
+    layers.push({ input: await framedPhoto(photo.buffer, size, photo.isLogo), left, top });
+  }
+  const base = background
+    ? sharp(background.thumb)
+    : sharp({ create: { width: THUMB_W, height: THUMB_H, channels: 3, background: "#1a1c23" } });
+  await base.composite(layers).jpeg({ quality: 82, mozjpeg: true }).toFile(outPath);
 }
 
 // ------------------------------------------------------------------ text overlay
@@ -326,8 +382,9 @@ function overlaySvg({ title, date, tags, hasBackground, hasPhoto }) {
 }
 
 /**
- * Renders the cover to `outPath` (PNG). Returns { credits: [{ text, url }] } for every
- * licensed photo used (empty for the plain title card).
+ * Renders the cover to `outPath` (PNG) and, when a photo was used, a 16:9 thumbnail
+ * next to it (`<name>-thumb.jpg`). Returns { credits: [{ text, url }], thumbnailPath }
+ * (no credits and a null thumbnailPath for the plain title card).
  */
 export async function renderCover(outPath, { title, date, tags, text }, log = console.log) {
   let background = null;
@@ -340,17 +397,17 @@ export async function renderCover(outPath, { title, date, tags, text }, log = co
         content: `<post>\n${text}\n</post>`,
         schema: PLAN_SCHEMA,
       });
-      const figure = plan.public_figure_wikipedia_title;
-      log(`  plan: figure=${figure ?? "none"}; queries=${JSON.stringify(plan.background_queries)}`);
+      const figure = plan.featured_wikipedia_title;
+      log(`  plan: featured=${figure ?? "none"}; queries=${JSON.stringify(plan.background_queries)}`);
       const [bg, ph] = await Promise.allSettled([
         pickBackground(text, plan.background_queries, log),
-        figure ? freePhoto(figure) : null,
+        figure ? featuredImage(figure) : null,
       ]);
       if (bg.status === "fulfilled") background = bg.value;
       else log(`  background failed: ${bg.reason.message}`);
       if (ph.status === "fulfilled") photo = ph.value;
       else log(`  photo failed: ${ph.reason.message}`);
-      if (figure && !photo) log("  no freely licensed photo of the figure");
+      if (figure && !photo) log("  no freely licensed image for the featured subject");
     } catch (err) {
       log(`  cover planning failed, using title card: ${err.message}`);
     }
@@ -364,11 +421,17 @@ export async function renderCover(outPath, { title, date, tags, text }, log = co
   // The overlay holds the scrim and the photo's gradient ring, so it goes under the photo.
   const layers = [{ input: overlay, left: 0, top: 0 }];
   if (photo) {
-    layers.push({ input: await framedPhoto(photo.buffer), left: W - 96 - PHOTO, top: (H - PHOTO) / 2 });
+    layers.push({ input: await framedPhoto(photo.buffer, PHOTO, photo.isLogo), left: W - 96 - PHOTO, top: (H - PHOTO) / 2 });
   }
   const base = background
     ? sharp(background.buffer)
     : sharp({ create: { width: W, height: H, channels: 3, background: "#1a1c23" } });
   await base.composite(layers).png({ compressionLevel: 9 }).toFile(outPath);
-  return { credits: [...(photo?.credits ?? []), ...(background?.credits ?? [])] };
+
+  let thumbnailPath = null;
+  if (background || photo) {
+    thumbnailPath = outPath.replace(/\.png$/, "-thumb.jpg");
+    await renderThumbnail(thumbnailPath, background, photo);
+  }
+  return { credits: [...(photo?.credits ?? []), ...(background?.credits ?? [])], thumbnailPath };
 }
