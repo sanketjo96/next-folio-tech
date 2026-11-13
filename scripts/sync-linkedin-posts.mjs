@@ -99,7 +99,7 @@ async function coverFields(draftId, draft) {
   const text = postText(draft);
   await fs.mkdir(IMAGES_DIR, { recursive: true });
   const fileBase = `li-${draftId}`;
-  const { credits } = await renderCover(path.join(IMAGES_DIR, `${fileBase}.png`), {
+  const { credits, thumbnailPath } = await renderCover(path.join(IMAGES_DIR, `${fileBase}.png`), {
     title: titleFrom(draft.draft_title, text),
     date: publishDate(draft),
     tags: hashtagsFrom(text),
@@ -107,6 +107,7 @@ async function coverFields(draftId, draft) {
   });
   return {
     image: `/images/posts/${fileBase}.png`,
+    thumbnail: thumbnailPath ? `/images/posts/${path.basename(thumbnailPath)}` : null,
     imageCredits: credits.length ? credits : null,
   };
 }

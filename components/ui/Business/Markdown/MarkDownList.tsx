@@ -1,4 +1,5 @@
 import { formatDate } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import {
@@ -17,6 +18,8 @@ export type MarkdownMetaData = {
   title: string;
   author: string;
   image?: string;
+  /** 16:9 photo thumbnail for lists (no text baked in), e.g. "/images/posts/li-1-thumb.jpg". */
+  thumbnail?: string;
   /** Attribution for licensed photos in the cover image (Wikimedia Commons). */
   imageCredits?: { text: string; url?: string }[];
   publishDate: string;
@@ -71,18 +74,30 @@ const Rows = ({ metaList, redirectBase }: MarkdownListProps) => (
           className="group grid grid-cols-[2rem_1fr] gap-x-4 py-7 sm:grid-cols-[3rem_1fr_auto] sm:gap-x-6"
         >
           <span className="pt-1 font-medium text-[11px] text-muted-foreground">{pad(i)}</span>
-          <div className="min-w-0">
-            <Tags tags={item.tags} accentFirst />
-            <h3 className="mt-2 text-3xl leading-tight transition-colors group-hover:text-brand sm:text-[2.1rem]">
-              {item.title}
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              {item.summary}
-            </p>
-            <p className="mt-3 font-medium text-[11px] text-muted-foreground sm:hidden">
-              {item.publishDate && formatDate(item.publishDate)}
-              {item.readingMinutes ? ` · ${item.readingMinutes} min read` : ""}
-            </p>
+          <div className="min-w-0 sm:flex sm:items-start sm:gap-6">
+            {item.thumbnail && (
+              <Image
+                src={item.thumbnail}
+                alt=""
+                width={640}
+                height={360}
+                sizes="(min-width: 640px) 13rem, 100vw"
+                className="mb-4 aspect-video w-full rounded-md border object-cover transition-opacity group-hover:opacity-90 sm:order-last sm:mb-0 sm:w-52 sm:shrink-0"
+              />
+            )}
+            <div className="min-w-0 flex-1">
+              <Tags tags={item.tags} accentFirst />
+              <h3 className="mt-2 text-3xl leading-tight transition-colors group-hover:text-brand sm:text-[2.1rem]">
+                {item.title}
+              </h3>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                {item.summary}
+              </p>
+              <p className="mt-3 font-medium text-[11px] text-muted-foreground sm:hidden">
+                {item.publishDate && formatDate(item.publishDate)}
+                {item.readingMinutes ? ` · ${item.readingMinutes} min read` : ""}
+              </p>
+            </div>
           </div>
           <div className="hidden flex-col items-end justify-between text-right font-medium text-[11px] text-muted-foreground sm:flex">
             <div className="space-y-1.5">
