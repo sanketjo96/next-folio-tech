@@ -29,7 +29,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookie": "^0.7.2",
-    "driver.js": "^1.8.0",
+    "driver.js": "^1.11.0",
     "gray-matter": "^4.0.3",
     "i18next": "^23.15.1",
     "i18next-fs-backend": "^2.6.11",
