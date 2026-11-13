@@ -5,6 +5,11 @@ on:
     # 12:00 IST (UTC+5:30) every Tuesday and Thursday = 06:30 UTC.
     - cron: "30 6 * * 2,4"
   workflow_dispatch:
+    inputs:
+      refresh_covers:
+        description: "Also redraw the cover images of posts already on the site"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,15 +32,16 @@ jobs:
         with:
           node-version: 22
 
-      # Only sharp is needed (cover images); skip the full site install.
-      - name: Install sharp
-        run: npm install --no-save --no-package-lock sharp@0.35.5
+      - name: Install dependencies
+        run: npm ci
 
       - name: Pull new posts from Typefully
-        run: node scripts/sync-linkedin-posts.mjs
+        run: node scripts/sync-linkedin-posts.mjs ${{ inputs.refresh_covers && '--refresh-covers' || '' }}
         env:
           TYPEFULLY_API_KEY: ${{ secrets.TYPEFULLY_API_KEY }}
           TYPEFULLY_SOCIAL_SET_ID: ${{ vars.TYPEFULLY_SOCIAL_SET_ID || '360374' }}
+          # Optional: without it, covers fall back to the plain title card.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Commit new posts
         id: commit

@@ -19,7 +19,7 @@ type PostPageProps = {
 };
 
 function PostPage({ source, metaData }: PostPageProps) {
-  const { id, title, image, author, publishDate, summary, linkedinUrl } = metaData;
+  const { id, title, image, imageCredits, author, publishDate, summary, linkedinUrl } = metaData;
   const url = absoluteUrl(`/posts/${id}`);
   const ogImage = image?.startsWith("/") ? absoluteUrl(image) : image;
   return (
@@ -58,6 +58,22 @@ function PostPage({ source, metaData }: PostPageProps) {
               alt={title}
               className="aspect-[4/1] w-full object-cover"
             ></Image>
+            {imageCredits && imageCredits.length > 0 && (
+              <p className="not-prose mt-2 text-right text-[11px] text-muted-foreground">
+                {imageCredits.map((credit, i) => (
+                  <React.Fragment key={credit.text}>
+                    {i > 0 && " · "}
+                    {credit.url ? (
+                      <a href={credit.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        {credit.text}
+                      </a>
+                    ) : (
+                      credit.text
+                    )}
+                  </React.Fragment>
+                ))}
+              </p>
+            )}
           </div>
         )}
         <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
