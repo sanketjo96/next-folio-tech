@@ -3,6 +3,7 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { track } from "@/lib/analytics";
+import { sendWeb3Form } from "@/lib/web3forms";
 import { useRef } from "react";
 import { z } from "zod";
 import { Input } from "../../input";
@@ -36,14 +37,12 @@ function ContactForm() {
 
   const onSubmitHandler: SubmitHandler<EmailInputs> = async (data) => {
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        body: JSON.stringify({ message: data }),
-        headers: {
-          "Content-type": "application/json",
-        },
+      await sendWeb3Form("contact", {
+        subject: `New enquiry from techsanket.in — ${data.name}`,
+        fromName: "techsanket.in contact form",
+        botcheck: data.website,
+        fields: { name: data.name, email: data.email, message: data.message },
       });
-      if (!response.ok) throw new Error(`Contact API responded ${response.status}`);
       track("Tech: Contact form sent");
       toast({ title: "Thanks for reaching out!! We will revert soon" });
       reset();

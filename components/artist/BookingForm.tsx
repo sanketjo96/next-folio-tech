@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { BOOKING_EVENT_TYPES, BookingFormSchema, type BookingInputs } from "@/lib/schema/schemas";
 import { track } from "@/lib/analytics";
+import { sendWeb3Form } from "@/lib/web3forms";
 
 /**
  * Quick booking form that lives inside the "Book the show" ticket on /artist.
@@ -35,12 +36,20 @@ export default function BookingForm() {
   const onSubmit: SubmitHandler<BookingInputs> = async (booking) => {
     setStatus("idle");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "booking", booking }),
+      await sendWeb3Form("booking", {
+        subject: `Show booking: ${booking.eventType} · ${booking.city}${booking.date ? ` · ${booking.date}` : ""} — ${booking.name}`,
+        fromName: "techsanket.in booking form",
+        botcheck: booking.website,
+        fields: {
+          name: booking.name,
+          email: booking.email,
+          phone: booking.phone,
+          "show type": booking.eventType,
+          date: booking.date,
+          city: booking.city,
+          details: booking.details,
+        },
       });
-      if (!res.ok) throw new Error(`Booking API responded ${res.status}`);
       track("Artist: Booking sent", { type: booking.eventType });
       setStatus("sent");
       reset();
