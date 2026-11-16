@@ -2,6 +2,7 @@
 title: "UtilConnect: Utility Operations Platform"
 summary: "An enterprise meter-to-cash platform for utilities, bringing meter data, customer accounts, tariff and billing rules, payments and a customer portal into one system. I lead it as Founding Technical Lead at Proxta Global Systems."
 thumbnail: "/images/projects/utilconnect.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2026-11-16"
 links:

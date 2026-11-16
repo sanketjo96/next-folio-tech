@@ -2,6 +2,7 @@
 title: "Staff Augmentation and Digital Transformation"
 summary: "Led a team moving paper forms built on legacy systems to digital forms, owning the solution architecture and improving performance."
 thumbnail: "/images/projects/project-6.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---

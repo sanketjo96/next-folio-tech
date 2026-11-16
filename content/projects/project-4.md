@@ -2,6 +2,7 @@
 title: "Fresh Food Market Management"
 summary: "Led the UI team building, from scratch, an application that helps fresh food markets manage inventory and procurement to reduce food wastage."
 thumbnail: "/images/projects/project-4.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---

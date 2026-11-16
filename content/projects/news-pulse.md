@@ -2,6 +2,7 @@
 title: "News Pulse: Top News and Trends Dashboard"
 summary: "A one-page dashboard of the top stories for the world, India and Maharashtra, plus what people are searching and talking about right now, with short plain-English summaries."
 thumbnail: "/images/projects/news-pulse.jpg"
+category: "incubation"
 author: "Sanket Joshi"
 publishDate: "2026-11-12"
 links:

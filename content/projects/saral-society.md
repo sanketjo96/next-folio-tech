@@ -2,6 +2,7 @@
 title: "Saral Society: Housing Society Management"
 summary: "Billing and day-to-day management for small housing societies: monthly maintenance, UPI collection with proof review, and numbered CHS-format receipts on WhatsApp and email."
 thumbnail: "/images/projects/saral-society.jpg"
+category: "incubation"
 author: "Sanket Joshi"
 publishDate: "2026-11-06"
 links:
