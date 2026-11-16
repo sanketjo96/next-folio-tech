@@ -42,7 +42,9 @@ export const getProjectFileContent = async (projectId: string) => {
 }
 
 export const getProjects = async (limit?: number): Promise<MarkdownMetaData[]> => {
-  const files = await getProjectFileNames(limit);
+  // Read every file, then sort newest first, then trim: trimming the file list
+  // first would pick by file name rather than date.
+  const files = await getProjectFileNames();
   const projects = await Promise.all(files.map(
     async (file: string) => {
       const metaData = await getProjectFilMetaData(file)

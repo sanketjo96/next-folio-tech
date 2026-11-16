@@ -12,6 +12,7 @@ import {
   Workflow,
   type LucideIcon,
 } from "lucide-react";
+import ProjectLinks from "../Project/ProjectLinks";
 
 export type MarkdownMetaData = {
   id: string;
@@ -31,6 +32,8 @@ export type MarkdownMetaData = {
   readingMinutes?: number;
   /** Short tech tags, derived from a "## Technology" list in the body. */
   tags?: string[];
+  /** External links for a project (live site, demo, source), shown on its card and page. */
+  links?: { label: string; url: string }[];
 };
 
 export type MarkdownListProps = {
@@ -117,21 +120,46 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
     {metaList.map((item, i) => {
       const Icon = PREVIEW_ICONS[i % PREVIEW_ICONS.length];
       return (
-        <li key={item.id} className="reveal" style={stagger(i)}>
+        <li key={item.id} className="reveal flex flex-col" style={stagger(i)}>
           <Link
             href={`/${redirectBase}/${item.id}`}
-            className="group flex h-full flex-col overflow-hidden rounded-md border bg-card/60 transition-colors hover:border-brand/40"
+            className={
+              "group flex flex-1 flex-col overflow-hidden border bg-card/60 transition-colors hover:border-brand/40 " +
+              (item.links?.length ? "rounded-t-md" : "rounded-md")
+            }
           >
-            <div className="relative grid h-44 place-items-center border-b bg-gradient-to-b from-accent/60 to-transparent">
-              <div className="dot-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]" />
-              <span className="absolute right-4 top-4 font-medium text-[10px] text-muted-foreground">
+            <div
+              className={
+                "relative grid place-items-center overflow-hidden border-b bg-gradient-to-b from-accent/60 to-transparent " +
+                (item.thumbnail ? "aspect-[40/21] bg-[#09090d]" : "h-44")
+              }
+            >
+              {item.thumbnail ? (
+                <Image
+                  src={item.thumbnail}
+                  alt=""
+                  fill
+                  sizes="(min-width: 768px) 560px, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
+              ) : (
+                <>
+                  <div className="dot-grid absolute inset-0 opacity-50 [mask-image:radial-gradient(ellipse_at_center,#000_20%,transparent_70%)]" />
+                  <Icon
+                    className="relative size-12 text-brand transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-6deg]"
+                    strokeWidth={1.25}
+                  />
+                </>
+              )}
+              <span
+                className={
+                  "absolute right-4 top-4 font-medium text-[10px] " +
+                  (item.thumbnail ? "rounded bg-background/80 px-1.5 py-0.5 text-foreground backdrop-blur" : "text-muted-foreground")
+                }
+              >
                 {pad(i)} / WORK
               </span>
-              <Icon
-                className="relative size-12 text-brand transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-6deg]"
-                strokeWidth={1.25}
-              />
-              {item.tags?.[0] && (
+              {!item.thumbnail && item.tags?.[0] && (
                 <span className="absolute bottom-4 font-medium text-[10px] text-muted-foreground">
                   {item.tags.join(" · ")}
                 </span>
@@ -156,6 +184,8 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
               </div>
             </div>
           </Link>
+          {/* Outside the card link: anchors can't nest. */}
+          {item.links?.length ? <ProjectLinks links={item.links} title={item.title} variant="card" /> : null}
         </li>
       );
     })}
