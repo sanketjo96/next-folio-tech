@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowUpRight, Code, Mail, Play, Ticket } from "lucide-react";
+import { ArrowUpRight, Code, Play, Ticket } from "lucide-react";
 import type { ArtistItem, ArtistSection } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
 import { seenAttrs, trackAttrs } from "@/lib/analytics";
@@ -226,13 +225,6 @@ export function LinksSection({ section, index }: { section: ArtistSection; index
             <p className="mt-2 max-w-sm text-[15px] font-medium opacity-75">
               Stand-up sets, corporate shows, hosting, brand collabs. Tell me the basics and I&apos;ll get back to you.
             </p>
-            <Link
-              href={booking.url}
-              {...trackAttrs("Artist: Book the show", { section: section.short, place: "contact page" })}
-              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4 opacity-80 hover:opacity-100"
-            >
-              <Mail className="size-4" /> Prefer a longer message?
-            </Link>
           </div>
           <BookingForm />
         </div>
