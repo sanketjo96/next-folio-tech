@@ -71,8 +71,6 @@ export type ArtistProfile = {
   socials: ArtistSocial[];
   /** Other public profiles (for search engines and AI agents). */
   profiles: string[];
-  /** Registered-artist profile on BookMyShow, shown as a badge in the hero. */
-  bookMyShow: string;
   sections: ArtistSection[];
 };
 
@@ -110,7 +108,6 @@ export const ARTIST: ArtistProfile = {
     { name: "Facebook", url: "https://www.facebook.com/sanket.joshi.121", icon: "facebook" },
   ],
   profiles: [BOOKMYSHOW_URL],
-  bookMyShow: BOOKMYSHOW_URL,
   sections: [
     {
       id: "standup",
