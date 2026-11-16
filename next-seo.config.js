@@ -15,10 +15,13 @@ const nextSeoConfig = {
     description: DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/sj-og-image.jpg`,
+        // Made from public/sanket-portrait.jpg; 1200x630 is the size every
+        // link-preview card (WhatsApp, LinkedIn, X, Slack) expects.
+        url: `${SITE_URL}/og-tech.jpg`,
         width: 1200,
-        height: 600,
-        alt: "Sanket Joshi, software engineer",
+        height: 630,
+        type: "image/jpeg",
+        alt: "Sanket Joshi, Senior Software Engineer: React, TypeScript, Next.js, Node.js and Generative AI",
       },
     ],
     site_name: "Sanket Joshi",

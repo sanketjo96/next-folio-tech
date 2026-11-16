@@ -50,7 +50,8 @@ export async function buildLlmsTxt(): Promise<string> {
 
   out.push("## Projects", "");
   for (const p of projects) {
-    out.push(`- [${p.title}](${absoluteUrl(`/projects/${p.id}`)}): ${oneLine(p.summary)}`);
+    const links = p.links?.length ? ` Links: ${p.links.map((l) => `[${l.label}](${l.url})`).join(", ")}.` : "";
+    out.push(`- [${p.title}](${absoluteUrl(`/projects/${p.id}`)}): ${oneLine(p.summary)}${links}`);
   }
   out.push("");
 

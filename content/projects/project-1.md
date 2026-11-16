@@ -1,7 +1,7 @@
 ---
 title: "Healthcare Solutions Porting"
 summary: "Modernized a legacy healthcare application with a new look and feel, while mentoring the team on advanced JavaScript."
-image: "https://fakeimg.pl/400x200/"
+thumbnail: "/images/projects/project-1.jpg"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---

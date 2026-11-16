@@ -16,6 +16,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextSeo } from "next-seo";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, articleJsonLd } from "@/lib/seo";
+import ProjectLinks from "@/components/ui/Business/Project/ProjectLinks";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -24,7 +25,7 @@ type PostPageProps = {
 
 function ProjectPage({ source, metaData }: PostPageProps) {
   const { t } = useTranslation("projects");
-  const { id, title, image, author, publishDate, summary } = metaData;
+  const { id, title, image, thumbnail, author, publishDate, summary, links } = metaData;
   const url = absoluteUrl(`/projects/${id}`);
   return (
     <>
@@ -32,7 +33,15 @@ function ProjectPage({ source, metaData }: PostPageProps) {
         title={`${title} · Projects · Sanket Joshi`}
         description={summary}
         canonical={url}
-        openGraph={{ type: "article", url, title, description: summary }}
+        openGraph={{
+          type: "article",
+          url,
+          title,
+          description: summary,
+          ...(thumbnail && {
+            images: [{ url: absoluteUrl(thumbnail), width: 1800, height: 945, alt: `${title} cover`, type: "image/jpeg" }],
+          }),
+        }}
       />
       <JsonLd
         id="article"
@@ -62,7 +71,18 @@ function ProjectPage({ source, metaData }: PostPageProps) {
             {author} · {formatDate(publishDate)}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">{title}</h1>
+          {links?.length ? <ProjectLinks links={links} title={title} variant="page" /> : null}
         </header>
+        {!image && thumbnail && (
+          <Image
+            src={thumbnail}
+            alt={`${title} screenshot`}
+            width={1200}
+            height={630}
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="mt-8 w-full rounded-2xl border"
+          />
+        )}
         <MdxContent {...source} />
       </article>
     </>
