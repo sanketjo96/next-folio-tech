@@ -34,7 +34,24 @@ export type MarkdownMetaData = {
   tags?: string[];
   /** External links for a project (live site, demo, source), shown on its card and page. */
   links?: { label: string; url: string }[];
+  /** Projects only. "commercial": client or employer work. "incubation": my own products. */
+  category?: ProjectCategory;
 };
+
+export type ProjectCategory = "commercial" | "incubation";
+
+export const PROJECT_CATEGORIES: { key: ProjectCategory; title: string; description: string }[] = [
+  {
+    key: "commercial",
+    title: "Commercial",
+    description: "Products and platforms built for clients and employers.",
+  },
+  {
+    key: "incubation",
+    title: "Incubation",
+    description: "My own products, taken from idea to a live release.",
+  },
+];
 
 export type MarkdownListProps = {
   redirectBase: string;
@@ -159,6 +176,12 @@ const Cards = ({ metaList, redirectBase }: MarkdownListProps) => (
               >
                 {pad(i)} / WORK
               </span>
+              {item.category === "incubation" && (
+                <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded bg-background/80 px-1.5 py-0.5 font-medium text-[10px] uppercase tracking-wider text-foreground backdrop-blur">
+                  <span className="size-1.5 rounded-full bg-brand" aria-hidden />
+                  Incubation
+                </span>
+              )}
               {!item.thumbnail && item.tags?.[0] && (
                 <span className="absolute bottom-4 font-medium text-[10px] text-muted-foreground">
                   {item.tags.join(" · ")}

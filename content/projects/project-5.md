@@ -2,6 +2,7 @@
 title: "Cloud-Based Remote Modem Management"
 summary: "Key front-end developer on a cloud-based web application for managing modems remotely, turning requirements into maintainable React code."
 thumbnail: "/images/projects/project-5.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---

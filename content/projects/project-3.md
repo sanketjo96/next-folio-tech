@@ -2,6 +2,7 @@
 title: "Retail and Wholesale Product Lifecycle Management"
 summary: "Led UI and full-stack work on product lifecycle management for retail and wholesale, improving user experience and resolving security concerns."
 thumbnail: "/images/projects/project-3.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---

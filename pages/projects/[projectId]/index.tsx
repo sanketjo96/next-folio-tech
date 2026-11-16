@@ -25,7 +25,7 @@ type PostPageProps = {
 
 function ProjectPage({ source, metaData }: PostPageProps) {
   const { t } = useTranslation("projects");
-  const { id, title, image, thumbnail, author, publishDate, summary, links } = metaData;
+  const { id, title, image, thumbnail, author, publishDate, summary, links, category } = metaData;
   const url = absoluteUrl(`/projects/${id}`);
   return (
     <>
@@ -68,6 +68,7 @@ function ProjectPage({ source, metaData }: PostPageProps) {
         )}
         <header className="not-prose mt-6">
           <p className="font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
+            {category && <span className="text-brand">{category} · </span>}
             {author} · {formatDate(publishDate)}
           </p>
           <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">{title}</h1>

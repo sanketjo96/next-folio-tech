@@ -51,7 +51,8 @@ export async function buildLlmsTxt(): Promise<string> {
   out.push("## Projects", "");
   for (const p of projects) {
     const links = p.links?.length ? ` Links: ${p.links.map((l) => `[${l.label}](${l.url})`).join(", ")}.` : "";
-    out.push(`- [${p.title}](${absoluteUrl(`/projects/${p.id}`)}): ${oneLine(p.summary)}${links}`);
+    const kind = p.category === "incubation" ? " (Incubation: own product)" : p.category === "commercial" ? " (Commercial)" : "";
+    out.push(`- [${p.title}](${absoluteUrl(`/projects/${p.id}`)})${kind}: ${oneLine(p.summary)}${links}`);
   }
   out.push("");
 

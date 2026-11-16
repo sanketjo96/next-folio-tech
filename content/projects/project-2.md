@@ -2,6 +2,7 @@
 title: "Travel Booking Solutions"
 summary: "Led an Angular team building complex, UI-heavy applications for a travel and hospitality solution provider."
 thumbnail: "/images/projects/project-2.jpg"
+category: "commercial"
 author: "Sanket Joshi"
 publishDate: "2024-09-25"
 ---
