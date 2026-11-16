@@ -28,6 +28,7 @@ function ContactForm() {
       name: "",
       message: "",
       email: "",
+      website: "",
     },
   });
 
@@ -66,6 +67,15 @@ function ContactForm() {
         className="lg:flex-auto"
       >
         <div className="flex flex-col gap-6">
+          {/* Honeypot: hidden from people, filled by bots. */}
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden
+            className="hidden"
+            {...register("website")}
+          />
           <Input
             id="name"
             type="text"

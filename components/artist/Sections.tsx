@@ -4,6 +4,7 @@ import { ArrowUpRight, Code, Mail, Play, Ticket } from "lucide-react";
 import type { ArtistItem, ArtistSection } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
 import { seenAttrs, trackAttrs } from "@/lib/analytics";
+import BookingForm from "./BookingForm";
 
 /** Devanagari titles get the Marathi font. */
 const isMarathi = (text: string) => /[ऀ-ॿ]/.test(text);
@@ -215,25 +216,26 @@ export function LinksSection({ section, index }: { section: ArtistSection; index
     <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
       {booking && (
-        <Link
-          href={booking.url}
-          {...trackAttrs("Artist: Book the show", { section: section.short })}
-          className="ticket group relative flex flex-col gap-6 overflow-hidden rounded-3xl bg-[var(--s-amber)] px-8 py-8 text-[var(--s-bg)] sm:flex-row sm:items-center sm:justify-between sm:px-12 sm:py-10"
-        >
-          <span className="pointer-events-none absolute inset-y-6 left-[68%] hidden border-l-2 border-dashed border-[var(--s-bg)]/25 sm:block" />
-          <span>
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em]">
+        <div className="ticket relative grid gap-8 overflow-hidden rounded-3xl bg-[var(--s-amber)] px-6 py-8 text-[var(--s-bg)] sm:px-10 sm:py-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+          <span className="pointer-events-none absolute inset-y-6 left-[40%] hidden border-l-2 border-dashed border-[var(--s-bg)]/25 lg:block" />
+          <div>
+            <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.3em]">
               <Ticket className="size-4" /> Admit one
-            </span>
-            <span className="poster mt-3 block text-[clamp(2.8rem,10vw,5rem)]">Book the show</span>
-            <span className="mt-2 block max-w-sm text-[15px] font-medium opacity-75">
-              Stand-up sets, hosting, brand collabs. {booking.subtitle}.
-            </span>
-          </span>
-          <span className="inline-flex h-14 items-center gap-2 self-start rounded-full bg-[var(--s-bg)] px-6 font-bold text-[var(--s-amber)] transition-transform group-hover:-translate-y-0.5 sm:self-center">
-            <Mail className="size-4" /> {booking.title}
-          </span>
-        </Link>
+            </p>
+            <h3 className="poster mt-3 text-[clamp(2.8rem,10vw,5rem)]">Book the show</h3>
+            <p className="mt-2 max-w-sm text-[15px] font-medium opacity-75">
+              Stand-up sets, corporate shows, hosting, brand collabs. Tell me the basics and I&apos;ll get back to you.
+            </p>
+            <Link
+              href={booking.url}
+              {...trackAttrs("Artist: Book the show", { section: section.short, place: "contact page" })}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4 opacity-80 hover:opacity-100"
+            >
+              <Mail className="size-4" /> Prefer a longer message?
+            </Link>
+          </div>
+          <BookingForm />
+        </div>
       )}
       <ul className="mt-4 grid gap-3 sm:grid-cols-2">
         {others.map((item) => {
