@@ -93,7 +93,8 @@ const ArtistPage: AppPage = () => {
               url: `${SITE_URL}${ARTIST.shareImage.src}`,
               width: ARTIST.shareImage.width,
               height: ARTIST.shareImage.height,
-              alt: `${ARTIST.name} on stage`,
+              alt: ARTIST.shareImage.alt,
+              type: "image/jpeg",
             },
           ],
         }}

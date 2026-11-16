@@ -67,7 +67,7 @@ export type ArtistProfile = {
   /** Transparent cut-out portrait used in the stage hero. */
   avatar: StaticImageData;
   /** Used as the link-preview image when the page is shared. */
-  shareImage: StaticImageData;
+  shareImage: { src: string; width: number; height: number; alt: string };
   socials: ArtistSocial[];
   /** Other public profiles (for search engines and AI agents). */
   profiles: string[];
@@ -104,7 +104,14 @@ export const ARTIST: ArtistProfile = {
   roles: ["Stand-up comedian", "Storyteller", "Tech enthusiast"],
   marquee: ["Marathi stand-up", "ZEE5", "Chala Hawa Yeu Dya", "Short films", "Podcasts", "Audiobook"],
   avatar,
-  shareImage: standup,
+  // Banner made by scripts/artist-og.mjs. A fixed public path (not a hashed
+  // /_next/static URL) so WhatsApp, LinkedIn and others can cache it reliably.
+  shareImage: {
+    src: "/artist/og-artist.jpg",
+    width: 1200,
+    height: 630,
+    alt: "Sanket Joshi, stand-up comedian, on stage with a djembe",
+  },
   socials: [
     { name: "Instagram", url: "https://instagram.com/laugh_with_sanket", icon: "instagram" },
     { name: "Facebook", url: "https://www.facebook.com/sanket.joshi.121", icon: "facebook" },

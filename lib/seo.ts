@@ -4,6 +4,7 @@
  */
 import { EXPERIENCE, EDUCATION } from "@/lib/data/experience";
 import { ARTIST } from "@/lib/data/artist";
+import standupPhoto from "@/public/artist/standup.jpg";
 import { TOOLKIT } from "@/lib/data/profile";
 
 export const SITE_URL = "https://www.techsanket.in";
@@ -64,7 +65,7 @@ export const artistJsonLd = {
     alternateName: ARTIST.handle,
     jobTitle: "Stand-up comedian",
     description: `${ARTIST.roles.join(", ")}. Marathi stand-up on ZEE5, appearances on Zee Marathi's Chala Hawa Yeu Dya, short films, podcasts and an audiobook.`,
-    image: `${SITE_URL}${ARTIST.shareImage.src}`,
+    image: `${SITE_URL}${standupPhoto.src}`,
     sameAs: [...ARTIST.socials.map((s) => s.url), ...ARTIST.profiles],
   },
 };
