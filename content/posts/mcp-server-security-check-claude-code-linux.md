@@ -7,8 +7,10 @@ date: "2026-11-17"
 publishDate: "2026-11-17"
 author: "Sanket Joshi"
 tags: ["MCP", "AI Agents", "AppSec", "DevSecOps", "Claude Code"]
+image: "/images/posts/mcp-server-security-check-claude-code-linux.png"
+thumbnail: "/images/posts/mcp-server-security-check-claude-code-linux-thumb.jpg"
 cover_image: "/images/posts/mcp-server-security-check-claude-code-linux.png"
-og_image: "/images/posts/mcp-server-security-check-claude-code-linux-og.png"
+og_image: "/images/posts/mcp-server-security-check-claude-code-linux.png"
 ---
 
 Your agent's system prompt isn't the only prompt it reads.

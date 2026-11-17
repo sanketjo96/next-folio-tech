@@ -25,11 +25,21 @@ export const BrandIcon = () => {
   return (
     <Link
       href="/"
-      className="group flex items-center px-2 font-medium text-lg font-semibold tracking-tight"
+      className="group flex items-center px-2"
       data-tour="nav-brand"
       aria-label="Sanket Joshi, home"
     >
-      sj<span className="text-brand transition-opacity group-hover:animate-pulse">_</span>
+      <span className="relative grid size-9 place-items-center" aria-hidden>
+        {/* Soft brand glow behind the badge, brighter on hover. */}
+        <span className="absolute inset-0 rounded-[10px] bg-gradient-to-br from-brand to-brand-2 opacity-40 blur-md transition-opacity duration-300 group-hover:opacity-80" />
+        <span className="relative grid size-9 place-items-center rounded-[10px] bg-gradient-to-br from-brand to-brand-2 shadow-sm ring-1 ring-inset ring-white/25 transition-transform duration-300 ease-out group-hover:-rotate-6 group-hover:scale-105">
+          <span className="font-display text-[15px] font-extrabold leading-none tracking-tighter text-white">
+            SJ
+          </span>
+          {/* Terminal cursor, a nod to the old "sj_" mark. */}
+          <span className="absolute bottom-[7px] right-[6px] h-[2px] w-[6px] rounded-full bg-white/90 animate-pulse" />
+        </span>
+      </span>
     </Link>
   );
 };
