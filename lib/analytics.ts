@@ -78,3 +78,13 @@ export function durationBucket(ms: number) {
   if (s < 120) return "30s-2m";
   return "2m+";
 }
+
+/** Longer buckets for reading a post. */
+export function readTimeBucket(ms: number) {
+  const m = ms / 60000;
+  if (m < 0.5) return "under 30s";
+  if (m < 2) return "30s-2m";
+  if (m < 5) return "2-5m";
+  if (m < 10) return "5-10m";
+  return "10m+";
+}
