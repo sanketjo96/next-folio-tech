@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo, useRef } from "react";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { GetStaticPaths, GetStaticPathsContext, GetStaticProps } from "next";
 import Link from "next/link";
@@ -12,6 +12,8 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextSeo } from "next-seo";
 import JsonLd from "@/components/JsonLd";
 import { absoluteUrl, articleJsonLd } from "@/lib/seo";
+import { trackAttrs } from "@/lib/analytics";
+import PostReadTracker from "@/components/PostReadTracker";
 
 type PostPageProps = {
   source: MDXRemoteSerializeResult;
@@ -22,6 +24,23 @@ function PostPage({ source, metaData }: PostPageProps) {
   const { id, title, image, imageCredits, author, publishDate, summary, linkedinUrl } = metaData;
   const url = absoluteUrl(`/posts/${id}`);
   const ogImage = image?.startsWith("/") ? absoluteUrl(image) : image;
+  const articleRef = useRef<HTMLElement>(null);
+  // Links inside the post body report `Post: Outbound link` when they leave the site.
+  const mdxComponents = useMemo(
+    () => ({
+      a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+        const href = props.href ?? "";
+        const external = /^https?:\/\//.test(href) && !href.includes("techsanket.in");
+        return (
+          <a
+            {...props}
+            {...(external ? trackAttrs("Post: Outbound link", { post: id, url: href.slice(0, 200) }) : {})}
+          />
+        );
+      },
+    }),
+    [id],
+  );
   return (
     <>
       <NextSeo
@@ -41,10 +60,12 @@ function PostPage({ source, metaData }: PostPageProps) {
         id="article"
         data={articleJsonLd({ type: "BlogPosting", url, title, description: summary, datePublished: publishDate })}
       />
-      <article className="container prose prose-neutral max-w-3xl pt-12 dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand prose-img:rounded-2xl md:pt-16">
+      <PostReadTracker post={id} articleRef={articleRef} />
+      <article ref={articleRef} className="container prose prose-neutral max-w-3xl pt-12 dark:prose-invert prose-headings:font-display prose-headings:tracking-tight prose-a:text-brand prose-img:rounded-2xl md:pt-16">
         <Link
           href="/posts"
           className="not-prose group mb-10 inline-flex items-center gap-2 rounded-full border bg-card/70 px-4 py-2 text-sm text-muted-foreground no-underline backdrop-blur transition-colors hover:text-foreground"
+          {...trackAttrs("Post: Back to posts", { post: id })}
         >
           <ArrowLeftIcon className="transition-transform group-hover:-translate-x-0.5" />
           <span>Back To Posts</span>
@@ -79,7 +100,7 @@ function PostPage({ source, metaData }: PostPageProps) {
         <header className="not-prose mt-6 font-medium text-xs uppercase tracking-[0.15em] text-muted-foreground">
           {author} · {formatDate(publishDate)}
         </header>
-        <MdxContent {...source} />
+        <MdxContent {...source} components={mdxComponents} />
         {linkedinUrl && (
           <p className="not-prose mt-10 border-t pt-6 text-sm text-muted-foreground">
             Originally posted on LinkedIn.{" "}
@@ -88,6 +109,7 @@ function PostPage({ source, metaData }: PostPageProps) {
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-brand hover:underline"
+              {...trackAttrs("Post: LinkedIn discussion", { post: id })}
             >
               Join the discussion there ↗
             </a>
