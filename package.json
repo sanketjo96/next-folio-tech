@@ -33,7 +33,7 @@
     "gray-matter": "^4.0.3",
     "i18next": "^23.15.1",
     "i18next-fs-backend": "^2.6.12",
-    "jose": "^5.8.0",
+    "jose": "^6.2.17",
     "lucide-react": "^0.439.0",
     "next": "^16.4.6",
     "next-i18next": "^15.4.3",
