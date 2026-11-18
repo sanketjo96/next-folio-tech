@@ -31,7 +31,7 @@
     "cookie": "^0.7.2",
     "driver.js": "^1.11.0",
     "gray-matter": "^4.0.3",
-    "i18next": "^23.15.1",
+    "i18next": "^27.1.1",
     "i18next-fs-backend": "^2.6.12",
     "jose": "^5.8.0",
     "lucide-react": "^0.439.0",
