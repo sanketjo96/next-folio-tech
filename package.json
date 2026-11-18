@@ -45,7 +45,7 @@
     "react-dom": "^19",
     "react-form-hook": "^0.0.1",
     "react-hook-form": "^7.53.0",
-    "react-i18next": "^15.0.1",
+    "react-i18next": "^18.0.1",
     "remark": "^15.0.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
