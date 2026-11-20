@@ -52,6 +52,16 @@ export type ArtistSection = {
    */
   layout: "feature" | "videos" | "audio" | "links";
   items: ArtistItem[];
+  /** Vertical (9:16) show reel: full width on phones, a phone frame beside the feature card on desktop. */
+  reel?: ArtistReel;
+};
+
+export type ArtistReel = {
+  title: string;
+  /** MP4 under /public, e.g. "/artist/showreel.mp4". */
+  src: string;
+  /** Still frame shown before playing. */
+  poster: string;
 };
 
 export type ArtistProfile = {
@@ -122,6 +132,11 @@ export const ARTIST: ArtistProfile = {
       kicker: "Now streaming",
       short: "Stand-up",
       layout: "feature",
+      reel: {
+        title: "Stand-up show reel",
+        src: "/artist/showreel.mp4",
+        poster: "/artist/showreel-poster.jpg",
+      },
       items: [
         {
           title: "Just Joshi Things with Sanket",

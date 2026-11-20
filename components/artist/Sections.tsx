@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { ArrowUpRight, Code, Play, Ticket } from "lucide-react";
-import type { ArtistItem, ArtistSection } from "@/lib/data/artist";
+import type { ArtistItem, ArtistReel, ArtistSection } from "@/lib/data/artist";
 import { youtubeInfo } from "@/lib/data/artist";
-import { seenAttrs, trackAttrs } from "@/lib/analytics";
+import { seenAttrs, track, trackAttrs } from "@/lib/analytics";
 import BookingForm from "./BookingForm";
 
 /** Devanagari titles get the Marathi font. */
@@ -31,45 +31,76 @@ function SectionHeader({ section, index }: { section: ArtistSection; index: numb
 
 /* ---------------------------------------------------------------- Feature */
 
+/**
+ * Vertical show reel. Phones: full-width video. Wider screens: the same video
+ * in a phone frame (beside the feature card from `lg`). `preload="none"` so
+ * only the poster loads until the visitor taps play.
+ */
+function ShowReel({ reel, section }: { reel: ArtistReel; section: ArtistSection }) {
+  return (
+    <div className="mb-6 lg:order-2 lg:mb-0">
+      <div className="relative mx-auto sm:max-w-[300px] sm:rounded-[2.75rem] sm:bg-neutral-950 sm:p-2.5 sm:shadow-[0_30px_80px_-20px_rgba(255,107,44,0.45)] sm:ring-1 sm:ring-white/15">
+        <span
+          className="absolute left-1/2 top-4 z-10 hidden h-5 w-20 -translate-x-1/2 rounded-full bg-black sm:block"
+          aria-hidden
+        />
+        <video
+          className="block aspect-[9/16] max-h-[82svh] w-full rounded-3xl bg-black object-cover ring-1 ring-[var(--s-line)] sm:max-h-none sm:rounded-[2.1rem] sm:ring-0"
+          src={reel.src}
+          poster={reel.poster}
+          controls
+          playsInline
+          preload="none"
+          aria-label={reel.title}
+          onPlay={() => track(`Watch: ${reel.title}`, { section: section.short, place: "Show reel" })}
+        />
+      </div>
+    </div>
+  );
+}
+
 export function FeatureSection({ section, index }: { section: ArtistSection; index: number }) {
   const item = section.items[0];
   return (
     <section id={section.id} className="scroll-mt-20" {...seenAttrs(`Artist: ${section.short}`)}>
       <SectionHeader section={section} index={index} />
-      <a
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        {...trackAttrs(`Watch: ${item.title}`, { section: section.short, place: "ZEE5" })}
-        className="group relative block overflow-hidden rounded-3xl bg-[var(--s-card)] ring-1 ring-[var(--s-line)]"
-      >
-        <div className="relative aspect-[4/3] sm:aspect-[16/9]">
-          {item.thumbnail && (
-            <Image
-              src={item.thumbnail}
-              alt={item.title}
-              fill
-              sizes="(min-width: 1152px) 1100px, 100vw"
-              className="object-cover object-[50%_30%] transition-transform duration-700 group-hover:scale-[1.04]"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--s-bg)] via-[var(--s-bg)]/30 to-transparent" />
-          <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold uppercase tracking-widest backdrop-blur">
-            <span className="size-2 animate-pulse rounded-full bg-red-500" />
-            {section.kicker}
-          </span>
-          <span className="play-ring absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[var(--s-orange)] text-[var(--s-bg)] transition-transform group-hover:scale-110 sm:size-24">
-            <Play className="ml-1 size-8 fill-current" />
-          </span>
-          <div className="absolute inset-x-0 bottom-0 p-5 sm:p-10">
-            <p className="text-sm font-semibold text-[var(--s-amber)]">{item.subtitle}</p>
-            <p className="poster mt-2 max-w-2xl text-[clamp(2.6rem,9vw,5.5rem)]">{item.title}</p>
-            <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--s-ink)] px-5 py-2.5 text-sm font-bold text-[var(--s-bg)] transition-colors group-hover:bg-[var(--s-amber)]">
-              Watch on ZEE5 <ArrowUpRight className="size-4" />
+      <div className={section.reel ? "lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-8" : undefined}>
+        {section.reel && <ShowReel reel={section.reel} section={section} />}
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          {...trackAttrs(`Watch: ${item.title}`, { section: section.short, place: "ZEE5" })}
+          className="group relative block overflow-hidden rounded-3xl bg-[var(--s-card)] ring-1 ring-[var(--s-line)] lg:order-1"
+        >
+          <div className={"relative aspect-[4/3] sm:aspect-[16/9]" + (section.reel ? " lg:aspect-auto lg:h-full" : "")}>
+            {item.thumbnail && (
+              <Image
+                src={item.thumbnail}
+                alt={item.title}
+                fill
+                sizes="(min-width: 1152px) 1100px, 100vw"
+                className="object-cover object-[50%_30%] transition-transform duration-700 group-hover:scale-[1.04]"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--s-bg)] via-[var(--s-bg)]/30 to-transparent" />
+            <span className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-black/55 px-3 py-1.5 text-xs font-bold uppercase tracking-widest backdrop-blur">
+              <span className="size-2 animate-pulse rounded-full bg-red-500" />
+              {section.kicker}
             </span>
+            <span className="play-ring absolute left-1/2 top-1/2 grid size-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-[var(--s-orange)] text-[var(--s-bg)] transition-transform group-hover:scale-110 sm:size-24">
+              <Play className="ml-1 size-8 fill-current" />
+            </span>
+            <div className="absolute inset-x-0 bottom-0 p-5 sm:p-10">
+              <p className="text-sm font-semibold text-[var(--s-amber)]">{item.subtitle}</p>
+              <p className="poster mt-2 max-w-2xl text-[clamp(2.6rem,9vw,5.5rem)]">{item.title}</p>
+              <span className="mt-5 inline-flex items-center gap-2 rounded-full bg-[var(--s-ink)] px-5 py-2.5 text-sm font-bold text-[var(--s-bg)] transition-colors group-hover:bg-[var(--s-amber)]">
+                Watch on ZEE5 <ArrowUpRight className="size-4" />
+              </span>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </section>
   );
 }
