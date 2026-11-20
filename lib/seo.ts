@@ -3,7 +3,7 @@
  * schema.org structured data. Keep in sync with lib/data/experience.ts.
  */
 import { EXPERIENCE, EDUCATION } from "@/lib/data/experience";
-import { ARTIST } from "@/lib/data/artist";
+import { ARTIST, type ArtistProfile } from "@/lib/data/artist";
 import standupPhoto from "@/public/artist/standup.jpg";
 import { TOOLKIT } from "@/lib/data/profile";
 
@@ -52,23 +52,30 @@ export const personJsonLd = {
   sameAs: Object.values(PROFILE_LINKS),
 };
 
-/** schema.org ProfilePage for the artist page. */
-export const artistJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  url: absoluteUrl("/artist"),
-  name: `${ARTIST.name} (${ARTIST.handle})`,
-  mainEntity: {
-    "@type": "Person",
-    "@id": `${SITE_URL}/#person`,
-    name: ARTIST.name,
-    alternateName: ARTIST.handle,
-    jobTitle: "Stand-up comedian",
-    description: `${ARTIST.roles.join(", ")}. Marathi stand-up on ZEE5, appearances on Zee Marathi's Chala Hawa Yeu Dya, short films, podcasts and an audiobook.`,
-    image: `${SITE_URL}${standupPhoto.src}`,
-    sameAs: [...ARTIST.socials.map((s) => s.url), ...ARTIST.profiles],
-  },
-};
+/**
+ * schema.org ProfilePage for an artist page. Only the full page ties the
+ * person to the rest of the site (`@id`), so the acting page stays separate.
+ */
+export function artistJsonLd(profile: ArtistProfile) {
+  const full = profile === ARTIST;
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    url: absoluteUrl(profile.page.path),
+    name: profile.page.title,
+    mainEntity: {
+      "@type": "Person",
+      ...(full ? { "@id": `${SITE_URL}/#person`, alternateName: profile.handle } : {}),
+      name: profile.name,
+      jobTitle: profile.page.jobTitle,
+      description: full
+        ? `${profile.roles.join(", ")}. Marathi stand-up on ZEE5, appearances on Zee Marathi's Chala Hawa Yeu Dya, short films, podcasts and an audiobook.`
+        : profile.page.description,
+      image: full ? `${SITE_URL}${standupPhoto.src}` : `${SITE_URL}${profile.shareImage.src}`,
+      sameAs: [...profile.socials.map((s) => s.url), ...profile.profiles],
+    },
+  };
+}
 
 /** schema.org BlogPosting / CreativeWork for a markdown post or project. */
 export function articleJsonLd(opts: {

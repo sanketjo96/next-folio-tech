@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Check, Facebook, Instagram, Play, Share2, type LucideIcon } from "lucide-react";
 import { useState } from "react";
-import { ARTIST, type ArtistIcon } from "@/lib/data/artist";
+import type { ArtistIcon, ArtistProfile } from "@/lib/data/artist";
 import { track, trackAttrs } from "@/lib/analytics";
 
 const SOCIAL_ICONS: Partial<Record<ArtistIcon, LucideIcon>> = {
@@ -42,8 +42,16 @@ function ShareButton({ url, title }: { url: string; title: string }) {
   );
 }
 
-export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; shareTitle: string }) {
-  const [first, last] = ARTIST.name.split(" ");
+export default function StageHero({
+  profile,
+  shareUrl,
+  shareTitle,
+}: {
+  profile: ArtistProfile;
+  shareUrl: string;
+  shareTitle: string;
+}) {
+  const [first, last] = profile.name.split(" ");
 
   return (
     <header className="stage stage-grain relative overflow-hidden">
@@ -56,10 +64,12 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
 
       <div className="relative z-10 mx-auto max-w-6xl px-5 pt-5">
         {/* Top bar */}
-        <div className="artist-rise flex items-center justify-between">
-          <span className="rounded-full border border-[var(--s-line)] bg-black/30 px-3.5 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
-            {ARTIST.handle}
-          </span>
+        <div className={"artist-rise flex items-center " + (profile.page.showHandle ? "justify-between" : "justify-end")}>
+          {profile.page.showHandle && (
+            <span className="rounded-full border border-[var(--s-line)] bg-black/30 px-3.5 py-1.5 text-xs font-semibold tracking-wide backdrop-blur">
+              {profile.handle}
+            </span>
+          )}
           <ShareButton url={shareUrl} title={shareTitle} />
         </div>
 
@@ -70,12 +80,12 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
               className="poster outline-text pointer-events-none absolute inset-x-0 top-[6%] select-none text-center text-[clamp(4.5rem,24vw,12rem)]"
               aria-hidden
             >
-              Laugh
+              {profile.page.heroWord}
             </p>
             <div className="absolute inset-x-[12%] bottom-[2%] h-10 rounded-[100%] bg-[var(--s-orange)]/35 blur-2xl" aria-hidden />
             <Image
-              src={ARTIST.avatar}
-              alt={`${ARTIST.name} with a djembe`}
+              src={profile.avatar}
+              alt={`${profile.name} with a djembe`}
               priority
               sizes="(min-width: 1024px) 520px, 420px"
               className="figure-rise relative mx-auto w-[86%] drop-shadow-[0_30px_40px_rgba(0,0,0,0.6)]"
@@ -84,14 +94,14 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
               className="artist-rise absolute -right-[22%] top-[18%] rotate-[10deg] rounded-full bg-[var(--s-amber)] px-3 py-1.5 text-xs font-extrabold sm:right-[2%] sm:top-[22%] text-[var(--s-bg)] shadow-lg sm:text-sm"
               style={rise(5)}
             >
-              {ARTIST.badge}
+              {profile.badge}
             </span>
           </div>
 
           {/* Name and intro */}
           <div className="order-2 pb-9 text-center sm:pb-10 lg:order-1 lg:pb-20 lg:text-left">
             <p className="artist-rise hidden text-xs font-semibold uppercase tracking-[0.3em] text-[var(--s-amber)] sm:block" style={rise(1)}>
-              Live on stage
+              {profile.page.eyebrow}
             </p>
             <h1 className="poster artist-rise mt-1 text-[clamp(3.5rem,16vw,9.5rem)] sm:mt-3" style={rise(2)}>
               {first}
@@ -99,10 +109,10 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
               <span className="text-[var(--s-orange)]">{last}</span>
             </h1>
             <p className="artist-rise mt-3 text-sm text-[var(--s-muted)] sm:hidden" style={rise(3)}>
-              {ARTIST.roles.join(" · ")}
+              {profile.roles.join(" · ")}
             </p>
             <ul className="artist-rise mt-6 hidden flex-wrap justify-center gap-2 sm:flex lg:justify-start" style={rise(3)}>
-              {ARTIST.roles.map((role) => (
+              {profile.roles.map((role) => (
                 <li
                   key={role}
                   className="rounded-full border border-[var(--s-line)] px-3 py-1 text-sm text-[var(--s-muted)]"
@@ -113,16 +123,16 @@ export default function StageHero({ shareUrl, shareTitle }: { shareUrl: string; 
             </ul>
             <div className="artist-rise mt-5 flex items-center justify-center gap-3 sm:mt-8 lg:justify-start" style={rise(4)}>
               <a
-                href="#standup"
-                {...trackAttrs("Artist: Watch the set button")}
+                href={profile.page.cta.href}
+                {...trackAttrs(`Artist: ${profile.page.cta.label} button`)}
                 className="group inline-flex h-12 items-center gap-2.5 rounded-full bg-[var(--s-orange)] pl-2 pr-5 font-bold text-[var(--s-bg)] transition-transform hover:-translate-y-0.5"
               >
                 <span className="grid size-8 place-items-center rounded-full bg-[var(--s-bg)] text-[var(--s-orange)]">
                   <Play className="ml-0.5 size-3.5 fill-current" />
                 </span>
-                Watch the set
+                {profile.page.cta.label}
               </a>
-              {ARTIST.socials.map((s) => {
+              {profile.socials.map((s) => {
                 const Icon = SOCIAL_ICONS[s.icon];
                 return Icon ? (
                   <a

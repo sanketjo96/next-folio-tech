@@ -82,10 +82,38 @@ export type ArtistProfile = {
   /** Other public profiles (for search engines and AI agents). */
   profiles: string[];
   sections: ArtistSection[];
+  /** Page-level copy, so one layout can serve both the full and the acting page. */
+  page: ArtistPageCopy;
+};
+
+export type ArtistPageCopy = {
+  /** Site path, e.g. "/artist". */
+  path: string;
+  title: string;
+  description: string;
+  /** schema.org jobTitle. */
+  jobTitle: string;
+  /** Show the handle chip in the hero. */
+  showHandle: boolean;
+  /** Small line above the name. */
+  eyebrow: string;
+  /** Big outlined word behind the figure. */
+  heroWord: string;
+  /** Main hero button. */
+  cta: { label: string; href: string };
+  /** Footer reads "<footerLead> Sanket". */
+  footerLead: string;
 };
 
 /** YouTube's own thumbnail for a video id. */
 const BOOKMYSHOW_URL = "https://in.bookmyshow.com/person/sanket-joshi/2045344";
+
+const MAIN_PORTFOLIO: ArtistItem = {
+  title: "Main portfolio",
+  subtitle: "Work bio on Canva",
+  url: "https://www.canva.com/design/DAG-ZDaDghw/cQfdpyGsgpQFPm_hmdy1Vw/view?utlId=h1dbb379e1c",
+  icon: "link",
+};
 
 const yt = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
@@ -125,6 +153,18 @@ export const ARTIST: ArtistProfile = {
     { name: "Facebook", url: "https://www.facebook.com/sanket.joshi.121", icon: "facebook" },
   ],
   profiles: [BOOKMYSHOW_URL],
+  page: {
+    path: "/artist",
+    title: "Sanket Joshi · @laugh_with_sanket",
+    description:
+      "Stand-up comedian · Storyteller · Tech enthusiast. Marathi stand-up, TV, short films, podcasts and more.",
+    jobTitle: "Stand-up comedian",
+    showHandle: true,
+    eyebrow: "Live on stage",
+    heroWord: "Laugh",
+    cta: { label: "Watch the set", href: "#standup" },
+    footerLead: "Laugh with",
+  },
   sections: [
     {
       id: "standup",
@@ -251,14 +291,56 @@ export const ARTIST: ArtistProfile = {
           url: BOOKMYSHOW_URL,
           icon: "ticket",
         },
-        {
-          title: "Main portfolio",
-          subtitle: "Work bio on Canva",
-          url: "https://www.canva.com/design/DAG-ZDaDghw/cQfdpyGsgpQFPm_hmdy1Vw/view?utlId=h1dbb379e1c",
-          icon: "link",
-        },
+        MAIN_PORTFOLIO,
         { title: "Collabs & bookings", subtitle: "Send me a message", url: "/contacts", icon: "mail", internal: true },
         { title: "The tech side", subtitle: "My work as a software engineer", url: "/", icon: "code", internal: true },
+      ],
+    },
+  ],
+};
+
+/**
+ * Acting-only version, served at `/artist/acting` for drama and film
+ * casting. No stand-up, bookings or tech: same layout, own link preview.
+ */
+const ACTING_SECTIONS = ["mhj", "chyd", "films", "podcasts", "audio"];
+
+export const ARTIST_ACTING: ArtistProfile = {
+  ...ARTIST,
+  badge: "Action!",
+  roles: ["Actor", "Storyteller"],
+  marquee: ["Zee Marathi", "Chala Hawa Yeu Dya", "MHJ", "Short films", "Podcasts", "Audiobook"],
+  // Made by scripts/artist-og.mjs, like the main banner.
+  shareImage: {
+    src: "/artist/og-acting.jpg",
+    width: 1200,
+    height: 630,
+    alt: "Sanket Joshi, actor, in the spotlight",
+  },
+  profiles: [],
+  page: {
+    path: "/artist/acting",
+    title: "Sanket Joshi · Actor",
+    description:
+      "Actor and storyteller. Zee Marathi's Chala Hawa Yeu Dya, MHJ, short films, podcasts and an audiobook.",
+    jobTitle: "Actor",
+    showHandle: false,
+    eyebrow: "On screen",
+    heroWord: "Action",
+    cta: { label: "Watch my work", href: `#${ACTING_SECTIONS[0]}` },
+    footerLead: "Cast",
+  },
+  sections: [
+    ...ARTIST.sections.filter((s) => ACTING_SECTIONS.includes(s.id)),
+    {
+      id: "contact",
+      title: "Work & contact",
+      kicker: "Casting & collabs",
+      short: "Contact",
+      layout: "links",
+      items: [
+        MAIN_PORTFOLIO,
+        { title: "Message me", subtitle: "DM on Instagram", url: "https://instagram.com/laugh_with_sanket", icon: "link" },
       ],
     },
   ],
