@@ -1,6 +1,8 @@
 /**
- * Generates the link-preview (Open Graph) image for the artist page:
- *   public/artist/og-artist.jpg  (1200x630, kept under ~300 KB for WhatsApp)
+ * Generates the link-preview (Open Graph) images for the artist pages
+ * (1200x630, kept under ~300 KB for WhatsApp):
+ *   public/artist/og-artist.jpg  for /artist
+ *   public/artist/og-acting.jpg  for /artist/acting (no stand-up, no handle)
  *
  * It mirrors the /artist hero: dark comedy-club stage, spotlight, curtains,
  * the cut-out portrait and the name in the condensed poster font.
@@ -21,7 +23,24 @@ const { ImageResponse } = require("next/dist/compiled/@vercel/og/index.node.js")
 const sharp = require("sharp");
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const OUT = path.join(root, "public/artist/og-artist.jpg");
+const VARIANTS = [
+  {
+    out: "public/artist/og-artist.jpg",
+    word: "Laugh",
+    sticker: "Laughs await!",
+    eyebrow: "Live on stage",
+    chips: ["Stand-up comedian", "Storyteller"],
+    handle: "@laugh_with_sanket",
+  },
+  {
+    out: "public/artist/og-acting.jpg",
+    word: "Action",
+    sticker: "Action!",
+    eyebrow: "On screen",
+    chips: ["Actor", "Storyteller"],
+    handle: null,
+  },
+];
 const W = 1200;
 const H = 630;
 
@@ -81,7 +100,7 @@ const chip = (text) =>
     text,
   );
 
-const tree = h(
+const banner = (v) => h(
   "div",
   {
     position: "relative",
@@ -111,7 +130,7 @@ const tree = h(
       WebkitTextStroke: "2px rgba(247,239,229,0.14)",
       textTransform: "uppercase",
     },
-    "Laugh",
+    v.word,
   ),
 
   // Floor glow + portrait in the spotlight.
@@ -142,7 +161,7 @@ const tree = h(
       fontSize: 26,
       fontWeight: 600,
     },
-    "Laughs await!",
+    v.sticker,
   ),
 
   // Text block
@@ -152,7 +171,7 @@ const tree = h(
     h(
       "div",
       { fontSize: 24, letterSpacing: 7, color: C.amber, textTransform: "uppercase" },
-      "Live on stage",
+      v.eyebrow,
     ),
     h(
       "div",
@@ -170,26 +189,32 @@ const tree = h(
     h(
       "div",
       { marginTop: 30, gap: 10 },
-      chip("Stand-up comedian"),
-      chip("Storyteller"),
+      ...v.chips.map(chip),
     ),
-    h(
-      "div",
-      { marginTop: 26, fontSize: 28, color: C.ink, alignItems: "center", gap: 10 },
-      h("div", { width: 12, height: 12, borderRadius: 999, backgroundColor: C.orange }),
-      "@laugh_with_sanket",
-    ),
+    ...(v.handle
+      ? [
+          h(
+            "div",
+            { marginTop: 26, fontSize: 28, color: C.ink, alignItems: "center", gap: 10 },
+            h("div", { width: 12, height: 12, borderRadius: 999, backgroundColor: C.orange }),
+            v.handle,
+          ),
+        ]
+      : []),
   ),
 );
 
-const res = new ImageResponse(tree, {
-  width: W,
-  height: H,
-  fonts: [
-    { name: "Poster", data: poster, weight: 800, style: "normal" },
-    { name: "Body", data: body, weight: 600, style: "normal" },
-  ],
-});
-const png = Buffer.from(await res.arrayBuffer());
-await writeFile(OUT, await sharp(png).flatten({ background: C.bg }).jpeg({ quality: 86, mozjpeg: true }).toBuffer());
-console.log(`Wrote ${path.relative(root, OUT)}`);
+for (const v of VARIANTS) {
+  const res = new ImageResponse(banner(v), {
+    width: W,
+    height: H,
+    fonts: [
+      { name: "Poster", data: poster, weight: 800, style: "normal" },
+      { name: "Body", data: body, weight: 600, style: "normal" },
+    ],
+  });
+  const png = Buffer.from(await res.arrayBuffer());
+  const out = path.join(root, v.out);
+  await writeFile(out, await sharp(png).flatten({ background: C.bg }).jpeg({ quality: 86, mozjpeg: true }).toBuffer());
+  console.log(`Wrote ${v.out}`);
+}
